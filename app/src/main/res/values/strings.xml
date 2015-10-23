@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">iTongJi</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="information_sending">信息推送</string>
+    <string name="course_timetable">课表查询</string>
+    <string name="cards">一卡通信息</string>
+    <string name="second_hand_trading">二手交易</string>
+    <string name="GPA">绩点查询</string>
+    <string name="evaluation_teachers">评教</string>
+
+    <string name="say_hello">Hi,1452681</string>
+    <string name="email">Novemser@gmail.com</string>
+    <string name="title_activity_welcome_scene_aty">WelcomeSceneAty</string>
+</resources>

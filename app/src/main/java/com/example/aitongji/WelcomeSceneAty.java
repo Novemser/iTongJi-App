@@ -1,19 +1,26 @@
 package com.example.aitongji;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
-
-import com.example.aitongji.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class WelcomeSceneAty extends AppCompatActivity {
+
+
+    public void configInputText() {
+        TextInputLayout mUser = (TextInputLayout) findViewById(R.id.text_input_user_name);
+        TextInputLayout mPass = (TextInputLayout) findViewById(R.id.text_input_password);
+        mUser.setHint("学号");
+        mPass.setHint("统一身份认证密码");
+        mUser.setHintAnimationEnabled(true);
+        mPass.setHintAnimationEnabled(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +43,10 @@ public class WelcomeSceneAty extends AppCompatActivity {
                 finish();
             }
         };
+        configInputText();
+
 
         // 2.5s后进入主界面
-        timer.schedule(task, 25000);
+        timer.schedule(task, 250000);
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="64dp"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/id_card_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardBackgroundColor="@color/home_information_background"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="4dp">
+
+        <include layout="@layout/home_recyclerview_info" />
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
+            <include layout="@layout/home_recyclerview_week_time"/>
+            <include layout="@layout/home_recyclerview_electricity"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
+            <include layout="@layout/home_recyclerview_card"/>
+            <include layout="@layout/home_recyclerview_course"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

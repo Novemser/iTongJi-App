@@ -1,55 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/group_0"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_home"
+            android:title="@string/home_page"
+            android:checked="true"/>
+    </group>
+
     <group
         android:id="@+id/group_1"
         android:checkableBehavior="single">
 
         <item
             android:id="@+id/drawer_section1"
-            android:checked="true"
             android:icon="@drawable/ic_action_email"
             android:title="@string/information_sending" />
-
-        <item
-            android:id="@+id/drawer_section2"
-            android:checked="true"
-            android:icon="@drawable/write"
-            android:title="@string/course_timetable" />
-
-        <item
-            android:id="@+id/drawer_section3"
-            android:checked="true"
-            android:icon="@drawable/pic"
-            android:title="@string/cards" />
-
-        <item
-            android:id="@+id/drawer_section4"
-            android:checked="true"
-            android:icon="@drawable/gift"
-            android:title="@string/second_hand_trading" />
-
-        <item
-            android:id="@+id/drawer_section5"
-            android:checked="true"
-            android:icon="@drawable/note"
-            android:title="@string/GPA" />
-
-        <item
-            android:id="@+id/drawer_section6"
-            android:checked="true"
-            android:icon="@drawable/paper"
-            android:title="@string/evaluation_teachers" />
 
     </group>
 
     <group android:id="@+id/group_2"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/s1"
-            android:title="自定义版块" />
-        <item
-            android:id="@+id/s2"
+            android:id="@+id/setting"
             android:title="设置" />
+        <item
+            android:id="@+id/logout"
+            android:title="注销" />
     </group>
 
 </menu>

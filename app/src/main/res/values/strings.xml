@@ -6,7 +6,7 @@
     <string name="drawer_close">Close</string>
     <string name="action_settings">Settings</string>
 
-    <string name="information_sending">信息推送</string>
+    <string name="information_sending">一卡通低余额提醒</string>
     <string name="course_timetable">课表查询</string>
     <string name="cards">一卡通信息</string>
     <string name="second_hand_trading">二手交易</string>
@@ -16,4 +16,95 @@
     <string name="say_hello">Hi,1452681</string>
     <string name="email">Novemser@gmail.com</string>
     <string name="title_activity_welcome_scene_aty">WelcomeSceneAty</string>
+    <string name="login_immedit">立即登录</string>
+
+    <string name="home_text_information_title">近期通知</string>
+    <string name="home_text_information_info_default">X﹏X糟糕！好像加载不出来</string>
+
+    <string name="home_page">主页</string>
+
+    <string name="week_num">第%1$s周</string>
+    <string name="date_and_week">%1$s.%2$s.%3$s&#160;&#160;&#160;星期%4$s</string>
+
+    <string name="elect_title">寝室用电</string>
+    <string name="elect_used">%1$s&#160;度\n本月已用</string>
+    <string name="elect_rest">%1$s&#160;度\n剩余电量</string>
+    <string name="elect_detail">详细记录&#160;></string>
+
+    <string name="card_title">校园卡消费</string>
+    <string name="card_recent">%1$s&#160;元\n最近7日</string>
+    <string name="card_rest">%1$s&#160;元</string>
+    <string name="card_rest_ch">卡内余额</string>
+    <string name="card_bill">详细账单&#160;></string>
+    <string name="card_charge">充值&#160;></string>
+
+    <string name="course_title">下节课程</string>
+    <string name="course_time_and_name">%1$s&#160;&#160;%2$s</string>
+    <string name="course_place">%1$s</string>
+    <string name="course_detail">查看全周&#160;></string>
+    <string name="title_activity_card__information">Card_Information</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="card_rest_low">低余额自动提醒</string>
+    <string name="card_rest_low_sum">当校园卡内的余额低于一定值时，会自动向您推送通知</string>
+    <string name="card_rest_value">余额低于此值时提醒</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+
 </resources>

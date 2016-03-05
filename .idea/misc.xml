@@ -40,10 +40,13 @@
           <State>
             <id>Android Lint</id>
           </State>
+          <State>
+            <id>Java language level migration aids</id>
+          </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>Android</id>
+            <id>Abstraction issues</id>
           </State>
         </selected-state>
       </profile-state>

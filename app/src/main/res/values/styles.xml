@@ -3,17 +3,89 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--状态栏颜色-->
-        <item name="colorPrimaryDark">@color/Indigo_colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <!--Toolbar颜色-->
-        <item name="colorPrimary">@color/Indigo_colorPrimary</item>
+        <item name="colorPrimary">@color/primary</item>
         <!--返回键样式-->
         <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
+        <item name="colorAccent">#3498db</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+
+        <item name="colorControlNormal">#807d78</item>
+        <!--<item name="colorControlActivated">#ff5722</item>-->
+        <!--<item name="colorControlHighlight">#f44336</item>-->
     </style>
 
     <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
     </style>
 
+    <style name="edit_text_id" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/edit_text_id</item>
+    </style>
+
+    <style name="Widget.MaterialProgressBar.ProgressBar.Horizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <!--
+        Disabled for correct behavior on Android 4.x
+        <item name="android:progressDrawable">@null</item>
+        -->
+        <item name="android:indeterminateDrawable">@null</item>
+        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">16dp</item>
+    </style>
+
+    <style name="Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding">
+        <item name="android:minHeight">3.2dp</item>
+        <item name="android:maxHeight">3.2dp</item>
+    </style>
+
+    <style name="Widget.MaterialProgressBar.ProgressBar" parent="android:Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@null</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:maxWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxHeight">48dp</item>
+    </style>
+
+    <style name="Widget.MaterialProgressBar.ProgressBar.NoPadding">
+        <item name="android:minWidth">42dp</item>
+        <item name="android:maxWidth">42dp</item>
+        <item name="android:minHeight">42dp</item>
+        <item name="android:maxHeight">42dp</item>
+    </style>
+
+    <style name="Widget.MaterialProgressBar.ProgressBar.Large">
+        <item name="android:minWidth">76dp</item>
+        <item name="android:maxWidth">76dp</item>
+        <item name="android:minHeight">76dp</item>
+        <item name="android:maxHeight">76dp</item>
+    </style>
+
+    <style name="Widget.MaterialProgressBar.ProgressBar.Large.NoPadding">
+        <item name="android:minWidth">66.5dp</item>
+        <item name="android:maxWidth">66.5dp</item>
+        <item name="android:minHeight">66.5dp</item>
+        <item name="android:maxHeight">66.5dp</item>
+    </style>
+
+    <style name="Widget.MaterialProgressBar.ProgressBar.Small">
+        <item name="android:minWidth">16dp</item>
+        <item name="android:maxWidth">16dp</item>
+        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">16dp</item>
+    </style>
+
+    <style name="Widget.MaterialProgressBar.ProgressBar.Small.NoPadding">
+        <item name="android:minWidth">14dp</item>
+        <item name="android:maxWidth">14dp</item>
+        <item name="android:minHeight">14dp</item>
+        <item name="android:maxHeight">14dp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

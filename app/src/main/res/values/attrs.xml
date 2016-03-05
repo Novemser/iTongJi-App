@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Circle_with_color_text">
+        <attr name="shapeColor" format="color"/>
+    </declare-styleable>
+    <declare-styleable name="CourseView">
+        <attr name="courseId" format="integer"/>
+        <attr name="startSection" format="integer"/>
+        <attr name="endSection" format="integer"/>
+        <attr name="weekDay" format="integer"/>
+        <attr name="isSingleWeek" format="integer"/>
+    </declare-styleable>
+</resources>

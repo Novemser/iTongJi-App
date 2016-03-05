@@ -6,4 +6,29 @@
     <color name="Indigo_nav_color">#4675FF</color>
     <color name="Cyan">#00bcd4</color>
     <color name="Blue">#2196F3</color>
+    <color name="White">#ffffff</color>
+    <color name="Black">#000000</color>
+    <color name="Section_info_UrlText">#00a79c</color>
+    <color name="Section_info_DetailText">#9d9994</color>
+    <color name="Section_info_Circle_Color_xuanke">#5cd3f1</color>
+
+    <color name="Primiary">#27b5ee</color>
+    <color name="PrimiaryDark">#159cd1</color>
+
+    <color name="primary">#03A9F4</color>
+    <color name="primary_dark">#0288D1</color>
+    <color name="primary_light">#B3E5FC</color>
+    <color name="accent">#00BCD4</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+
+    <color name="home_information_background">#00838f</color>
+    <color name="home_week_time_background">#3f51b5</color>
+    <color name="home_card_background">#4caf50</color>
+    <color name="home_electricity_background">#ec6941</color>
+    <color name="home_next_class_background">#ab1656</color>
+
+
 </resources>

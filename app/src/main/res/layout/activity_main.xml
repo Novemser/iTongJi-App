@@ -6,10 +6,11 @@
     android:fitsSystemWindows="true">
 
     <!-- The main content view -->
-    <RelativeLayout
-        android:id="@+id/content_relative_layout"
+    <LinearLayout
+        android:id="@+id/content_linear_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <!-- Tool Bar -->
         <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,16 +19,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
+            android:elevation="4dp"
             android:minHeight="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-    </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/id_framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+    </LinearLayout>
     <!-- The navigation drawer -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nv_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"

@@ -19,6 +19,7 @@ import android.widget.EditText;
 
 import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.Utils.CourseTable;
+import com.example.aitongji.Utils.GetGPA;
 import com.example.aitongji.Utils.InformationReq;
 import com.rey.material.widget.CheckBox;
 
@@ -47,7 +48,6 @@ public class WelcomeSceneAty extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Remove notification bar
@@ -63,14 +63,7 @@ public class WelcomeSceneAty extends AppCompatActivity {
         Log.d("TAG", "Max memory is " + maxMemory + "KB");
 
         final Intent intent = new Intent(this, MainActivity.class);
-//        Timer timer = new Timer();
-//                TimerTask task = new TimerTask() {
-//                    @Override
-//                    public void run() {
-//                startActivity(intent);
-//                finish();
-//            }
-//        };
+
         configInputText();
         CourseTable.newInstance();
 
@@ -165,8 +158,6 @@ public class WelcomeSceneAty extends AppCompatActivity {
 
             }
         });
-        // 2.5s后进入主界面
-//        timer.schedule(task, 25000);
     }
 
     public Boolean isNetworkAvailable() {

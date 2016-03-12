@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.aitongji.R;
 import com.example.aitongji.Section_Course.Course_Page;
 import com.example.aitongji.Section_Information.Card_Information;
@@ -83,6 +86,18 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         LineChart chart;
         @Bind(R.id.gpa_avg)
         TextView textGpaAvg;
+        @Bind(R.id.id_card_week_time)
+        CardView cardWeekTime;
+        @Bind(R.id.id_card_information)
+        CardView cardInformation;
+        @Bind(R.id.id_card_course)
+        CardView cardCourse;
+        @Bind(R.id.id_card_gpa)
+        CardView cardGPA;
+        @Bind(R.id.id_card_card)
+        CardView cardCard;
+        int cardCardCnt = 0;
+        int cardWeekCnt = 0;
 
         private void setChartView() {
             ArrayList<Entry> vals = new ArrayList<>();
@@ -143,11 +158,9 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
 
         public ViewHolder(final View itemView) {
             super(itemView);
-            final SharedPreferences preferences = MainActivity.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
             ButterKnife.bind(this, itemView);
             studentGPA = (StudentGPA) DataHandler.getObject(MainActivity.getContext(), "studentGPA.dat");
 
-            CardView cardInformation = (CardView) itemView.findViewById(R.id.id_card_information);
             cardInformation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -161,17 +174,36 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
                 }
             });
 
-            CardView cardWeekTime = (CardView) itemView.findViewById(R.id.id_card_week_time);
             cardWeekTime.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(), "WeekTime Clicked", Toast.LENGTH_SHORT).show();
+                    YoYo.with(Techniques.Bounce).duration(700).playOn(cardWeekTime);
+                    cardWeekCnt++;
+                    if (cardWeekCnt == 5) {
+                        Snackbar.make(itemView, "据说连续点击可以让假期更快到来(大雾", Snackbar.LENGTH_SHORT).show();
+                        cardWeekCnt = 0;
+                    }
                 }
             });
 
-            final CardView cardCourse = (CardView) itemView.findViewById(R.id.id_card_course);
-            cardCourse.setOnClickListener(new View.OnClickListener() {
+            cardCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(cardCard);
+                    cardCardCnt++;
+                    if (cardCardCnt == 5) {
+                        Snackbar.make(itemView, "再怎么点余额也不会变多嘛>.<", Snackbar.LENGTH_LONG).setAction("知道啦", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
+                            }
+                        }).show();
+                        cardCardCnt = 0;
+                    }
+                }
+            });
+
+            cardCourse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), Course_Page.class);
@@ -180,7 +212,6 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
                 }
             });
 
-            CardView cardGPA = (CardView) itemView.findViewById(R.id.id_card_gpa);
             chart.setNoDataText("点击抓取绩点信息……");
             chart.setDescription("");
             setChartView();

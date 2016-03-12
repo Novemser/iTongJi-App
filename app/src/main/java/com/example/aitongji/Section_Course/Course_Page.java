@@ -42,11 +42,6 @@ public class Course_Page extends AppCompatActivity implements ScrollViewListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setEnterTransition(new Explode());
-            getWindow().setExitTransition(new Explode());
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_table_layout);
 

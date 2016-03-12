@@ -1,7 +1,15 @@
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/id_home_recyclerView"
+<com.baoyz.widget.PullRefreshLayout
+    android:id="@+id/refresh"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-</android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/id_home_recyclerView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</com.baoyz.widget.PullRefreshLayout>

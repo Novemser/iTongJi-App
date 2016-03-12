@@ -44,11 +44,14 @@ public class InformationReq {
     private String card_rest = null;
     private String course_IDS = null;
     private String course_table_str = null;
+    private String semester = null;
     private ArrayList<String> info_title = new ArrayList<>();
     private ArrayList<String> info_time = new ArrayList<>();
     private ArrayList<String> info_id = new ArrayList<>();
 
     private Bundle bundle;
+
+    private DataBundle dataBundle;
 
     public InformationReq(final String username, final String password, final SuccessCallback successCallback, final FailureCallback failureCallback) {
         new AsyncTask<Void, Void, Boolean>() {
@@ -173,21 +176,25 @@ public class InformationReq {
                     // 获取课表IDS
                     Connection connectToCourse = Jsoup.connect(COURSE_INFO_IDS);
                     for (Map.Entry<String, String> entry : cookies.entrySet()) {
-                        // 设置cookies
                         connectToCourse.cookie(entry.getKey(), entry.getValue());
                     }
                     Connection.Response courseIdsResponse = connectToCourse.method(Connection.Method.GET).timeout(10000).execute();
-                    String courseIDS_raw = courseIdsResponse.parse().html();
+                    String courseIDS_raw = courseIdsResponse.body();
                     pattern = Pattern.compile("\"ids\",\"(.*?)\"");
                     matcher = pattern.matcher(courseIDS_raw);
                     if (matcher.find()) {
                         course_IDS = matcher.group(1);
                     }
+                    pattern = Pattern.compile("value:\"(.*?)\"");
+                    matcher = pattern.matcher(courseIDS_raw);
+                    if (matcher.find()) {
+                        semester = matcher.group(1);
+                    }
 
                     postValue = new HashMap<>();
                     postValue.put("ignoreHead", "1");
                     postValue.put("setting.kind", "std");
-                    postValue.put("semester.id", "101");
+                    postValue.put("semester.id", semester);
                     postValue.put("ids", course_IDS);
 
                     // 获取课表
@@ -241,31 +248,31 @@ public class InformationReq {
 
                     return true;
                 } catch (IOException | ParseException e) {
-//                    e.printStackTrace();
-                    System.out.println(e.getCause());
+                    e.printStackTrace();
                 }
 
                 return false;
             }
 
             private void setBundle() {
-                bundle = new Bundle();
-                bundle.putString("username", username);
-                bundle.putString("password", password);
-                bundle.putStringArrayList("infoTitle", info_title);
-                bundle.putStringArrayList("infoTime", info_time);
-                bundle.putString("timeToday", time_today);
-                bundle.putString("timeWeek", time_week);
-                bundle.putString("cardRest", card_rest);
-                bundle.putStringArrayList("info_id", info_id);
-                bundle.putString("course_table_str", course_table_str);
+                dataBundle = new DataBundle(username, password, time_today, time_week, card_rest, course_table_str, info_title, info_time, info_id);
+//                bundle = new Bundle();
+//                bundle.putString("username", username);
+//                bundle.putString("password", password);
+//                bundle.putStringArrayList("infoTitle", info_title);
+//                bundle.putStringArrayList("infoTime", info_time);
+//                bundle.putString("timeToday", time_today);
+//                bundle.putString("timeWeek", time_week);
+//                bundle.putString("cardRest", card_rest);
+//                bundle.putStringArrayList("info_id", info_id);
+//                bundle.putString("course_table_str", course_table_str);
             }
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (aBoolean) {
                     if (successCallback != null) {
-                        successCallback.onSuccess(bundle);
+                        successCallback.onSuccess(dataBundle);
                     }
                 } else {
                     if (failureCallback != null) {
@@ -278,7 +285,7 @@ public class InformationReq {
     }
 
     public interface SuccessCallback {
-        void onSuccess(Bundle data);
+        void onSuccess(DataBundle dataBundle);
     }
 
     public interface FailureCallback {

@@ -1,11 +1,12 @@
 package com.example.aitongji.Utils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Novemser on 2/23/2016.
  */
-public class CourseTable {
+public class CourseTable implements Serializable {
     private static CourseTable instance = null;
     public ArrayList<ArrayList<Course>> course_table = new ArrayList<>();
 
@@ -16,6 +17,10 @@ public class CourseTable {
             }
         }
         return instance;
+    }
+
+    public static void setInstance(CourseTable courseTable) {
+        instance = courseTable;
     }
 
     public static CourseTable getInstance() {

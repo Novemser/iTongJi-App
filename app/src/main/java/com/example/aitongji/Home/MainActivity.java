@@ -70,15 +70,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setEnterTransition(new Explode());
-            getWindow().setExitTransition(new Explode());
-        }
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_main);
         sContext = this;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(sContext);
@@ -134,8 +126,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
-        preferences = getSharedPreferences("user", MODE_PRIVATE);
-
     }
 
     public void setUpContent(NavigationView mNavigationView) {
@@ -143,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        System.out.println(menuItem.getItemId());
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
                         selectDrawerItem(menuItem);
@@ -166,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("IS_AUTO", false).apply();
                 editor.putBoolean("IS_CHECK", false).apply();
+                editor.putBoolean("IS_FIRST", true).apply();
+                CardRestNotice.cleanAllNotification();
                 finish();
                 startActivity(new Intent(this, WelcomeSceneAty.class));
                 break;
@@ -184,9 +175,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (!isCreated.contains(fragmentClass)) {
                 isCreated.add(fragmentClass);
                 fragment = (Fragment) fragmentClass.newInstance();
-                if (fragmentClass == HomePageCards.class || fragmentClass == Card_Rest_Notice.class) {
-                    fragment.setArguments(getIntent().getExtras());
-                }
+//                if (fragmentClass == HomePageCards.class || fragmentClass == Card_Rest_Notice.class) {
+//                    fragment.setArguments(getIntent().getExtras());
+//                }
                 fragments.add(fragment);
             } else {
                 fragment = fragments.get(isCreated.indexOf(fragmentClass));

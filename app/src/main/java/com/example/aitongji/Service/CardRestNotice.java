@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
@@ -76,7 +77,11 @@ public class CardRestNotice extends Service {
         long period = 30 * 60 * 1000; //半小时一个周期
         if (null == timer) {
             timer = new Timer();
+        } else if (!sharedPreferences.getBoolean("FORCE_REFRESH", true)) {
+            return super.onStartCommand(intent, flags, startId);
         }
+        sharedPreferences.edit().putBoolean("FORCE_REFRESH", false).apply();
+
         timer.schedule(new TimerTask() {
 
             @Override

@@ -17,6 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/card_bg_ele"
         android:orientation="vertical">
 
         <TextView

@@ -1,9 +1,11 @@
 package com.example.aitongji.Utils;
 
+import java.io.Serializable;
+
 /**
  * Created by Novemser on 2/23/2016.
  */
-public class Course {
+public class Course implements Serializable {
     public String course_name;
     public String teacher_name;
     public String course_id;

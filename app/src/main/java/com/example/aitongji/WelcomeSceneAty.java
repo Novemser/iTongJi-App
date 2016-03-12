@@ -19,6 +19,10 @@ import android.widget.EditText;
 
 import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.Utils.CourseTable;
+import com.example.aitongji.Utils.DataBundle;
+import com.example.aitongji.Utils.DataHandler;
+import com.example.aitongji.Utils.GPA.GetGPA;
+import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.InformationReq;
 import com.rey.material.widget.CheckBox;
 
@@ -58,8 +62,8 @@ public class WelcomeSceneAty extends AppCompatActivity {
         final MaterialProgressBar materialProgressBar = (MaterialProgressBar) findViewById(R.id.id_progressbar_welcome_circle);
         materialProgressBar.setVisibility(View.INVISIBLE);
 
-        int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-        Log.d("TAG", "Max memory is " + maxMemory + "KB");
+//        int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+//        Log.d("TAG", "Max memory is " + maxMemory + "KB");
 
         final Intent intent = new Intent(this, MainActivity.class);
 
@@ -79,37 +83,8 @@ public class WelcomeSceneAty extends AppCompatActivity {
             // 自动登陆处理
             if (sharedPreferences.getBoolean("IS_AUTO", false)) {
                 cbAl.setChecked(true);
-
-                if (!isNetworkAvailable()) {
-                    Snackbar.make(button.getRootView(), "网络连接似乎不太好 X﹏X", Snackbar.LENGTH_SHORT).setAction("知道啦", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                        }
-                    }).show();
-                } else {
-                    button.setText("正在登录...");
-                    materialProgressBar.setVisibility(View.VISIBLE);
-                    new InformationReq(sharedPreferences.getString("username", ""), sharedPreferences.getString("password", ""), new InformationReq.SuccessCallback() {
-                        @Override
-                        public void onSuccess(Bundle data) {
-                            System.out.println("Succeed");
-                            materialProgressBar.setVisibility(View.INVISIBLE);
-                            button.setText("登录成功");
-
-                            intent.putExtras(data);
-                            startActivity(intent);
-
-                            finish();
-                        }
-                    }, new InformationReq.FailureCallback() {
-                        @Override
-                        public void onFailure() {
-                            materialProgressBar.setVisibility(View.INVISIBLE);
-                            button.setText("立即登录");
-                            Snackbar.make(button.getRootView(), "用户名或密码不正确", Snackbar.LENGTH_SHORT).setAction("知道了", null).show();
-                        }
-                    });
-                }
+                startActivity(intent);
+                finish();
             }
         }
 
@@ -130,8 +105,8 @@ public class WelcomeSceneAty extends AppCompatActivity {
 
                     new InformationReq(username, password, new InformationReq.SuccessCallback() {
                         @Override
-                        public void onSuccess(Bundle data) {
-                            System.out.println("Login Succeed");
+                        public void onSuccess(DataBundle dataBundle) {
+                            Log.d("Login to 4m3", "Login Succeed");
                             materialProgressBar.setVisibility(View.INVISIBLE);
                             button.setText("登录成功");
 
@@ -140,17 +115,34 @@ public class WelcomeSceneAty extends AppCompatActivity {
                             editor.putString("password", password);
                             editor.apply();
 
-                            intent.putExtras(data);
-                            startActivity(intent);
+                            // 保存主要信息
+                            DataHandler.saveObject(WelcomeSceneAty.this.getBaseContext(), "dataBundle.dat", dataBundle);
 
-                            finish();
+                            // 尝试拉绩点
+                            new GetGPA(getApplicationContext(), username, password, new GetGPA.SuccessCallback() {
+                                @Override
+                                public void onSuccess(StudentGPA studentGPA) {
+                                    DataHandler.saveObject(WelcomeSceneAty.this.getBaseContext(), "studentGPA.dat", studentGPA);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }, new GetGPA.FailureCallback() {
+                                @Override
+                                public void onFailure() {
+                                    materialProgressBar.setVisibility(View.INVISIBLE);
+                                    button.setText("立即登录");
+                                    Snackbar.make(button.getRootView(), "多次登陆失败 请稍后再试", Snackbar.LENGTH_SHORT).show();
+                                }
+                            });
+
+
                         }
                     }, new InformationReq.FailureCallback() {
                         @Override
                         public void onFailure() {
                             materialProgressBar.setVisibility(View.INVISIBLE);
                             button.setText("立即登录");
-                            Snackbar.make(button.getRootView(), "用户名或密码不正确", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(button.getRootView(), "登陆失败 请检查网络/密码后重试", Snackbar.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -177,10 +169,8 @@ public class WelcomeSceneAty extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (cbRp.isChecked()) {
-                    System.out.println("记住密码选中");
                     sharedPreferences.edit().putBoolean("IS_CHECK", true).apply();
                 } else {
-                    System.out.println("记住密码未选中");
                     sharedPreferences.edit().putBoolean("IS_CHECK", false).apply();
                 }
             }
@@ -189,11 +179,9 @@ public class WelcomeSceneAty extends AppCompatActivity {
         cbAl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (cbAl.isChecked()) {
-                    System.out.println("自动登录选中");
+                if (cbAl.isChecked() && cbRp.isChecked()) {
                     sharedPreferences.edit().putBoolean("IS_AUTO", true).apply();
                 } else {
-                    System.out.println("自动登录未选中");
                     sharedPreferences.edit().putBoolean("IS_AUTO", false).apply();
                 }
             }

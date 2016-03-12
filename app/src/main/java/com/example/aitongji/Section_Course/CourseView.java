@@ -2,6 +2,8 @@ package com.example.aitongji.Section_Course;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.widget.Button;
 
@@ -33,6 +35,9 @@ public class CourseView extends Button {
         endSection = array.getInt(R.styleable.CourseView_endSection, 0);
         weekDay = array.getInt(R.styleable.CourseView_weekDay, 0);
         is_single_week = array.getInt(R.styleable.CourseView_isSingleWeek, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setElevation(1);
+        }
         array.recycle();
     }
 

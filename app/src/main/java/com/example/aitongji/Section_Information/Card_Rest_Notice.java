@@ -56,7 +56,6 @@ public class Card_Rest_Notice extends PreferenceFragment {
                     editTextPreference.setEnabled(false);
                     CardRestNotice.cleanAllNotification();
                 }
-                System.out.println();
                 return true;
             }
         });
@@ -66,6 +65,7 @@ public class Card_Rest_Notice extends PreferenceFragment {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Intent serviceIntent = new Intent(MainActivity.getContext(), CardRestNotice.class);
                 getActivity().getSharedPreferences("user", Context.MODE_PRIVATE).edit().putString("value", newValue.toString()).apply();
+                getActivity().getSharedPreferences("user", Context.MODE_PRIVATE).edit().putBoolean("FORCE_REFRESH", true).apply();
                 MainActivity.getContext().startService(serviceIntent);
                 return true;
             }

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +21,7 @@ import com.example.aitongji.Section_Course.Course_Page;
 import com.example.aitongji.Section_Information.Card_Information;
 import com.example.aitongji.Utils.Course;
 import com.example.aitongji.Utils.CourseTable;
+import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.github.mikephil.charting.animation.Easing;
@@ -44,7 +44,6 @@ import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.iwgang.countdownview.CountdownView;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 /**
@@ -63,6 +62,8 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
     private ArrayList<String> info_time = new ArrayList<>();
 
     private int week;
+
+    private StudentGPA studentGPA;
 
     public Home_Recycler_Adapter(Bundle infoBundle) {
         time_today = infoBundle.getString("timeToday");
@@ -83,10 +84,68 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         @Bind(R.id.gpa_avg)
         TextView textGpaAvg;
 
+        private void setChartView() {
+            ArrayList<Entry> vals = new ArrayList<>();
+            ArrayList<String> xVals = new ArrayList<>();
+            for (int i = 0; i < studentGPA.semesters.size(); i++) {
+                Log.d(TAG, "Semaster " + i + " has " + studentGPA.semesters.get(i).courseGPAs.size() + " courses.");
+                vals.add(new Entry(studentGPA.semesters.get(i).semaster_gpa, i));
+                xVals.add("Sem." + (i + 1));
+            }
+            textGpaAvg.setText("总平均绩点:" + studentGPA.total_gpa);
+
+            LineDataSet dataSet = new LineDataSet(vals, "GPA");
+            dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+            dataSets.add(dataSet);
+
+            LineData data = new LineData(xVals, dataSets);
+            data.setValueTextColor(Color.WHITE);
+            data.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                    return String.valueOf(value);
+                }
+            });
+            data.setValueTextSize(12);
+            dataSet.setDrawCircleHole(true);
+            dataSet.setCircleColorHole(ContextCompat.getColor(MainActivity.getContext(), R.color.home_gpa_table_background));
+            dataSet.setDrawCubic(true);
+            dataSet.setDrawFilled(true);
+            dataSet.setFillDrawable(ContextCompat.getDrawable(MainActivity.getContext(), R.drawable.gpa_table_bg));
+
+            XAxis xAxis = chart.getXAxis();
+            YAxis left = chart.getAxisLeft();
+            left.setDrawLabels(false); // no axis labels
+            left.setDrawAxisLine(false); // no axis line
+            left.setDrawGridLines(false); // no grid lines
+            left.setDrawZeroLine(true); // draw a zero line
+            left.setGridColor(Color.LTGRAY);
+            chart.getAxisRight().setEnabled(false); // no right axis
+            Legend legend = chart.getLegend();
+            legend.setEnabled(false);
+
+            chart.setData(data);
+            chart.setTouchEnabled(false);
+            chart.setDrawGridBackground(false);
+            chart.setBackgroundColor(Color.TRANSPARENT);
+            chart.setDrawBorders(false);
+            chart.animateY(1000, Easing.EasingOption.EaseOutBack);
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setAvoidFirstLastClipping(false);
+            xAxis.setTextColor(Color.WHITE);
+            xAxis.setGridColor(Color.WHITE);
+            xAxis.setDrawGridLines(false);
+            xAxis.setAxisLineColor(Color.TRANSPARENT);
+            chart.invalidate();
+        }
+
         public ViewHolder(final View itemView) {
             super(itemView);
             final SharedPreferences preferences = MainActivity.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
             ButterKnife.bind(this, itemView);
+            studentGPA = (StudentGPA) DataHandler.getObject(MainActivity.getContext(), "studentGPA.dat");
 
             CardView cardInformation = (CardView) itemView.findViewById(R.id.id_card_information);
             cardInformation.setOnClickListener(new View.OnClickListener() {
@@ -124,79 +183,16 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
             CardView cardGPA = (CardView) itemView.findViewById(R.id.id_card_gpa);
             chart.setNoDataText("点击抓取绩点信息……");
             chart.setDescription("");
+            setChartView();
             cardGPA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new GetGPA(preferences.getString("username", ""), preferences.getString("password", ""), new GetGPA.SuccessCallback() {
-                        @Override
-                        public void onSuccess(StudentGPA studentGPA) {
-                            Log.d(TAG, "Post excute!");
-                            Log.d(TAG, "Semasters added:" + studentGPA.semasterGPAs.size());
-                            ArrayList<Entry> vals = new ArrayList<>();
-                            ArrayList<String> xVals = new ArrayList<>();
-                            for (int i = 0; i < studentGPA.semasterGPAs.size(); i++) {
-                                Log.d(TAG, "Semaster " + i + " has " + studentGPA.semasterGPAs.get(i).courseGPAs.size() + " courses.");
-                                vals.add(new Entry(studentGPA.semasterGPAs.get(i).semaster_gpa, i));
-                                xVals.add("Sem." + (i + 1));
-                            }
-                            textGpaAvg.setText("总平均绩点:" + studentGPA.total_gpa);
 
-                            LineDataSet dataSet = new LineDataSet(vals, "GPA");
-                            dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-                            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-                            dataSets.add(dataSet);
-
-                            LineData data = new LineData(xVals, dataSets);
-                            data.setValueTextColor(Color.WHITE);
-                            data.setValueFormatter(new ValueFormatter() {
-                                @Override
-                                public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                                    return String.valueOf(value);
-                                }
-                            });
-
-                            XAxis xAxis = chart.getXAxis();
-                            YAxis left = chart.getAxisLeft();
-                            left.setDrawLabels(false); // no axis labels
-                            left.setDrawAxisLine(false); // no axis line
-                            left.setDrawGridLines(true); // no grid lines
-                            left.setDrawZeroLine(true); // draw a zero line
-                            left.setGridColor(Color.LTGRAY);
-                            chart.getAxisRight().setEnabled(false); // no right axis
-                            Legend legend = chart.getLegend();
-
-                            legend.setEnabled(false);
-//                            legend.setTextColor(Color.WHITE);
-
-                            chart.setData(data);
-                            chart.setTouchEnabled(false);
-                            chart.setDrawGridBackground(false);
-                            chart.setBackgroundColor(Color.TRANSPARENT);
-                            chart.setDrawBorders(false);
-                            chart.animateY(1000, Easing.EasingOption.EaseOutBack);
-                            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                            xAxis.setAvoidFirstLastClipping(false);
-                            xAxis.setTextColor(Color.WHITE);
-                            xAxis.setGridColor(Color.TRANSPARENT);
-                            xAxis.setAxisLineColor(Color.TRANSPARENT);
-                            chart.invalidate();
-
-
-                        }
-                    }, new GetGPA.FailureCallback() {
-                        @Override
-                        public void onFailure() {
-
-                        }
-                    });
                 }
             });
-
-
         }
-    }
 
+    }
 
     @Override
     public Home_Recycler_Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

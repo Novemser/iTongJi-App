@@ -29,10 +29,6 @@ public class HomePageCards extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         mRecyclerView.setAdapter(mAdapter);
 
-//        Bundle bundle = getArguments();
-//        ArrayList<String> str = bundle.getStringArrayList("infoTitle");
-//        System.out.println(str);
-
         return root;
     }
 }

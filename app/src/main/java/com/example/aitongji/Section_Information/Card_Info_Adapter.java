@@ -18,6 +18,9 @@ import com.example.aitongji.R;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by Novemser on 2/22/2016.
  */
@@ -26,8 +29,6 @@ public class Card_Info_Adapter extends RecyclerView.Adapter<Card_Info_Adapter.Vi
     private ArrayList<String> info_title = new ArrayList<>();
     private ArrayList<String> info_time = new ArrayList<>();
     private ArrayList<String> info_id = new ArrayList<>();
-    private TextView category;
-    private TextView title;
     private String username;
     private String password;
     private static final int DELAY = 138;
@@ -53,18 +54,17 @@ public class Card_Info_Adapter extends RecyclerView.Adapter<Card_Info_Adapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        category = (TextView) holder.itemView.findViewById(R.id.id_text_infoPage_title);
-        title = (TextView) holder.itemView.findViewById(R.id.id_text_infoPage_content);
         if (position == 0 && flag) {
-            category.setVisibility(View.VISIBLE);
+            holder.titleView.setVisibility(View.VISIBLE);
             flag = false;
         } else {
-            category.setVisibility(View.GONE);
+            holder.titleView.setVisibility(View.GONE);
         }
+
         SpannableStringBuilder stringBuilder = new SpannableStringBuilder(info_time.get(position));
         stringBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#bdbdbd")), 0, 5, Spanned.SPAN_COMPOSING);
-        title.setText(new SpannableStringBuilder(info_title.get(position)).append(" ").append(stringBuilder));
-        showItemAnim(title, position);
+        holder.contentView.setText(new SpannableStringBuilder(info_title.get(position)).append(" ").append(stringBuilder));
+        showItemAnim(holder.contentView, position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,11 +85,13 @@ public class Card_Info_Adapter extends RecyclerView.Adapter<Card_Info_Adapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.id_text_infoPage_title) TextView titleView;
+        @Bind(R.id.id_text_infoPage_content) TextView contentView;
+
         public ViewHolder(final View itemView) {
             super(itemView);
-            category = (TextView) itemView.findViewById(R.id.id_text_infoPage_title);
-            category.setText("选课网通知");
-            title = (TextView) itemView.findViewById(R.id.id_text_infoPage_content);
+            ButterKnife.bind(this, itemView);
+            titleView.setText("选课网通知");
         }
     }
 

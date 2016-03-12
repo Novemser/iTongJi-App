@@ -15,8 +15,9 @@
         <item name="android:textColorSecondary">@color/secondary_text</item>
 
         <item name="colorControlNormal">#807d78</item>
-        <!--<item name="colorControlActivated">#ff5722</item>-->
-        <!--<item name="colorControlHighlight">#f44336</item>-->
+
+        <!-- 允许使用transitions -->
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">

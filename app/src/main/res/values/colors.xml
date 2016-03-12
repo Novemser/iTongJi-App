@@ -29,6 +29,7 @@
     <color name="home_card_background">#4caf50</color>
     <color name="home_electricity_background">#ec6941</color>
     <color name="home_next_class_background">#ab1656</color>
+    <color name="home_gpa_table_background">#66757F</color>
 
 
 </resources>

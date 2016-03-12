@@ -19,7 +19,6 @@ import android.widget.EditText;
 
 import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.Utils.CourseTable;
-import com.example.aitongji.Utils.GetGPA;
 import com.example.aitongji.Utils.InformationReq;
 import com.rey.material.widget.CheckBox;
 

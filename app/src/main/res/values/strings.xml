@@ -10,7 +10,7 @@
     <string name="course_timetable">课表查询</string>
     <string name="cards">一卡通信息</string>
     <string name="second_hand_trading">二手交易</string>
-    <string name="GPA">绩点查询</string>
+    <string name="GPA">绩点信息</string>
     <string name="evaluation_teachers">评教</string>
 
     <string name="say_hello">Hi,1452681</string>
@@ -28,7 +28,8 @@
 
     <string name="elect_title">寝室用电</string>
     <string name="elect_used">%1$s&#160;度\n本月已用</string>
-    <string name="elect_rest">%1$s&#160;度\n剩余电量</string>
+    <string name="elect_rest">剩余电量</string>
+    <string name="elect_rest_value">0 元</string>
     <string name="elect_detail">详细记录&#160;></string>
 
     <string name="card_title">校园卡消费</string>

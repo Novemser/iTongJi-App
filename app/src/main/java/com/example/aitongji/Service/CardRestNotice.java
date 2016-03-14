@@ -123,9 +123,9 @@ public class CardRestNotice extends Service {
                             NotificationManager mn = (NotificationManager) CardRestNotice.this.getSystemService(NOTIFICATION_SERVICE);
                             mn.cancelAll();
                             Notification.Builder builder = new Notification.Builder(CardRestNotice.this);
-                            builder.setSmallIcon(R.mipmap.ic_launcher);
+                            builder.setSmallIcon(R.drawable.ic_stat_editor_attach_money);
                             builder.setTicker("您的校园卡余额不足" + value + "元"); //测试通知栏标题
-                            builder.setContentText("请及时充值:)"); //下拉通知啦内容
+                            builder.setContentText("请及时充值 :)"); //下拉通知啦内容
                             builder.setContentTitle("余额:" + card_rest + "元");//下拉通知栏标题
                             builder.setAutoCancel(true);
                             builder.setDefaults(Notification.DEFAULT_ALL);

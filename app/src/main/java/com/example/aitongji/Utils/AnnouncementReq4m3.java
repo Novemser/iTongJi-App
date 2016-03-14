@@ -45,7 +45,7 @@ public class AnnouncementReq4m3 {
                     }
 
                     response = connect.method(Connection.Method.GET).timeout(10000).execute();
-                    return response.parse().html();
+                    return response.parse().body().html();
 
                 } catch (IOException e) {
                     e.printStackTrace();

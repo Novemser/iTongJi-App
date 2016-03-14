@@ -33,7 +33,6 @@ public class Card_Info_Adapter extends RecyclerView.Adapter<Card_Info_Adapter.Vi
     private String password;
     private static final int DELAY = 138;
     private int mLastPosition = -1;
-    boolean flag = true;
 
     public Card_Info_Adapter(ArrayList<String> info_title, ArrayList<String> info_time, String username, String password, ArrayList<String> info_id) {
         this.info_title = info_title;
@@ -54,9 +53,8 @@ public class Card_Info_Adapter extends RecyclerView.Adapter<Card_Info_Adapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        if (position == 0 && flag) {
+        if (position == 0) {
             holder.titleView.setVisibility(View.VISIBLE);
-            flag = false;
         } else {
             holder.titleView.setVisibility(View.GONE);
         }

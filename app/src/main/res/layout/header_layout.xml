@@ -11,7 +11,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
-        android:text="@string/email"
         android:textColor="#ffffff"
         android:textSize="14sp" />
 
@@ -22,7 +21,6 @@
         android:layout_above="@+id/tv_contact_address"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
-        android:text="@string/say_hello"
         android:textColor="#ffffff" />
 
     <ImageView

@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -70,6 +71,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 设置透明
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            w.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+//            w.setEnterTransition(new Explode());
+//            w.setExitTransition(new Explode());
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sContext = this;
@@ -157,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 editor.putBoolean("IS_CHECK", false).apply();
                 editor.putBoolean("IS_FIRST", true).apply();
                 CardRestNotice.cleanAllNotification();
-                finish();
                 startActivity(new Intent(this, WelcomeSceneAty.class));
+                finish();
                 break;
             case R.id.setting:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -175,9 +186,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (!isCreated.contains(fragmentClass)) {
                 isCreated.add(fragmentClass);
                 fragment = (Fragment) fragmentClass.newInstance();
-//                if (fragmentClass == HomePageCards.class || fragmentClass == Card_Rest_Notice.class) {
-//                    fragment.setArguments(getIntent().getExtras());
-//                }
                 fragments.add(fragment);
             } else {
                 fragment = fragments.get(isCreated.indexOf(fragmentClass));

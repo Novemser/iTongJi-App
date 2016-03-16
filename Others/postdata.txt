@@ -1,0 +1,6 @@
+http://xuanke.tongji.edu.cn/tj_login/redirect.jsp?link=/tj_xuankexjgl/score/query/student/cjcx.jsp?
+qxid=20051013779916$
+mkid=20051013779901&
+qxid=20051013779916&
+HELP_URL=null&
+MYXSJL=null

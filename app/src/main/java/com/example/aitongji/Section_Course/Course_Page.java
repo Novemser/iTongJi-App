@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
@@ -24,7 +25,13 @@ import com.example.aitongji.Utils.DensityUtil;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class Course_Page extends AppCompatActivity implements ScrollViewListener {
+
+    @Bind(R.id.toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     private int[] bg = {
             R.drawable.kb1,
@@ -43,7 +50,10 @@ public class Course_Page extends AppCompatActivity implements ScrollViewListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.course_table_layout);
+        setContentView(R.layout.activity_course_page);
+        ButterKnife.bind(this);
+
+        collapsingToolbarLayout.setTitle("我的课表");
 
         time_week_tv = (TextView) findViewById(R.id.course_week);
         time_week_tv.setText("第" + getIntent().getStringExtra("time_week") + "周");

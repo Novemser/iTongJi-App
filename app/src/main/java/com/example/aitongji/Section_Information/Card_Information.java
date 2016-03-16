@@ -1,6 +1,7 @@
 package com.example.aitongji.Section_Information;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,19 +23,27 @@ public class Card_Information extends ToolbarActivity {
 
     @Override
     protected int provideContentViewId() {
-        return R.layout.test;
+        return R.layout.card_information_layout;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            getWindow().setEnterTransition(new Explode());
-            getWindow().setExitTransition(new Explode());
-        }
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        setContentView(R.layout.card_information_layout);
+//        setContentView(R.layout.card_information_layout);
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        mToolbar.setTitle("iTongJi");
+        mToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+        mToolbar.setSubtitleTextColor(Color.parseColor("#ffffff"));
+//        setSupportActionBar(toolbar);
+//
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//
+//        if (Build.VERSION.SDK_INT >= 21) {
+//            mAppBar.setElevation(10.6f);
+//        }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.id_card_info_recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

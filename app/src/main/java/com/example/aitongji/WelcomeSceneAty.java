@@ -16,7 +16,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.Utils.CourseTable;
 import com.example.aitongji.Utils.DataBundle;
@@ -25,10 +27,15 @@ import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.InformationReq;
 import com.rey.material.widget.CheckBox;
+import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class WelcomeSceneAty extends AppCompatActivity {
+    @Bind(R.id.imageView)
+    ImageView bg;
 
     private Button button;
     private EditText etAccount;
@@ -50,6 +57,13 @@ public class WelcomeSceneAty extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Glide.with(this).load(R.drawable.login).into(bg);
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -59,8 +73,12 @@ public class WelcomeSceneAty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.activity_welcome_scene_aty);
+        ButterKnife.bind(this);
         final MaterialProgressBar materialProgressBar = (MaterialProgressBar) findViewById(R.id.id_progressbar_welcome_circle);
         materialProgressBar.setVisibility(View.INVISIBLE);
+
+//        Picasso.with(this).load(R.drawable.login).into(bg);
+        Glide.with(this).load(R.drawable.login).into(bg);
 
 //        int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
 //        Log.d("TAG", "Max memory is " + maxMemory + "KB");

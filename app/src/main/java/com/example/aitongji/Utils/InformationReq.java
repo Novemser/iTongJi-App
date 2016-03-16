@@ -210,6 +210,7 @@ public class InformationReq {
                     course_table_str = document.html();
 
 //                    course_table_str = courseTableResponse.parse().select("").remove().html();
+                    CourseTable.setInstance(null);
                     CourseTable courseTable = CourseTable.getInstance();
                     ArrayList<String> course_raw = new ArrayList<>();
                     Elements all_course_raw = courseTableResponse.parse().getElementsByClass("grid").select("tbody").select("tr");

@@ -16,8 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/ic_school_white_48dp"
-        />
+        android:transitionName="school"
+        android:id="@+id/ic_school"
+        android:src="@drawable/ic_school_white_48dp" />
 
     <TextView
         android:id="@+id/gpa_avg"
@@ -26,7 +27,7 @@
         android:gravity="center"
         android:textColor="#ffffff"
         android:paddingTop="8dp"
-        android:textSize="12sp" />
+        android:textSize="16sp" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/gpa_chart"

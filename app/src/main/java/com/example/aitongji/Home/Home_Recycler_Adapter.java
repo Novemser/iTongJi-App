@@ -1,11 +1,14 @@
 package com.example.aitongji.Home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +24,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.aitongji.R;
 import com.example.aitongji.Section_Course.Course_Page;
+import com.example.aitongji.Section_GPA.GPATable;
 import com.example.aitongji.Section_Information.Card_Information;
 import com.example.aitongji.Utils.Course;
 import com.example.aitongji.Utils.CourseTable;
@@ -67,8 +71,9 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
     private int week;
 
     private StudentGPA studentGPA;
+    private Activity activity;
 
-    public Home_Recycler_Adapter(Bundle infoBundle) {
+    public Home_Recycler_Adapter(Bundle infoBundle, Activity activity) {
         time_today = infoBundle.getString("timeToday");
         time_week = infoBundle.getString("timeWeek");
         info_title = infoBundle.getStringArrayList("infoTitle");
@@ -79,6 +84,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         info_id = infoBundle.getStringArrayList("info_id");
         course_table_str = infoBundle.getString("course_table_str");
         week = Integer.parseInt(time_week);
+        this.activity = activity;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -129,6 +135,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
             dataSet.setDrawCubic(true);
             dataSet.setDrawFilled(true);
             dataSet.setFillDrawable(ContextCompat.getDrawable(MainActivity.getContext(), R.drawable.gpa_table_bg));
+            dataSet.setLineWidth(1.5f);
 
             XAxis xAxis = chart.getXAxis();
             YAxis left = chart.getAxisLeft();
@@ -208,17 +215,26 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), Course_Page.class);
                     intent.putExtra("time_week", time_week);
-                    itemView.getContext().startActivity(intent);
+
+                    ActivityOptionsCompat optionsCompat =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity, itemView.findViewById(R.id.ic_alarm), "alarm");
+                    ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+//                    itemView.getContext().startActivity(intent);
                 }
             });
 
-            chart.setNoDataText("点击抓取绩点信息……");
+            chart.setNoDataText("绩点信息");
             chart.setDescription("");
             setChartView();
             cardGPA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent intent = new Intent(activity, GPATable.class);
+                    intent.putExtra("studentGPA", studentGPA);
 
+                    ActivityOptionsCompat optionsCompat =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity, itemView.findViewById(R.id.ic_school), "school");
+                    ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
                 }
             });
         }

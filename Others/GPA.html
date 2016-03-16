@@ -1,0 +1,762 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<!--jsp:useBean id="" scope="session" class="" /-->
+
+
+
+
+<script>
+top.HELP_URL="null";
+document.onkeydown=function() {
+       if(event.srcElement.type!="submit"&&event.srcElement.type!="button"&&event.srcElement.type!="textarea"&&event.srcElement.type!="reset"&&event.keyCode==13){
+         event.keyCode=9;
+       }
+
+}
+function _contextmenu(){
+ return false;//
+}
+document.oncontextmenu=new Function("return _contextmenu();");
+</script>
+
+<link rel="stylesheet" href="/tj_public/css/calendar.css">
+<link rel="stylesheet" href="/tj_public/css/main.css">
+
+<script src="/tj_public/javascript/SuperPublic.js"></script>
+<script src="/tj_public/javascript/DateObject.js"></script>
+<script src="/tj_public/javascript/DatePicker.js"></script>
+<script src="/tj_public/javascript/editlib.js"></script>
+<script src="/tj_public/javascript/Tools.js"></script>
+<script src="/tj_public/javascript/prototype.js"></script>
+
+
+
+<script>
+
+</script>
+
+<html>
+<head>
+<title>
+</title>
+</head>
+<body>
+<!--jsp:include page="/tj_public/jsp/head.jsp" flush="true">
+</jsp:include-->
+
+<form name="f1" method="post" action="">
+<INPUT TYPE="hidden" NAME="qx" VALUE="0">
+<script>window.form=document.f1</script>
+<table class="mainTable" align="center" align="center" style="width:90%">
+      <tr>
+	  <td width="40%">
+	  <select name="xndxq" id="xndxq" style="width:auto" onchange="f1.submit()">
+      <option value="">所有学年学期</option>
+	 <option value=19951>1995-1996学年第一学期</option>
+<option value=19952>1995-1996学年第二学期</option>
+<option value=19961>1996-1997学年第一学期</option>
+<option value=19962>1996-1997学年第二学期</option>
+<option value=19971>1997-1998学年第一学期</option>
+<option value=19972>1997-1998学年第二学期</option>
+<option value=19981>1998-1999学年第一学期</option>
+<option value=19982>1998-1999学年第二学期</option>
+<option value=19991>1999-2000学年第一学期</option>
+<option value=19992>1999-2000学年第二学期</option>
+<option value=20001>2000-2001学年第一学期</option>
+<option value=20002>2000-2001学年第二学期</option>
+<option value=20011>2001-2002学年第一学期</option>
+<option value=20012>2001-2002学年第二学期</option>
+<option value=20021>2002-2003学年第一学期</option>
+<option value=20022>2002-2003学年第二学期</option>
+<option value=20031>2003-2004学年第一学期</option>
+<option value=20032>2003-2004学年第二学期</option>
+<option value=20041>2004-2005学年第一学期</option>
+<option value=20042>2004-2005学年第二学期</option>
+<option value=20051>2005-2006学年第一学期</option>
+<option value=20052>2005-2006学年第二学期</option>
+<option value=20061>2006-2007学年第一学期</option>
+<option value=20062>2006-2007学年第二学期</option>
+<option value=20071>2007-2008学年第一学期</option>
+<option value=20072>2007-2008学年第二学期</option>
+<option value=20081>2008-2009学年第一学期</option>
+<option value=20082>2008-2009学年第二学期</option>
+<option value=20091>2009-2010学年第一学期</option>
+<option value=20092>2009-2010学年第二学期</option>
+<option value=20101>2010-2011学年第一学期</option>
+<option value=20102>2010-2011学年第二学期</option>
+<option value=20111>2011-2012学年第一学期</option>
+<option value=20112>2011-2012学年第二学期</option>
+<option value=20121>2012-2013学年第一学期</option>
+<option value=20122>2012-2013学年第二学期</option>
+<option value=20131>2013-2014学年第一学期</option>
+<option value=20132>2013-2014学年第二学期</option>
+<option value=20141>2014-2015学年第一学期</option>
+<option value=20142>2014-2015学年第二学期</option>
+<option value=20151>2015-2016学年第一学期</option>
+<option value=20152>2015-2016学年第二学期</option>
+<option value=20161>2016-2017学年第一学期</option>
+<option value=20162>2016-2017学年第二学期</option>
+<option value=20171>2017-2018学年第一学期</option>
+<option value=20172>2017-2018学年第二学期</option>
+<option value=20181>2018-2019学年第一学期</option>
+<option value=20182>2018-2019学年第二学期</option>
+<option value=20191>2019-2020学年第一学期</option>
+<option value=20192>2019-2020学年第二学期</option>
+<option value=20201>2020-2021学年第一学期</option>
+<option value=20202>2020-2021学年第二学期</option>
+<option value=20211>2021-2022学年第一学期</option>
+<option value=20212>2021-2022学年第二学期</option>
+<option value=20221>2022-2023学年第一学期</option>
+<option value=20222>2022-2023学年第二学期</option>
+<option value=20231>2023-2024学年第一学期</option>
+<option value=20232>2023-2024学年第二学期</option>
+<option value=20241>2024-2025学年第一学期</option>
+<option value=20242>2024-2025学年第二学期</option>
+<option value=20251>2025-2026学年第一学期</option>
+<option value=20252>2025-2026学年第二学期</option>
+<option value=20261>2026-2027学年第一学期</option>
+<option value=20262>2026-2027学年第二学期</option>
+<option value=20271>2027-2028学年第一学期</option>
+<option value=20272>2027-2028学年第二学期</option>
+<option value=20281>2028-2029学年第一学期</option>
+<option value=20282>2028-2029学年第二学期</option>
+<option value=20291>2029-2030学年第一学期</option>
+<option value=20292>2029-2030学年第二学期</option>
+<option value=20301>2030-2031学年第一学期</option>
+<option value=20302>2030-2031学年第二学期</option>
+<option value=20311>2031-2032学年第一学期</option>
+<option value=20312>2031-2032学年第二学期</option>
+<option value=20321>2032-2033学年第一学期</option>
+<option value=20322>2032-2033学年第二学期</option>
+<option value=20331>2033-2034学年第一学期</option>
+<option value=20332>2033-2034学年第二学期</option>
+<option value=20341>2034-2035学年第一学期</option>
+<option value=20342>2034-2035学年第二学期</option>
+<option value=20351>2035-2036学年第一学期</option>
+<option value=20352>2035-2036学年第二学期</option>
+<option value=20361>2036-2037学年第一学期</option>
+<option value=20362>2036-2037学年第二学期</option>
+<option value=20371>2037-2038学年第一学期</option>
+<option value=20372>2037-2038学年第二学期</option>
+<option value=20381>2038-2039学年第一学期</option>
+<option value=20382>2038-2039学年第二学期</option>
+<option value=20391>2039-2040学年第一学期</option>
+<option value=20392>2039-2040学年第二学期</option>
+<option value=20401>2040-2041学年第一学期</option>
+<option value=20402>2040-2041学年第二学期</option>
+<option value=20411>2041-2042学年第一学期</option>
+<option value=20412>2041-2042学年第二学期</option>
+<option value=20421>2042-2043学年第一学期</option>
+<option value=20422>2042-2043学年第二学期</option>
+<option value=20431>2043-2044学年第一学期</option>
+<option value=20432>2043-2044学年第二学期</option>
+<option value=20441>2044-2045学年第一学期</option>
+<option value=20442>2044-2045学年第二学期</option>
+<option value=20451>2045-2046学年第一学期</option>
+<option value=20452>2045-2046学年第二学期</option>
+<option value=20461>2046-2047学年第一学期</option>
+<option value=20462>2046-2047学年第二学期</option>
+<option value=20471>2047-2048学年第一学期</option>
+<option value=20472>2047-2048学年第二学期</option>
+<option value=20481>2048-2049学年第一学期</option>
+<option value=20482>2048-2049学年第二学期</option>
+<option value=20491>2049-2050学年第一学期</option>
+<option value=20492>2049-2050学年第二学期</option>
+<option value=20501>2050-2051学年第一学期</option>
+<option value=20502>2050-2051学年第二学期</option>
+
+	 </select>
+	 &nbsp;&nbsp;&nbsp;
+	  <select name="xklx" id="xklx" style="width:auto" onchange="f1.submit()">
+      <option value="">所有类型</option>
+	  <option value="1" >必修</option>
+	  <option value="2" >选修(A3)</option>
+          <option value="3" >跨学科选修(D3)</option>
+          <option value="4" >素质与能力拓展</option>
+
+</select>
+
+	  </td>
+	  </tr>
+</table>
+    <table class="mainTable" cellspacing="0" align="center" id="T1" style="width:90%">
+    <tr><td colspan="9" background="/images/table_title.jpg"><font size="3"><strong>各学期成绩</strong>&nbsp;&nbsp;&nbsp;<b>学号:</b>1452681&nbsp;<b>姓名:</b>胡淦森&nbsp;<b>院系:</b>软件学院&nbsp;<b>专业:</b>软件工程</font></td></tr>
+    <tr><td colspan="9">
+     总平均绩点:<font color="red">4.47</font>
+     选课学分:<font color="red">  89.0</font>
+     实修学分:<font color="red">  89.0</font>
+     不及格门数:<font color="red">0</font>
+
+     </td></tr>
+
+      <script>
+      </script>
+      <tr>
+       <td colspan="9"><div align="center">2014-2015学年第1学期</div></td>
+      </tr>
+      <tr>
+        <td width="10%" nowrap><div align="center" >课号</div></td>
+        <td width="15%" nowrap><div align="center" >课名</div></td>
+        <td width="10%" nowrap><div align="center" >成绩</div></td>
+        <td width="10%" nowrap><div align="center" >学分</div></td>
+        <td width="10%" nowrap><div align="center" >绩点</div></td>
+        <td width="10%" nowrap><div align="center" >是否通过</div></td>
+        <td width="10%" nowrap><div align="center" >成绩性质</div></td>
+        <td width="15%" nowrap><div align="center" >选修必修</div></td>
+        <td width="10%" nowrap><div align="center" >更新时间</div></td>
+     </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">002015</font></div></td>
+        <td><div align="center"><font color="black">大学生职业生涯规划</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">1.5</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black"><font color='blue'>选修(公选课程组)</font></font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-22</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">002016</font></div></td>
+        <td><div align="center"><font color="black">形势与政策(1)</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">0.5</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-22</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">070374</font></div></td>
+        <td><div align="center"><font color="black">思想道德修养和法律基础</font></div></td>
+        <td><div align="center"><font color="black">中</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-26</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">110258</font></div></td>
+        <td><div align="center"><font color="black">综合英语1</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-26</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">110277</font></div></td>
+        <td><div align="center"><font color="black">大学英语四级</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-13</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">122004</font></div></td>
+        <td><div align="center"><font color="black">高等数学(B)上</font></div></td>
+        <td><div align="center"><font color="black">中</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-20</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">122010</font></div></td>
+        <td><div align="center"><font color="black">线性代数B</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-21</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">320001</font></div></td>
+        <td><div align="center"><font color="black">体育(1)</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">1</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-27</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">340012</font></div></td>
+        <td><div align="center"><font color="black">科技文献检索与利用</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">1.5</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black"><font color='blue'>选修(公选课程组)</font></font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-21</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">360011</font></div></td>
+        <td><div align="center"><font color="black">军事理论</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">1</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-19</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420001</font></div></td>
+        <td><div align="center"><font color="black">C语言程序设计</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-27</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420168</font></div></td>
+        <td><div align="center"><font color="black">计算机基础</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-26</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">580006</font></div></td>
+        <td><div align="center"><font color="black">物理实验（上）</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">0.5</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-22</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">580008</font></div></td>
+        <td><div align="center"><font color="black">普通物理(A)上</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-01-17</font></div></td>
+      </tr>
+
+      <tr>
+       <td colspan="9">本学期平均绩点:<font color="red">4.19</font></td>
+      </tr>
+
+      <script>
+      </script>
+      <tr>
+       <td colspan="9"><div align="center">2014-2015学年第2学期</div></td>
+      </tr>
+      <tr>
+        <td width="10%" nowrap><div align="center" >课号</div></td>
+        <td width="15%" nowrap><div align="center" >课名</div></td>
+        <td width="10%" nowrap><div align="center" >成绩</div></td>
+        <td width="10%" nowrap><div align="center" >学分</div></td>
+        <td width="10%" nowrap><div align="center" >绩点</div></td>
+        <td width="10%" nowrap><div align="center" >是否通过</div></td>
+        <td width="10%" nowrap><div align="center" >成绩性质</div></td>
+        <td width="15%" nowrap><div align="center" >选修必修</div></td>
+        <td width="10%" nowrap><div align="center" >更新时间</div></td>
+     </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">002017</font></div></td>
+        <td><div align="center"><font color="black">形势与政策(2)</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">0.5</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-09</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">070373</font></div></td>
+        <td><div align="center"><font color="black">中国近现代史纲要</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-10</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">110259</font></div></td>
+        <td><div align="center"><font color="black">综合英语2</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-02</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">110278</font></div></td>
+        <td><div align="center"><font color="black">大学英语五级</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-14</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">122005</font></div></td>
+        <td><div align="center"><font color="black">高等数学(B)下</font></div></td>
+        <td><div align="center"><font color="black">中</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-08</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">320002</font></div></td>
+        <td><div align="center"><font color="black">体育(2)</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">1</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-06-30</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">360002</font></div></td>
+        <td><div align="center"><font color="black">军训</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-09-17</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420019</font></div></td>
+        <td><div align="center"><font color="black">离散数学</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-13</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420311</font></div></td>
+        <td><div align="center"><font color="black">面向对象程序设计</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-14</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420329</font></div></td>
+        <td><div align="center"><font color="black">参观实习</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">0.5</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-09-25</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420331</font></div></td>
+        <td><div align="center"><font color="black">社会调查</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">0.5</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-14</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">550054</font></div></td>
+        <td><div align="center"><font color="black">产品设计赏析</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">1.5</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black"><font color='blue'>选修(艺术类课程组)</font></font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-09</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">580007</font></div></td>
+        <td><div align="center"><font color="black">物理实验（下）</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">1</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-06</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">580009</font></div></td>
+        <td><div align="center"><font color="black">普通物理(A)下</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2015-07-02</font></div></td>
+      </tr>
+
+      <tr>
+       <td colspan="9">本学期平均绩点:<font color="red">4.38</font></td>
+      </tr>
+
+      <script>
+      </script>
+      <tr>
+       <td colspan="9"><div align="center">2015-2016学年第1学期</div></td>
+      </tr>
+      <tr>
+        <td width="10%" nowrap><div align="center" >课号</div></td>
+        <td width="15%" nowrap><div align="center" >课名</div></td>
+        <td width="10%" nowrap><div align="center" >成绩</div></td>
+        <td width="10%" nowrap><div align="center" >学分</div></td>
+        <td width="10%" nowrap><div align="center" >绩点</div></td>
+        <td width="10%" nowrap><div align="center" >是否通过</div></td>
+        <td width="10%" nowrap><div align="center" >成绩性质</div></td>
+        <td width="15%" nowrap><div align="center" >选修必修</div></td>
+        <td width="10%" nowrap><div align="center" >更新时间</div></td>
+     </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">002018</font></div></td>
+        <td><div align="center"><font color="black">形势与政策(3)</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">0.5</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-13</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">002J14</font></div></td>
+        <td><div align="center"><font color="black">创新实践活动成果(竞赛类)</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-12</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">070376</font></div></td>
+        <td><div align="center"><font color="black">马克思主义基本原理</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-21</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">100171</font></div></td>
+        <td><div align="center"><font color="black">机器学习</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">1.5</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black"><font color='blue'>选修(公选课程组)</font></font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-23</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">100k16</font></div></td>
+        <td><div align="center"><font color="black">移动计算导论</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black"><font color='blue'>选修(公选课程组)</font></font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-07</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">122011</font></div></td>
+        <td><div align="center"><font color="black">概率论与数理统计</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-19</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">122249</font></div></td>
+        <td><div align="center"><font color="black">组合数学</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-26</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420095</font></div></td>
+        <td><div align="center"><font color="black">英语交流</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-25</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420266</font></div></td>
+        <td><div align="center"><font color="black">数据结构</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-22</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420285</font></div></td>
+        <td><div align="center"><font color="black">数据结构课程设计</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">1</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-22</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420298</font></div></td>
+        <td><div align="center"><font color="black">计算机组成原理</font></div></td>
+        <td><div align="center"><font color="black">优</font></div></td>
+        <td><div align="center"><font color="black">3</font></div></td>
+        <td><div align="center"><font color="black">5</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-23</font></div></td>
+      </tr>
+
+      <tr>
+        <td><div align="center"><font color="black">420357</font></div></td>
+        <td><div align="center"><font color="black">计算机组成原理实验</font></div></td>
+        <td><div align="center"><font color="black">良</font></div></td>
+        <td><div align="center"><font color="black">2</font></div></td>
+        <td><div align="center"><font color="black">4</font></div></td>
+        <td><div align="center"><font color="black">Y</font></div></td>
+        <td><div align="center"><font color="black">正常</font></div></td>
+        <td><div align="center"><font color="black">必修</font></div></td>
+        <td nowrap><div align="center"><font color="black">2016-01-25</font></div></td>
+      </tr>
+
+      <tr>
+       <td colspan="9">本学期平均绩点:<font color="red">4.82</font></td>
+      </tr>
+
+  </table>
+</form>
+
+
+<script language="javascript">
+function f_back(fg){
+    if(fg=='1'){//返回学分统计
+	location="xftj.jsp";
+    }else{//返回上个界面
+      history.back();
+    }
+}
+
+function f_photo(cjtx){
+  var url="/tj_xuesheng/cjgl/cjtx.jsp?cjtx="+cjtx;
+  window.showModalDialog(url,'成绩扫描图像','dialogwidth:'+screen.availWidth+'pt;dialogheight:'+screen.availHeight+'pt');
+}
+</script>

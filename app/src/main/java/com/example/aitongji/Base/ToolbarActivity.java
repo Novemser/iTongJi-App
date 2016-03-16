@@ -26,6 +26,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
         mAppBar = (AppBarLayout) findViewById(R.id.app_bar_layout);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("iTongji");
 
         if (mToolbar == null || mAppBar == null) {
             throw new IllegalStateException("No toolbar");

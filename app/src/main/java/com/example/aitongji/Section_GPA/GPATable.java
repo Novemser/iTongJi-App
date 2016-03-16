@@ -12,6 +12,7 @@ import android.support.v7.view.CollapsibleActionView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.transition.Explode;
 import android.util.Log;
@@ -43,10 +44,6 @@ public class GPATable extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
 
     private StudentGPA studentGPA;
-
-    private static final String[][] DATA_TO_SHOW = {{"This", "is", "a", "test"},
-            {"and", "a", "second", "test"}, {"This", "is", "3", "test"}};
-    private static final String[] HEADER = {"课程", "GPA", "", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +130,9 @@ public class GPATable extends AppCompatActivity {
                 c3.setGravity(Gravity.CENTER);
                 c4.setGravity(Gravity.CENTER);
                 c1.setText(courseGPA.course_name);
+                c1.setMaxEms(5);
+                c1.setEllipsize(TextUtils.TruncateAt.END);
+                c1.setSingleLine(false);
                 c2.setText(courseGPA.evaluation);
                 c3.setText(String.valueOf(courseGPA.grade));
                 c4.setText(String.valueOf(courseGPA.gpa));
@@ -151,6 +151,7 @@ public class GPATable extends AppCompatActivity {
                 header.addView(c3);
                 header.addView(c4);
                 header.setPadding(0, 10, 0, 10);
+                header.setGravity(Gravity.CENTER);
                 header.setBackgroundResource(R.drawable.shape_no_corner_without_bottom);
 
                 tableLayout.addView(header);
@@ -163,7 +164,7 @@ public class GPATable extends AppCompatActivity {
             stringBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, gpa.length(), Spanned.SPAN_COMPOSING);
             footer.setText(new SpannableStringBuilder("本学期平均绩点：").append(stringBuilder));
             footer.setTextSize(16);
-            footer.setPadding(5, 5, 5, 5);
+            footer.setPadding(5, 10, 5, 10);
             header.setBackgroundResource(R.drawable.shape_bottom_corner_no_top_line);
             header.setPadding(0, 5, 0, 5);
 

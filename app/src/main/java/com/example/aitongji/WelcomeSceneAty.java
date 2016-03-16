@@ -116,6 +116,8 @@ public class WelcomeSceneAty extends AppCompatActivity {
                         }
                     }).show();
                 } else {
+                    button.setEnabled(false);
+                    Log.d("BTN", "clicked");
                     button.setText("正在登录...");
                     materialProgressBar.setVisibility(View.VISIBLE);
                     username = etAccount.getText().toString();
@@ -126,7 +128,7 @@ public class WelcomeSceneAty extends AppCompatActivity {
                         public void onSuccess(DataBundle dataBundle) {
                             Log.d("Login to 4m3", "Login Succeed");
                             materialProgressBar.setVisibility(View.INVISIBLE);
-                            button.setText("登录成功");
+                            button.setText("加载页面中...");
 
                             // 记住用户名和密码
                             editor.putString("username", username);
@@ -150,6 +152,8 @@ public class WelcomeSceneAty extends AppCompatActivity {
                                     materialProgressBar.setVisibility(View.INVISIBLE);
                                     button.setText("立即登录");
                                     Snackbar.make(button.getRootView(), "多次登陆失败 请稍后再试", Snackbar.LENGTH_SHORT).show();
+                                    button.setEnabled(true);
+
                                 }
                             });
 
@@ -161,6 +165,7 @@ public class WelcomeSceneAty extends AppCompatActivity {
                             materialProgressBar.setVisibility(View.INVISIBLE);
                             button.setText("立即登录");
                             Snackbar.make(button.getRootView(), "登陆失败 请检查网络/密码后重试", Snackbar.LENGTH_SHORT).show();
+                            button.setEnabled(true);
                         }
                     });
                 }

@@ -15,12 +15,14 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -28,6 +30,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.aitongji.R;
 import com.example.aitongji.Section_Information.Card_Rest_Notice;
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private FragmentManager fm;
     private Class fragmentClass;
     private static Context sContext = null;
+    private long mExitTime;
 
     ArrayList<Class> isCreated;
     ArrayList<Fragment> fragments;
@@ -211,5 +215,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public static Context getContext() {
         return sContext;
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Snackbar.make(mNavigationView, "再按一次退出", Snackbar.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -50,6 +50,8 @@
     <string name="card_rest_low_sum">当校园卡内的余额低于一定值时，会自动向您推送通知</string>
     <string name="card_rest_value">余额低于此值时提醒</string>
 
+    <string name="gpa_detail">查看全部课程&#160;></string>
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

@@ -7,7 +7,7 @@
         android:title="@string/card_rest_low"
         android:summary="@string/card_rest_low_sum"/>
 
-    <EditTextPreference
+    <com.afollestad.materialdialogs.prefs.MaterialEditTextPreference
         android:capitalize="words"
         android:summary="点击设置"
         android:defaultValue="10"

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="campus">
+        <item>四平路校区</item>
+        <item>嘉定校区</item>
+        <item>同济沪西</item>
+        <item>嘉定朋园</item>
+        <item>彰武路校区</item>
+        <item>沪北校区</item>
+    </string-array>
+</resources>

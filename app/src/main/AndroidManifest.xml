@@ -56,7 +56,8 @@
         <activity
             android:name=".Section_GPA.GPATable"
             android:label="@string/title_activity_gpatable"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Section_Elect.ElectricityQuery"></activity>
     </application>
 
 </manifest>

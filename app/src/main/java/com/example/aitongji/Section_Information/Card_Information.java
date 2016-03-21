@@ -33,7 +33,7 @@ public class Card_Information extends ToolbarActivity {
 //        setContentView(R.layout.card_information_layout);
 //        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        mToolbar.setTitle("iTongJi");
+        mToolbar.setTitle("信息通知");
         mToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         mToolbar.setSubtitleTextColor(Color.parseColor("#ffffff"));
 //        setSupportActionBar(toolbar);

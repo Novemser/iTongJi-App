@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -20,10 +21,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.aitongji.R;
 import com.example.aitongji.Section_Course.Course_Page;
+import com.example.aitongji.Section_Elect.ElectricityQuery;
 import com.example.aitongji.Section_GPA.GPATable;
 import com.example.aitongji.Section_Information.Card_Information;
 import com.example.aitongji.Utils.Course;
@@ -102,6 +105,8 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         CardView cardGPA;
         @Bind(R.id.id_card_card)
         CardView cardCard;
+        @Bind(R.id.id_card_elect)
+        CardView cardElect;
         int cardCardCnt = 0;
         int cardWeekCnt = 0;
 
@@ -235,6 +240,13 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
                     ActivityOptionsCompat optionsCompat =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(activity, itemView.findViewById(R.id.ic_school), "school");
                     ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+                }
+            });
+
+            cardElect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemView.getContext().startActivity(new Intent(itemView.getContext(), ElectricityQuery.class));
                 }
             });
         }

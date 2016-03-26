@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="center"
-                android:text="@string/elect_rest_value"
+                android:text=""
                 android:textColor="#ffffff"
                 android:textSize="18sp" />
 

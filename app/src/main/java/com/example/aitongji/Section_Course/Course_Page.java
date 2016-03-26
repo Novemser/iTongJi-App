@@ -19,8 +19,8 @@ import android.widget.TextView;
 import com.example.aitongji.Base.BaseActivity;
 import com.example.aitongji.Base.ToolbarActivity;
 import com.example.aitongji.R;
-import com.example.aitongji.Utils.Course;
-import com.example.aitongji.Utils.CourseTable;
+import com.example.aitongji.Utils.Course.Course;
+import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DensityUtil;
 
 import java.util.ArrayList;

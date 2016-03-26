@@ -28,7 +28,7 @@
 
     <string name="elect_title">寝室用电</string>
     <string name="elect_used">%1$s&#160;度\n本月已用</string>
-    <string name="elect_rest">剩余电量</string>
+    <string name="elect_rest">点击查询&#160;></string>
     <string name="elect_rest_value">0 元</string>
     <string name="elect_detail">详细记录&#160;></string>
 

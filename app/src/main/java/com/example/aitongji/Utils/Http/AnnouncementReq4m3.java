@@ -1,4 +1,4 @@
-package com.example.aitongji.Utils;
+package com.example.aitongji.Utils.Http;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,7 +45,7 @@ public class AnnouncementReq4m3 {
                     }
 
                     response = connect.method(Connection.Method.GET).timeout(10000).execute();
-                    return response.parse().body().html();
+                    return response.parse().body().html().replaceAll("src=\"/eams", "src=\"http://4m3.tongji.edu.cn/eams");
 
                 } catch (IOException e) {
                     e.printStackTrace();

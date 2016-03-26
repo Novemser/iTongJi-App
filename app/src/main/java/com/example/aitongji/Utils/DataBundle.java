@@ -1,5 +1,7 @@
 package com.example.aitongji.Utils;
 
+import com.example.aitongji.Utils.Course.CourseTable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

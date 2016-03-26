@@ -4,6 +4,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_home"
+            android:icon="@drawable/ic_home_black_48dp"
             android:title="@string/home_page"
             android:checked="true"/>
     </group>
@@ -14,7 +15,7 @@
 
         <item
             android:id="@+id/drawer_section1"
-            android:icon="@drawable/ic_action_email"
+            android:icon="@drawable/ic_email_black_48dp"
             android:title="@string/information_sending" />
 
     </group>
@@ -22,10 +23,12 @@
     <group android:id="@+id/group_2"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/setting"
-            android:title="设置" />
+            android:id="@+id/about"
+            android:icon="@drawable/ic_info_black_48dp"
+            android:title="关于" />
         <item
             android:id="@+id/logout"
+            android:icon="@drawable/ic_reply_black_48dp"
             android:title="注销" />
     </group>
 

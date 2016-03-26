@@ -4,14 +4,9 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.app.Fragment;
@@ -20,42 +15,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.aitongji.R;
 import com.example.aitongji.Section_Information.Card_Rest_Notice;
-import com.example.aitongji.Section_Information.Information;
 import com.example.aitongji.Service.CardRestNotice;
-import com.example.aitongji.Utils.GPA.GetGPA;
-import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.WelcomeSceneAty;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.PersistentCookieStore;
-import com.loopj.android.http.RequestParams;
-import com.novemser.ocrtest.BP;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.ObjectInputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private DrawerLayout mDrawerLayout;
@@ -175,11 +146,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(new Intent(this, WelcomeSceneAty.class));
                 finish();
                 break;
-            case R.id.setting:
-                startActivity(new Intent(this, SettingsActivity.class));
+            case R.id.about:
                 break;
             default:
-                fragmentClass = Information.class;
+                fragmentClass = HomePageCards.class;
         }
 
         transFragment();

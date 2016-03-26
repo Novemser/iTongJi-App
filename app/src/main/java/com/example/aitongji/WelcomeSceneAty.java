@@ -20,14 +20,13 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.aitongji.Home.MainActivity;
-import com.example.aitongji.Utils.CourseTable;
+import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DataBundle;
 import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
-import com.example.aitongji.Utils.InformationReq;
+import com.example.aitongji.Utils.Http.InformationReq;
 import com.rey.material.widget.CheckBox;
-import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

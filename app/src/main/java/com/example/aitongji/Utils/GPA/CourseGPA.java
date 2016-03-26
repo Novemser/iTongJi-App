@@ -1,6 +1,6 @@
 package com.example.aitongji.Utils.GPA;
 
-import com.example.aitongji.Utils.Course;
+import com.example.aitongji.Utils.Course.Course;
 
 /**
  * Created by Novemser on 3/10/2016.

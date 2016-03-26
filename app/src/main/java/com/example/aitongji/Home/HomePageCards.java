@@ -18,12 +18,12 @@ import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.example.aitongji.R;
-import com.example.aitongji.Utils.CourseTable;
+import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DataBundle;
 import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
-import com.example.aitongji.Utils.InformationReq;
+import com.example.aitongji.Utils.Http.InformationReq;
 import com.example.aitongji.WelcomeSceneAty;
 
 import java.util.ArrayList;
@@ -49,7 +49,10 @@ public class HomePageCards extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.home_fragment, container, false);
-        setBundle((DataBundle) DataHandler.getObject(MainActivity.getContext(), "dataBundle.dat"));
+        DataBundle db = (DataBundle) DataHandler.getObject(MainActivity.getContext(), "dataBundle.dat");
+        if (db != null)
+            setBundle(db);
+
         ButterKnife.bind(this, root);
 
         RecyclerView.Adapter mAdapter = new Home_Recycler_Adapter(bundle, getActivity());
@@ -67,7 +70,7 @@ public class HomePageCards extends Fragment {
                     pullRefreshLayout.setRefreshing(true);
                     updateData();
                 }
-            });
+            }).start();
         }
 
 

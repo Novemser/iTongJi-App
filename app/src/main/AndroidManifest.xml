@@ -43,9 +43,6 @@
             android:label="@string/title_activity_card__information"
             android:launchMode="singleTask" />
         <activity android:name=".Section_Information.WebActivity" />
-        <activity
-            android:name=".Home.SettingsActivity"
-            android:label="@string/title_activity_settings" />
         <activity android:name=".Section_Course.Course_Page" />
 
         <service

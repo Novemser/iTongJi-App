@@ -1,4 +1,4 @@
-package com.example.aitongji.Utils;
+package com.example.aitongji.Utils.Http;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -6,6 +6,10 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.example.aitongji.Utils.Course.CourseTable;
+import com.example.aitongji.Utils.DataBundle;
+import com.example.aitongji.WelcomeSceneAty;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -31,7 +35,6 @@ import cz.msebera.android.httpclient.cookie.Cookie;
  * Created by Novemser on 2016/2/11.
  */
 public class InformationReq {
-    private static final String BASE_URL = "http://4m3.tongji.edu.cn/";
     private static final String loginUrl_v2 = "http://tjis.tongji.edu.cn:58080/amserver/UI/Login";
     private static final String urlTest1 = "http://4m3.tongji.edu.cn/eams/home!welcome.action";
     private static final String CARD_INFO = "http://urp.tongji.edu.cn/index.portal?.pn=p84_p468_p469";
@@ -48,8 +51,6 @@ public class InformationReq {
     private ArrayList<String> info_title = new ArrayList<>();
     private ArrayList<String> info_time = new ArrayList<>();
     private ArrayList<String> info_id = new ArrayList<>();
-
-    private Bundle bundle;
 
     private DataBundle dataBundle;
 
@@ -257,16 +258,6 @@ public class InformationReq {
 
             private void setBundle() {
                 dataBundle = new DataBundle(username, password, time_today, time_week, card_rest, course_table_str, info_title, info_time, info_id);
-//                bundle = new Bundle();
-//                bundle.putString("username", username);
-//                bundle.putString("password", password);
-//                bundle.putStringArrayList("infoTitle", info_title);
-//                bundle.putStringArrayList("infoTime", info_time);
-//                bundle.putString("timeToday", time_today);
-//                bundle.putString("timeWeek", time_week);
-//                bundle.putString("cardRest", card_rest);
-//                bundle.putStringArrayList("info_id", info_id);
-//                bundle.putString("course_table_str", course_table_str);
             }
 
             @Override

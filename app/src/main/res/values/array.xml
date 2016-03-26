@@ -1,11 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="campus">
+        <item>请选择校区</item>
         <item>四平路校区</item>
         <item>嘉定校区</item>
         <item>同济沪西</item>
         <item>嘉定朋园</item>
         <item>彰武路校区</item>
         <item>沪北校区</item>
+    </string-array>
+
+    <string-array name="siping_building">
+        <item>楼栋</item>
+        <item>行政北楼</item>
+        <item>行政南楼</item>
+        <item>学三楼</item>
+        <item>学四楼</item>
+        <item>西北一楼</item>
+        <item>西北三楼</item>
+        <item>西北四楼</item>
+        <item>西北五楼</item>
+        <item>西南二楼</item>
+        <item>西南三楼</item>
+        <item>解放楼</item>
+        <item>青年楼</item>
+        <item>后勤工寓</item>
+        <item>赤峰路后勤2</item>
+        <item>后勤公寓三相</item>
+    </string-array>
+    
+    <string-array name="jiading_building">
+        <item>楼栋</item>
+        <item>20号公寓</item>
+        <item>19号公寓</item>
+        <item>07号公寓</item>
+        <item>08号公寓</item>
+        <item>09号公寓</item>
+        <item>10号公寓</item>
+        <item>14号公寓</item>
+        <item>12号公寓</item>
+        <item>15号公寓</item>
+        <item>13号公寓</item>
+        <item>本科6</item>
+        <item>本科5</item>
+        <item>本科4</item>
+        <item>研究3</item>
+        <item>研究2</item>
+        <item>16号公寓</item>
+        <item>17号公寓</item>
+        <item>18号公寓</item>
     </string-array>
 </resources>

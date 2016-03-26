@@ -1,4 +1,4 @@
-package com.example.aitongji.Utils;
+package com.example.aitongji.Utils.Course;
 
 import java.io.Serializable;
 import java.util.ArrayList;

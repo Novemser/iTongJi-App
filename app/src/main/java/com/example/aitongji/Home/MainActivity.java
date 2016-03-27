@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //            w.setExitTransition(new Explode());
         }
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sContext = this;

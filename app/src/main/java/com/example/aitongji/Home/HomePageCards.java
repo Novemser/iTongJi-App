@@ -61,7 +61,7 @@ public class HomePageCards extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
 
-        if (sharedPreferences.getBoolean("IS_AUTO", false)) {
+        if (sharedPreferences.getBoolean("IS_AUTO", false) && sharedPreferences.getBoolean("REFRESH", false)) {
             Log.d(TAG, "Auto updating");
 
             new Thread(new Runnable() {
@@ -69,6 +69,7 @@ public class HomePageCards extends Fragment {
                 public void run() {
                     pullRefreshLayout.setRefreshing(true);
                     updateData();
+                    sharedPreferences.edit().putBoolean("REFRESH", false).apply();
                 }
             }).start();
         }

@@ -46,6 +46,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -263,8 +264,6 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         CharSequence year = DateFormat.format("yyyy", nowDate.getTime());
         CharSequence month = DateFormat.format("MM", nowDate.getTime());
         CharSequence day = DateFormat.format("d", nowDate.getTime());
-        CharSequence hour = DateFormat.format("hh", nowDate.getTime());
-        CharSequence minutes = DateFormat.format("mm", nowDate.getTime());
 
 //        CharSequence week = getWeekOfDate(nowDate);
 //        System.out.println("Hours:" + hour + " Minutes" + minutes);
@@ -280,7 +279,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
 
         // 获得下一节课程 通过当前时间判断
         Course course = null;
-        int nowTime = Integer.parseInt(DateFormat.format("HHmm", nowDate.getTime()).toString());
+        int nowTime = Integer.parseInt(new SimpleDateFormat("HHmm").format(nowDate));
 //        System.out.println(nowTime);
         boolean flag = false;
 //        System.out.println(courses_of_today.size());

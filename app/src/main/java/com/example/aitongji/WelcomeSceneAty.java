@@ -76,7 +76,6 @@ public class WelcomeSceneAty extends AppCompatActivity {
         final MaterialProgressBar materialProgressBar = (MaterialProgressBar) findViewById(R.id.id_progressbar_welcome_circle);
         materialProgressBar.setVisibility(View.INVISIBLE);
 
-//        Picasso.with(this).load(R.drawable.login).into(bg);
         Glide.with(this).load(R.drawable.login).into(bg);
 
 //        int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
@@ -100,6 +99,8 @@ public class WelcomeSceneAty extends AppCompatActivity {
             // 自动登陆处理
             if (sharedPreferences.getBoolean("IS_AUTO", false)) {
                 cbAl.setChecked(true);
+                editor.putBoolean("REFRESH", true);
+                editor.apply();
                 startActivity(intent);
                 finish();
             }
@@ -132,6 +133,7 @@ public class WelcomeSceneAty extends AppCompatActivity {
                             // 记住用户名和密码
                             editor.putString("username", username);
                             editor.putString("password", password);
+                            editor.putBoolean("REFRESH", false);
                             editor.apply();
 
                             // 保存主要信息

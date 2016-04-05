@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -34,6 +35,7 @@ import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
+import com.example.aitongji.Utils.Global;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -247,7 +249,19 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
             cardElect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    itemView.getContext().startActivity(new Intent(itemView.getContext(), ElectricityQuery.class));
+                    new MaterialDialog.Builder(MainActivity.getContext())
+                            .title("小提示")
+                            .content("电费只能在连接校园内网时查询哦")
+                            .positiveText("好的")
+                            .negativeText("取消")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(MaterialDialog dialog, DialogAction which) {
+                                    itemView.getContext().startActivity(new Intent(itemView.getContext(), ElectricityQuery.class));
+                                }
+                            })
+                            .show();
+
                 }
             });
         }
@@ -263,7 +277,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         Date nowDate = new Date();
         CharSequence year = DateFormat.format("yyyy", nowDate.getTime());
         CharSequence month = DateFormat.format("MM", nowDate.getTime());
-        CharSequence day = DateFormat.format("d", nowDate.getTime());
+        CharSequence day = DateFormat.format("dd", nowDate.getTime());
 
 //        CharSequence week = getWeekOfDate(nowDate);
 //        System.out.println("Hours:" + hour + " Minutes" + minutes);
@@ -310,24 +324,31 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
             course = courses_of_today.get(0);
         }
 
+        // Time
         TextView textView = (TextView) view.findViewById(R.id.id_text_week);
         textView.setText(context.getString(R.string.week_num, time_week));
         textView = (TextView) view.findViewById(R.id.id_text_date_and_week);
         textView.setText(context.getString(R.string.date_and_week, year, month, day, getWeekOfDate(nowDate)));
+
+        // Course
         textView = (TextView) view.findViewById(R.id.id_text_course_time_and_name);
         textView.setText(context.getString(R.string.course_time_and_name, getStartTime(course.start_time), course.course_name));
         textView = (TextView) view.findViewById(R.id.id_text_course_place);
         textView.setText(context.getString(R.string.course_place, course.classroom));
+        textView = (TextView) view.findViewById(R.id.id_text_course_day);
+        textView.setText("周"+getWeekOfDate(course.week_num));
 
         // Information
-        textView = (TextView) view.findViewById(R.id.id_home_text_information_info_1);
-        textView.setText(info_time.get(0) + " " + info_title.get(0));
-        textView = (TextView) view.findViewById(R.id.id_home_text_information_info_2);
-        textView.setText(info_time.get(1) + " " + info_title.get(1));
-        textView = (TextView) view.findViewById(R.id.id_home_text_information_info_3);
-        textView.setText(info_time.get(2) + " " + info_title.get(2));
-        textView = (TextView) view.findViewById(R.id.id_home_text_information_info_4);
-        textView.setText(info_time.get(3) + " " + info_title.get(3));
+        if (info_time.size() >= 4 && info_title.size() >= 4) {
+            textView = (TextView) view.findViewById(R.id.id_home_text_information_info_1);
+            textView.setText(info_time.get(0) + " " + info_title.get(0));
+            textView = (TextView) view.findViewById(R.id.id_home_text_information_info_2);
+            textView.setText(info_time.get(1) + " " + info_title.get(1));
+            textView = (TextView) view.findViewById(R.id.id_home_text_information_info_3);
+            textView.setText(info_time.get(2) + " " + info_title.get(2));
+            textView = (TextView) view.findViewById(R.id.id_home_text_information_info_4);
+            textView.setText(info_time.get(3) + " " + info_title.get(3));
+        }
 
         // Card Information
         textView = (TextView) view.findViewById(R.id.id_text_card_rest);
@@ -361,6 +382,13 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         if (w < 0)
             w = 0;
         return weekDays[w];
+    }
+
+    public static String getWeekOfDate(int dt) {
+        String[] weekDays = {"一", "二", "三", "四", "五", "六", "日"};
+        if (dt < 0 || dt > 6)
+            return "";
+        return weekDays[dt];
     }
 
     public static int getWeekOfDateDecimal(Date dt) {

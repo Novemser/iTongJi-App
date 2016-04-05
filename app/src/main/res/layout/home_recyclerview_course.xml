@@ -41,11 +41,20 @@
             />
 
         <TextView
+            android:id="@+id/id_text_course_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <TextView
             android:id="@+id/id_text_course_time_and_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="8dp"
+            android:padding="4dp"
             android:text="@string/course_time_and_name"
             android:textColor="#ffffff"
             android:textSize="16sp" />

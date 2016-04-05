@@ -32,5 +32,19 @@
     <color name="home_next_class_background">#ab1656</color>
     <color name="home_gpa_table_background">#66757F</color>
 
+    <!--grey-->
+    <color name="md_grey_50">#fafafa</color>
+    <color name="md_grey_100">#f5f5f5</color>
+    <color name="md_grey_200">#eeeeee</color>
+    <color name="md_grey_300">#e0e0e0</color>
+    <color name="md_grey_400">#bdbdbd</color>
+    <color name="md_grey_500">#9e9e9e</color>
+    <color name="md_grey_600">#757575</color>
+    <color name="md_grey_700">#616161</color>
+    <color name="md_grey_800">#424242</color>
+    <color name="md_grey_900">#212121</color>
+    <color name="md_black_1000">#000000</color>
+    <color name="md_white_1000">#ffffff</color>
+
 
 </resources>

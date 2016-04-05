@@ -13,6 +13,7 @@ import android.webkit.WebViewClient;
 import com.example.aitongji.Base.ToolbarActivity;
 import com.example.aitongji.R;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.umeng.analytics.MobclickAgent;
 
 
 import java.util.ArrayList;
@@ -22,10 +23,6 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class ElectricityQuery extends ToolbarActivity {
-    //    @Bind(R.id.campus)
-//    MaterialSpinner campus;
-//    @Bind(R.id.building)
-//    MaterialSpinner building;
     @Bind(R.id.webview)
     WebView myWebView;
     @Bind(R.id.progressbar)
@@ -35,8 +32,6 @@ public class ElectricityQuery extends ToolbarActivity {
     protected int provideContentViewId() {
         return R.layout.activity_electricity_query;
     }
-
-    private String[] da;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,5 +83,17 @@ public class ElectricityQuery extends ToolbarActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

@@ -27,10 +27,6 @@
         <item name="color">@android:color/white</item>
     </style>
 
-    <style name="edit_text_id" parent="Widget.AppCompat.EditText">
-        <item name="android:background">@drawable/edit_text_id</item>
-    </style>
-
     <style name="Widget.MaterialProgressBar.ProgressBar.Horizontal" parent="android:Widget.ProgressBar.Horizontal">
         <!--
         Disabled for correct behavior on Android 4.x
@@ -87,6 +83,11 @@
         <item name="android:maxWidth">14dp</item>
         <item name="android:minHeight">14dp</item>
         <item name="android:maxHeight">14dp</item>
+    </style>
+
+    <style name="CollapsingToolbarTitleStyle"
+        parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

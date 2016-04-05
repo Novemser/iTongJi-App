@@ -22,10 +22,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.aitongji.About;
 import com.example.aitongji.R;
 import com.example.aitongji.Section_Information.Card_Rest_Notice;
 import com.example.aitongji.Service.CardRestNotice;
+import com.example.aitongji.Utils.Global;
 import com.example.aitongji.WelcomeSceneAty;
+import com.umeng.analytics.MobclickAgent;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -43,6 +49,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<Fragment> fragments;
     Fragment fragment;
     private String TAG = "MAIN ACTIVITY";
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +138,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // 正在刷新，禁止点击
+                        if (Global.isRefreshing()) {
+                            Snackbar.make(mDrawerLayout, "正在刷新数据，请稍后", Snackbar.LENGTH_SHORT).show();
+                            return false;
+                        }
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
                         selectDrawerItem(menuItem);
@@ -129,7 +152,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         );
     }
 
-    public void selectDrawerItem(MenuItem menuItem) {
+    public void selectDrawerItem(final MenuItem menuItem) {
+        getSupportActionBar().setElevation(4);
         switch (menuItem.getItemId()) {
             case R.id.drawer_home:
                 fragmentClass = HomePageCards.class;
@@ -138,16 +162,35 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 fragmentClass = Card_Rest_Notice.class;
                 break;
             case R.id.logout:
-                SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("IS_AUTO", false).apply();
-                editor.putBoolean("IS_CHECK", false).apply();
-                editor.putBoolean("IS_FIRST", true).apply();
-                CardRestNotice.cleanAllNotification();
-                startActivity(new Intent(this, WelcomeSceneAty.class));
-                finish();
+                new MaterialDialog.Builder(this)
+                        .title("提示")
+                        .content("确定要注销吗？~")
+                        .negativeText("呀,点错了")
+                        .positiveText("确定~")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(MaterialDialog dialog, DialogAction which) {
+                                SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean("IS_AUTO", false).apply();
+                                editor.putBoolean("IS_CHECK", false).apply();
+                                editor.putBoolean("IS_FIRST", true).apply();
+                                CardRestNotice.cleanAllNotification();
+                                startActivity(new Intent(MainActivity.this, WelcomeSceneAty.class));
+                                finish();
+                            }
+                        })
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(MaterialDialog dialog, DialogAction which) {
+                                menuItem.setChecked(false);
+                            }
+                        })
+                        .show();
                 break;
             case R.id.about:
+                fragmentClass = About.class;
+                getSupportActionBar().setElevation(0);
                 break;
             default:
                 fragmentClass = HomePageCards.class;

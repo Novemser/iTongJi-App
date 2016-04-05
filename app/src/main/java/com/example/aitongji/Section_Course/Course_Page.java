@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.transition.Explode;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -22,8 +24,11 @@ import com.example.aitongji.R;
 import com.example.aitongji.Utils.Course.Course;
 import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DensityUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +37,20 @@ public class Course_Page extends AppCompatActivity implements ScrollViewListener
 
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout collapsingToolbarLayout;
+    @Bind(R.id.month)
+    TextView tvMonth;
+    @Bind(R.id.course_week)
+    TextView time_week_tv;
+    @Bind(R.id.left_week)
+    TextView lfWeek;
+    @Bind(R.id.right_week)
+    TextView rgWeek;
+    @Bind(R.id.courses)
+    CourseLayout layout;
+    @Bind(R.id.scrollView_1)
+    ObservableScrollView sv1;
+    @Bind(R.id.scrollView_2)
+    ObservableScrollView sv2;
 
     private int[] bg = {
             R.drawable.kb1,
@@ -41,26 +60,72 @@ public class Course_Page extends AppCompatActivity implements ScrollViewListener
             R.drawable.kb5,
             R.drawable.kb6,
             R.drawable.kb7};
-    private CourseLayout layout;
-    private TextView time_week_tv;
-    private ObservableScrollView sv1, sv2;
-    private int height;//布局高度
+
     private int week;
+    private int nowWeek;
+    Calendar calendar = Calendar.getInstance();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_page);
         ButterKnife.bind(this);
+        // 切换周数
+        lfWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (week == 1)
+                    return;
+                calendar.add(Calendar.DATE, -7);
+                week -= 1;
+                setContent();
+                if (nowWeek != week)
+                    time_week_tv.setText("第 " + String.valueOf(week) + " 周(非本周)");
+            }
+        });
+
+        rgWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendar.add(Calendar.DATE, 7);
+                week += 1;
+                setContent();
+                if (nowWeek != week)
+                    time_week_tv.setText("第 " + String.valueOf(week) + " 周(非本周)");
+            }
+        });
 
         collapsingToolbarLayout.setTitle("我的课表");
 
-        time_week_tv = (TextView) findViewById(R.id.course_week);
-        time_week_tv.setText("第" + getIntent().getStringExtra("time_week") + "周");
-        height = DensityUtil.dip2px(getApplicationContext(), 600);//默认高度600dp
-        week = Integer.parseInt(getIntent().getStringExtra("time_week"));
+        // 设置周数
+        nowWeek = week = Integer.parseInt(getIntent().getStringExtra("time_week"));
 
-        layout = (CourseLayout) findViewById(R.id.courses);
+        setContent();
+
+        sv1.setOnScrollViewListener(this);
+        sv2.setOnScrollViewListener(this);
+    }
+
+    private void setContent() {
+        layout.removeAllViews();
+
+        Date nowDate = calendar.getTime();
+        CharSequence month = DateFormat.format("MM", nowDate.getTime());
+        tvMonth.setText(month + "月");
+        time_week_tv.setText("第 " + String.valueOf(week) + " 周");
+
         ArrayList<ArrayList<Course>> courseTable = CourseTable.getInstance().course_table;
         for (int i = 0; i < courseTable.size(); i++) {
             for (int j = 0; j < courseTable.get(i).size(); j++) {
@@ -83,11 +148,6 @@ public class Course_Page extends AppCompatActivity implements ScrollViewListener
                 }
             }
         }
-
-        sv1 = (ObservableScrollView) findViewById(R.id.scrollView_1);
-        sv2 = (ObservableScrollView) findViewById(R.id.scrollView_2);
-        sv1.setOnScrollViewListener(this);
-        sv2.setOnScrollViewListener(this);
     }
 
     public static int getRandom(int max) {

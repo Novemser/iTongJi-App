@@ -16,8 +16,20 @@ import android.view.Window;
 
 import com.example.aitongji.Base.ToolbarActivity;
 import com.example.aitongji.R;
+import com.umeng.analytics.MobclickAgent;
 
 public class Card_Information extends ToolbarActivity {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     protected int provideContentViewId() {

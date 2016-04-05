@@ -1,7 +1,6 @@
 package com.example.aitongji.Home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,10 +22,13 @@ import com.example.aitongji.Utils.DataBundle;
 import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
+import com.example.aitongji.Utils.Global;
 import com.example.aitongji.Utils.Http.InformationReq;
 import com.example.aitongji.WelcomeSceneAty;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,7 +63,14 @@ public class HomePageCards extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
 
-        if (sharedPreferences.getBoolean("IS_AUTO", false) && sharedPreferences.getBoolean("REFRESH", false)) {
+        int refDate = Integer.parseInt(sharedPreferences.getString("REFRESH_DATE", "-1"));
+        int refYear = Integer.parseInt(sharedPreferences.getString("REFRESH_YEAR", "-1"));
+        SimpleDateFormat sdf = new SimpleDateFormat("D");
+        final Date now = new Date();
+        final int day = Integer.parseInt(sdf.format(now));
+        int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(now));
+
+        if (sharedPreferences.getBoolean("IS_AUTO", false) && (day - refDate) >= 1 || year != refYear) {
             Log.d(TAG, "Auto updating");
 
             new Thread(new Runnable() {
@@ -69,16 +78,22 @@ public class HomePageCards extends Fragment {
                 public void run() {
                     pullRefreshLayout.setRefreshing(true);
                     updateData();
-                    sharedPreferences.edit().putBoolean("REFRESH", false).apply();
+                    sharedPreferences.edit().putString("REFRESH_DATE", String.valueOf(day)).apply();
+                    sharedPreferences.edit().putString("REFRESH_YEAR", new SimpleDateFormat("yyyy").format(now)).apply();
                 }
             }).start();
         }
 
 
-            pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    updateData();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateData();
+                        }
+                    }).start();
                 }
             });
 
@@ -86,11 +101,19 @@ public class HomePageCards extends Fragment {
     }
 
     private void updateData() {
+        Log.d("Refreshing", "Start");
+        Global.setIsRefreshing(true);
         new InformationReq(sharedPreferences.getString("username", ""), sharedPreferences.getString("password", ""), new InformationReq.SuccessCallback() {
             @Override
             public void onSuccess(final DataBundle dataBundle) {
                 Log.d("Login to 4m3", "Login Succeed");
                 // 保存主要信息
+                if (getActivity() == null || getActivity().getApplicationContext() == null) {
+                    Log.d("Refreshing", "Stop");
+                    Global.setIsRefreshing(false);
+                    return;
+                }
+
                 DataHandler.saveObject(getActivity().getApplicationContext(), "dataBundle.dat", dataBundle);
                 setBundle(dataBundle);
 
@@ -106,12 +129,16 @@ public class HomePageCards extends Fragment {
                         mRecyclerView.invalidate();
                         pullRefreshLayout.setRefreshing(false);
                         Snackbar.make(mRecyclerView, "刷新成功", Snackbar.LENGTH_SHORT).show();
+
+                        Global.setIsRefreshing(false);
                     }
                 }, new GetGPA.FailureCallback() {
                     @Override
                     public void onFailure() {
                         Snackbar.make(mRecyclerView, "多次登陆失败 请稍后再试", Snackbar.LENGTH_SHORT).show();
                         pullRefreshLayout.setRefreshing(false);
+
+                        Global.setIsRefreshing(false);
                     }
                 });
 
@@ -122,6 +149,8 @@ public class HomePageCards extends Fragment {
             public void onFailure() {
                 Snackbar.make(mRecyclerView, "登陆失败 请检查网络/密码后重试", Snackbar.LENGTH_SHORT).show();
                 pullRefreshLayout.setRefreshing(false);
+
+                Global.setIsRefreshing(false);
             }
         });
     }

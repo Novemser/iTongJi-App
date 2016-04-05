@@ -1,6 +1,8 @@
 package com.example.aitongji.Section_GPA;
 
 import android.app.ActionBar;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,14 +23,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.R;
+import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.CourseGPA;
+import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
+import com.example.aitongji.Utils.ScreenShot;
 import com.github.mikephil.charting.data.Entry;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,8 +50,22 @@ public class GPATable extends AppCompatActivity {
     TableLayout tableLayout;
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout collapsingToolbarLayout;
+    @Bind(R.id.ic_school)
+    ImageView is;
 
     private StudentGPA studentGPA;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +83,41 @@ public class GPATable extends AppCompatActivity {
 
         collapsingToolbarLayout.setTitle("我的成绩");
 
+        // 刷新课表
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                String username = sharedPreferences.getString("username", "");
+                String password = sharedPreferences.getString("password", "");
+                Snackbar.make(tableLayout, "正在更新…", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
+
+                new GetGPA(getApplicationContext(), username, password, new GetGPA.SuccessCallback() {
+                    @Override
+                    public void onSuccess(StudentGPA sg) {
+                        studentGPA = sg;
+                        DataHandler.saveObject(getApplicationContext(), "studentGPA.dat", sg);
+                        tableLayout.removeAllViews();
+                        setTableContent();
+                        Snackbar.make(tableLayout, "更新成功", Snackbar.LENGTH_SHORT)
+                                .setAction("Action", null).show();
+                    }
+                }, new GetGPA.FailureCallback() {
+                    @Override
+                    public void onFailure() {
+                        Snackbar.make(tableLayout, "更新失败", Snackbar.LENGTH_SHORT)
+                                .setAction("Action", null).show();
+                    }
+                });
             }
         });
+
+        setTableContent();
+
+    }
+
+    private void setTableContent() {
         TableRow header = new TableRow(this);
         header.addView(new TextView(this));
         tableLayout.addView(header);

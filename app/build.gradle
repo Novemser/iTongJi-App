@@ -7,10 +7,10 @@ android {
         applicationId "com.example.aitongji"
         renderscriptTargetApi 22
         renderscriptSupportModeEnabled true
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "0.1 Beta"
     }
     aaptOptions {
         additionalParameters "--no-version-vectors"
@@ -57,4 +57,5 @@ dependencies {
     compile 'com.github.afollestad.material-dialogs:core:0.8.5.7@aar'
     compile 'com.github.afollestad.material-dialogs:commons:0.8.5.7@aar'
     compile 'com.jaredrummler:material-spinner:1.0.5'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

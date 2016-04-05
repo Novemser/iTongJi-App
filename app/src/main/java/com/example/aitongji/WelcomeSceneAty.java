@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -27,6 +28,10 @@ import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.Http.InformationReq;
 import com.rey.material.widget.CheckBox;
+import com.umeng.analytics.MobclickAgent;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,8 +64,15 @@ public class WelcomeSceneAty extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Glide.with(this).load(R.drawable.login).into(bg);
-
+        MobclickAgent.onResume(this);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +111,6 @@ public class WelcomeSceneAty extends AppCompatActivity {
             // 自动登陆处理
             if (sharedPreferences.getBoolean("IS_AUTO", false)) {
                 cbAl.setChecked(true);
-                editor.putBoolean("REFRESH", true);
-                editor.apply();
                 startActivity(intent);
                 finish();
             }

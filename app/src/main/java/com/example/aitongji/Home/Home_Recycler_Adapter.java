@@ -117,7 +117,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
             ArrayList<Entry> vals = new ArrayList<>();
             ArrayList<String> xVals = new ArrayList<>();
             for (int i = 0; i < studentGPA.semesters.size(); i++) {
-                Log.d(TAG, "Semaster " + i + " has " + studentGPA.semesters.get(i).courseGPAs.size() + " courses.");
+//                Log.d(TAG, "Semester " + i + " has " + studentGPA.semesters.get(i).courseGPAs.size() + " courses.");
                 vals.add(new Entry(studentGPA.semesters.get(i).semaster_gpa, i));
                 xVals.add("Sem." + (i + 1));
             }

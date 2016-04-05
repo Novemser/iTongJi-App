@@ -112,14 +112,10 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_gpatable">GPATable</string>
 
-
+    <string name="version">Version 0.2</string>
     <string name="introduce">iTongJi是一款集合很多查询功能的App，包括获取选课网通知、校园卡余额、寝室用电情况、课表、免验证码查询绩点等，旨在帮助大家更方便快捷的获取这些较为常用的信息\n\n如果你对本应用有任何的意见或建议，请发送邮件至Novemser@gmail.com，我会努力让iTongJi变的更好:)</string>
-    <string name="share">分享给朋友（谢谢QAQ）</string>
-    <string name="share_text">Null</string>
     <string name="developers">开发人员</string>
-    <string name="developer_contributor">Android Contributor</string>
-    <string name="developer_and_designer">主要 Android 开发 &amp; 设计</string>
-    <string name="developer_service">主要服务端开发</string>
+    <string name="developer_and_designer">Novemser\n主要 Android 开发 &amp; 设计</string>
     <string name="open_source_lis">用到的开源库（后续会补充协议）</string>
     <string name="introduce_and_help">介绍与帮助</string>
 

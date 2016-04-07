@@ -1,8 +1,6 @@
 package com.example.aitongji.Section_Elect;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -12,11 +10,7 @@ import android.webkit.WebViewClient;
 
 import com.example.aitongji.Base.ToolbarActivity;
 import com.example.aitongji.R;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.umeng.analytics.MobclickAgent;
-
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

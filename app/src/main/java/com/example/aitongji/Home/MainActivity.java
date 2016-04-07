@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Cannot use this with action bar, so
         // mind the styles.xml
         Toolbar toolbar = (Toolbar) findViewById(R.id.myToolBar);
-        toolbar.setNavigationIcon(R.drawable.ic_drawer);
         toolbar.setTitle("iTongJi");
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         toolbar.setSubtitleTextColor(Color.parseColor("#ffffff"));

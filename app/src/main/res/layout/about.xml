@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -137,26 +136,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
-                android:text="@string/open_source_lis"
+                android:text="@string/share"
                 android:textColor="@color/md_grey_600" />
 
             <RelativeLayout
+                android:id="@+id/share_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_card_nopic"
-                android:padding="16dp">
+                android:background="@drawable/bg_card_nopic">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/open_source_lis"
-                    android:textColor="@color/md_grey_600"
-                    android:textSize="@dimen/open_source_lis_text_size"
-                    tools:ignore="HardcodedText" />
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="12dp"
+                    android:padding="16dp"
+                    android:text="@string/share_text" />
 
             </RelativeLayout>
-
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/id_card_course"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/id_card_course"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginEnd="16dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="16dp"
     android:layout_marginStart="4dp"
     android:layout_marginTop="8dp"
     android:clickable="true"
@@ -31,14 +33,13 @@
             android:textSize="18sp" />
 
         <ImageView
+            android:id="@+id/ic_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/ic_alarm"
-            android:transitionName="alarm"
-            android:src="@drawable/ic_alarm_white_48dp"
             android:paddingBottom="16dp"
-            />
+            android:src="@drawable/ic_alarm_white_48dp"
+            android:transitionName="alarm" />
 
         <TextView
             android:id="@+id/id_text_course_day"
@@ -72,11 +73,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/course_detail"
             android:gravity="center"
-            android:textColor="#ffffff"
+            android:paddingBottom="16dp"
             android:paddingTop="24dp"
-            android:paddingBottom="16dp"/>
+            android:text="@string/course_detail"
+            android:textColor="#ffffff" />
     </LinearLayout>
 
 

@@ -47,7 +47,7 @@
     <string name="title_activity_settings">Settings</string>
 
     <string name="card_rest_low">低余额自动提醒</string>
-    <string name="card_rest_low_sum">当校园卡内的余额低于一定值时，会自动向您推送通知</string>
+    <string name="card_rest_low_sum">当校园卡内的余额低于一定值时，会自动向您推送通知，每隔半小时一次</string>
     <string name="card_rest_value">余额低于此值时提醒</string>
 
     <string name="gpa_detail">查看全部课程&#160;></string>
@@ -112,11 +112,12 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_gpatable">GPATable</string>
 
-    <string name="version">Version 0.2</string>
+    <string name="version">Version 0.3</string>
     <string name="introduce">iTongJi是一款集合很多查询功能的App，包括获取选课网通知、校园卡余额、寝室用电情况、课表、免验证码查询绩点等，旨在帮助大家更方便快捷的获取这些较为常用的信息\n\n如果你对本应用有任何的意见或建议，请发送邮件至Novemser@gmail.com，我会努力让iTongJi变的更好:)</string>
     <string name="developers">开发人员</string>
+    <string name="share">分享应用</string>
+    <string name="share_text">觉得好用？快告诉小伙伴们吧~ O(∩_∩)O谢谢</string>
     <string name="developer_and_designer">Novemser\n主要 Android 开发 &amp; 设计</string>
-    <string name="open_source_lis">用到的开源库（后续会补充协议）</string>
     <string name="introduce_and_help">介绍与帮助</string>
 
 </resources>

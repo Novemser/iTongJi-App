@@ -334,14 +334,4 @@
         </com.example.aitongji.Section_Course.ObservableScrollView>
     </LinearLayout>
 
-    <!--<ScrollView-->
-    <!--android:id="@+id/scrollview"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:scrollbars="none">-->
-
-    <!-- -->
-
-    <!--</ScrollView>-->
-
 </LinearLayout>

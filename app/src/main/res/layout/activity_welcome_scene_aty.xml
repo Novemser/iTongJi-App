@@ -77,6 +77,7 @@
                     android:gravity="center"
                     android:id="@+id/id_checkbox_rp"
                     android:text="记住密码"
+                    android:layout_marginRight="24dp"
                     android:layout_marginEnd="24dp"
                     android:textSize="16sp"
                     android:textColor="#ffffff" />
@@ -110,6 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:indeterminate="true"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginStart="40dp"
                     android:layout_gravity="center_vertical"
                     style="@style/Widget.MaterialProgressBar.ProgressBar.NoPadding" />

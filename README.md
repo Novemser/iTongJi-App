@@ -1,7 +1,8 @@
 iTongJi
 ==============================
 ![main](https://github.com/Novemser/iTongJi-App/blob/master/Img/love.jpg)  
-An Android application which is aiming at helping the students of Tongji University with their everyday lives.     如果你对本应用有任何的意见或建议，请发送邮件至Novemser@gmail.com，我会努力让iTongJi变的更好:)
+An Android application which is aiming at helping the students of Tongji University with their everyday lives.     
+如果你对本应用有任何的意见或建议，请发送邮件至Novemser@gmail.com，我会努力让iTongJi变的更好:)
 
 
 v0.3.1版本更新:

@@ -29,7 +29,7 @@ v0.2版本更新:
 
 
 
-- v0.1 Beta 测试版正式上线
+v0.1 Beta 测试版正式上线
 --------------------
 - 下载地址 http://zhushou.360.cn/detail/index/soft_id/3252384
 

@@ -60,9 +60,12 @@
         <activity android:name=".Section_Elect.ElectricityQuery" />
 
         <service
-            android:name=".Service.GPAAutoUpdate"
-            android:enabled="true"
-            android:exported="true"/>
+            android:name="com.qihoo.appstore.updatelib.CheckUpdateService"
+            android:exported="false" />
+        <activity
+            android:name="com.qihoo.appstore.updatelib.CheckUpdateAcitivty"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent"/>
 
         <meta-data android:value="5700b555e0f55ae179001e0e" android:name="UMENG_APPKEY"></meta-data>
         <meta-data android:value="General" android:name="UMENG_CHANNEL"/>

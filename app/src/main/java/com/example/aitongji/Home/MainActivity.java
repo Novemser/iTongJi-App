@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.example.aitongji.Section_Information.Card_Rest_Notice;
 import com.example.aitongji.Service.CardRestNotice;
 import com.example.aitongji.Utils.Global;
 import com.example.aitongji.WelcomeSceneAty;
+import com.qihoo.appstore.updatelib.UpdateManager;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -130,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
+        Log.d("UD", "UD start");
+        UpdateManager.setDebug(true);
+        UpdateManager.checkUpdate(this);
+        Log.d("UD", "UD end");
     }
 
     public void setUpContent(NavigationView mNavigationView) {

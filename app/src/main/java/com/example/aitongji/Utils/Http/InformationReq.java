@@ -1,15 +1,15 @@
 package com.example.aitongji.Utils.Http;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
+import android.os.Looper;
 
 import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DataBundle;
-import com.example.aitongji.WelcomeSceneAty;
+import com.example.aitongji.Utils.Global;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import cz.msebera.android.httpclient.cookie.Cookie;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Novemser on 2016/2/11.
@@ -41,6 +41,10 @@ public class InformationReq {
     private static final String CARD_DETAIL = "http://urp.tongji.edu.cn/index.portal?.p=Znxjb20ud2lzY29tLnBvcnRhbC5zaXRlLnYyLmltcGwuRnJhZ21lbnRXaW5kb3d8ZjEwODJ8dmlld3xub3JtYWx8YWN0aW9uPXBlcnNvbmFsU2FsYXJ5UXVlcnk_";
     private static final String COURSE_INFO = "http://4m3.tongji.edu.cn/eams/courseTableForStd!courseTable.action";
     private static final String COURSE_INFO_IDS = "http://4m3.tongji.edu.cn/eams/courseTableForStd.action";
+    private static final String CARD_LOGIN_1 = "http://urp.tongji.edu.cn/";
+    private static final String CARD_LOGIN_2 = "http://urp.tongji.edu.cn/index.portal";
+    private static final String CARD_LOGIN = "https://ids.tongji.edu.cn:8443/nidp/idff/sso?sid=0&sid=0";
+    private static final String CARD_LOGIN_3 = "https://ids.tongji.edu.cn:8443/nidp/idff/sso?sid=0";
 
     private String time_today = null;
     private String time_week = null;
@@ -99,23 +103,166 @@ public class InformationReq {
                         info_id.add(matcher.group(1));
                     }
 
-                    // 匹配卡内余额
-                    Connection connectCardInfo = Jsoup.connect(CARD_INFO);
-                    for (Map.Entry<String, String> entry : cookies.entrySet()) {
-                        // 设置cookies
-                        connectCardInfo.cookie(entry.getKey(), entry.getValue());
-                    }
-                    Connection.Response cardInfoResponse = connectCardInfo.method(Connection.Method.GET).timeout(10000).execute();
-                    CharSequence card_info_raw = cardInfoResponse.parse().body().getElementsByClass("portletContent").html();
-                    pattern = Pattern.compile("<td>(.+?)</td>");
-                    matcher = pattern.matcher(card_info_raw);
-                    int cnt = 0;
-                    while (matcher.find()) {
-                        if (cnt == 12) {
-                            card_rest = matcher.group(1);
+                    // 异步请求绩点
+                    final SyncHttpClient syncHttpClient = new SyncHttpClient();
+
+                    // 设置Cookie容器，每次请求都需要清除以前保留的cookie
+                    PersistentCookieStore persistentCookieStore = new PersistentCookieStore(Global.getContext());
+                    persistentCookieStore.clear();
+                    syncHttpClient.setCookieStore(persistentCookieStore);
+                    syncHttpClient.get(CARD_LOGIN_1, new AsyncHttpResponseHandler(Looper.getMainLooper()) {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            System.out.println("Suc:" + statusCode);
+                            syncHttpClient.get(CARD_LOGIN_2, new AsyncHttpResponseHandler() {
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                                    final RequestParams params = new RequestParams();
+                                    params.put("option", "credential");
+                                    params.put("target", "http://urp.tongji.edu.cn/index.portal");
+                                    params.put("Ecom_User_ID", username);
+                                    params.put("Ecom_Password", password);
+                                    params.put("submit", "登陆");
+
+                                    syncHttpClient.post(CARD_LOGIN, params, new AsyncHttpResponseHandler() {
+                                        @Override
+                                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                                            System.out.println("Succeed:" + statusCode);
+//                                            for (Header header : headers) {
+//                                                System.out.println(header.getName() + " " + header.getValue());
+//                                            }
+
+                                            syncHttpClient.get(CARD_LOGIN_3, new AsyncHttpResponseHandler() {
+                                                @Override
+                                                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                                    // 登陆成功
+                                                    System.out.println("Succeed:" + statusCode);
+                                                    for (Header header : headers) {
+                                                        System.out.println(header.getName() + " " + header.getValue());
+                                                    }
+                                                    System.out.println(new String(responseBody));
+
+                                                    syncHttpClient.get(CARD_INFO, new AsyncHttpResponseHandler() {
+                                                        @Override
+                                                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                                                            System.out.println("Card info getting Succeed:" + statusCode);
+//                                                            System.out.println(new String(responseBody));
+
+                                                            CharSequence card_info_raw = Jsoup.parse(new String(responseBody))
+                                                                    .body().getElementsByClass("portletContent").html();
+                                                            Pattern pattern = Pattern.compile("<td>(.+?)</td>");
+                                                            Matcher matcher = pattern.matcher(card_info_raw);
+                                                            int cnt = 0;
+                                                            while (matcher.find()) {
+                                                                if (cnt == 12) {
+                                                                    card_rest = matcher.group(1);
+                                                                }
+                                                                cnt++;
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                                                            System.out.println("Card info getting failed:" + statusCode);
+//                                                            error.printStackTrace();
+
+                                                        }
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                                                    System.out.println("Fail:" + statusCode);
+//                                                    error.printStackTrace();
+
+                                                }
+                                            });
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                                            System.out.println("Fail:" + statusCode);
+//                                            error.printStackTrace();
+
+                                        }
+                                    });
+
+                                }
+
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                                    System.out.println("Fai:" + statusCode);
+//                                    error.printStackTrace();
+
+                                }
+                            });
                         }
-                        cnt++;
-                    }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                            System.out.println("Fai:" + statusCode);
+//                            error.printStackTrace();
+
+                        }
+                    });
+                    // 匹配卡内余额
+//                    Connection.Response cardLogin_1 = Jsoup.connect(CARD_LOGIN_1).method(Connection.Method.GET).timeout(10000).execute();
+//                    Map<String, String> cookies_2 = cardLogin_1.cookies();
+//                    cookies_2.put("first", "false");
+//                    System.out.println(cardLogin_1.statusCode());
+//
+//                    Connection connectLogin_2 = Jsoup.connect(CARD_LOGIN_2);
+//                    connectLogin_2.header("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6");
+//                    connectLogin_2.header("Host", "urp.tongji.edu.cn");
+//                    connectLogin_2.header("Referer", "http://urp.tongji.edu.cn/");
+//                    connectLogin_2.header("Upgrade-Insecure-Requests", "1");
+//                    connectLogin_2.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36");
+//                    for (Map.Entry<String, String> entry : cookies_2.entrySet()) {
+//                        System.out.println("Name:" + entry.getKey() + " Value:" + entry.getValue());
+//                        connectLogin_2.cookie(entry.getKey(), entry.getValue());
+//                    }
+//
+//                    Connection.Response cardLogin_2 = connectLogin_2.method(Connection.Method.GET).timeout(10000).execute();
+//                    System.out.println(cardLogin_2.parse().html());
+
+
+//                    HashMap<String, String> map = new HashMap<>();
+//                    map.put("option", "credential");
+//                    map.put("target", "http://urp.tongji.edu.cn/index.portal");
+//                    map.put("Ecom_User_ID", username);
+//                    map.put("Ecom_Password", password);
+//                    map.put("submit", "登陆");
+//
+//                    Connection.Response loginResp = Jsoup.connect(CARD_LOGIN).method(Connection.Method.POST).data(map).timeout(10000).execute();
+//                    Connection connectionLogin = Jsoup.connect(CARD_LOGIN_2);
+//                    for (Map.Entry<String, String> entry : cookies_2.entrySet()) {
+//                        // 设置cookies
+//                        connectionLogin.cookie(entry.getKey(), entry.getValue());
+//                    }
+//                    response = connectionLogin.method(Connection.Method.GET).timeout(10000).execute();
+//                    Log.d("IMP Code", String.valueOf(response.statusCode()));
+//                    for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
+//                        System.out.println("Name:" + entry.getKey() + " Value:" + entry.getValue());
+//                    }
+
+//                    Connection connectCardInfo = Jsoup.connect(CARD_INFO);
+//                    for (Map.Entry<String, String> entry : cookies.entrySet()) {
+//                        // 设置cookies
+//                        connectCardInfo.cookie(entry.getKey(), entry.getValue());
+//                    }
+//                    Connection.Response cardInfoResponse = connectCardInfo.method(Connection.Method.GET).timeout(10000).execute();
+//                    CharSequence card_info_raw = cardInfoResponse.parse().body().getElementsByClass("portletContent").html();
+//                    pattern = Pattern.compile("<td>(.+?)</td>");
+//                    matcher = pattern.matcher(card_info_raw);
+//                    int cnt = 0;
+//                    while (matcher.find()) {
+//                        if (cnt == 12) {
+//                            card_rest = matcher.group(1);
+//                        }
+//                        cnt++;
+//                    }
 
                     // 匹配最近交易额
 //                    connectCardInfo = Jsoup.connect(CARD_DETAIL);
@@ -149,6 +296,7 @@ public class InformationReq {
 //                    System.out.println(card_info_raw);
 //                    System.out.println(cardInfoResponse.statusCode());
 
+                    int cnt = 0;
                     // 匹配信息标题
                     pattern = Pattern.compile(";\">(.+?)</a></td>");
                     matcher = pattern.matcher(response.body());

@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<Fragment> fragments;
     Fragment fragment;
     private String TAG = "MAIN ACTIVITY";
+    int drawerState;
+    private MenuItem tmpMenuItem;
 
     @Override
     protected void onResume() {
@@ -121,12 +124,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                drawerState = 1;
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getSupportActionBar().setTitle(origTitle);
+                drawerState = 0;
             }
         };
 
@@ -159,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void selectDrawerItem(final MenuItem menuItem) {
         getSupportActionBar().setElevation(4);
+        tmpMenuItem = menuItem;
         switch (menuItem.getItemId()) {
             case R.id.drawer_home:
                 fragmentClass = HomePageCards.class;
@@ -238,6 +244,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (drawerState == 1) {
+                mDrawerLayout.closeDrawers();
+                drawerState = 0;
+                return true;
+            }
+
+            if (!fragmentClass.equals(HomePageCards.class)) {
+                fragmentClass = HomePageCards.class;
+                transFragment();
+                if (tmpMenuItem != null && tmpMenuItem.getItemId() != R.id.drawer_home) {
+                    tmpMenuItem.setChecked(false);
+                }
+                return true;
+            }
+
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 Snackbar.make(mNavigationView, "再按一次退出", Snackbar.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();

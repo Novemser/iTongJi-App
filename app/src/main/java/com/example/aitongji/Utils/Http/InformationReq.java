@@ -137,11 +137,11 @@ public class InformationReq {
                                                 @Override
                                                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                                                     // 登陆成功
-                                                    System.out.println("Succeed:" + statusCode);
-                                                    for (Header header : headers) {
-                                                        System.out.println(header.getName() + " " + header.getValue());
-                                                    }
-                                                    System.out.println(new String(responseBody));
+//                                                    System.out.println("Succeed:" + statusCode);
+//                                                    for (Header header : headers) {
+//                                                        System.out.println(header.getName() + " " + header.getValue());
+//                                                    }
+//                                                    System.out.println(new String(responseBody));
 
                                                     syncHttpClient.get(CARD_INFO, new AsyncHttpResponseHandler() {
                                                         @Override

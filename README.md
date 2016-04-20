@@ -4,6 +4,10 @@ iTongJi
 An Android application which is aiming at helping the students of Tongji University with their everyday lives.     
 如果你对本应用有任何的意见或建议，请发送邮件至Novemser@gmail.com，我会努力让iTongJi变的更好:)
 
+v0.3.2版本更新:
+--------------------
+- 修复了校园卡余额null的问题
+- 返回键逻辑优化
 
 v0.3.1版本更新:
 --------------------

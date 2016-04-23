@@ -18,19 +18,15 @@ iTongJi是一款为上海同济大学的同学定制的校园助手类软件
 
 
 <img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-10-48.jpg" width="300px" />
-
 <img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-13-13.png" width="300px" />
 
 <img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-06-10-43-14.png" width="300px" />
-
 <img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-14-18.png" width="300px" />
 
 <img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-14-29.png" width="300px" />
-
 <img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-14-47.png" width="300px" />
 
 <img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-13-44.png" width="300px" />
-
 <img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-14-00.png" width="300px" />
 <br>
 <br>

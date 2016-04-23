@@ -103,7 +103,7 @@ public class InformationReq {
                         info_id.add(matcher.group(1));
                     }
 
-                    // 异步请求绩点
+                    // 异步请求校园卡余额
                     final SyncHttpClient syncHttpClient = new SyncHttpClient();
 
                     // 设置Cookie容器，每次请求都需要清除以前保留的cookie

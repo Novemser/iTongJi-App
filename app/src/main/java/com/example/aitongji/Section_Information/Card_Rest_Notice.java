@@ -9,6 +9,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.R;
 import com.example.aitongji.Service.CardRestNotice;
+import com.example.aitongji.Utils.Global;
 
 /**
  * Created by Novemser on 2/25/2016.
@@ -42,8 +44,8 @@ public class Card_Rest_Notice extends PreferenceFragment {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 boolean isSelected = Boolean.parseBoolean(newValue.toString());
+                Intent serviceIntent = new Intent(MainActivity.getContext(), CardRestNotice.class);
                 if (isSelected) {
-                    Intent serviceIntent = new Intent(MainActivity.getContext(), CardRestNotice.class);
 
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -53,8 +55,10 @@ public class Card_Rest_Notice extends PreferenceFragment {
                     MainActivity.getContext().startService(serviceIntent);
                     editTextPreference.setEnabled(true);
                 } else {
+                    Log.d("switchFalse", "False");
                     editTextPreference.setEnabled(false);
                     CardRestNotice.cleanAllNotification();
+                    Global.getContext().stopService(serviceIntent);
                 }
                 return true;
             }

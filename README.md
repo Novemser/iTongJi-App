@@ -4,9 +4,13 @@ iTongJi
 An Android application which is aiming at helping the students of Tongji University with their everyday lives.     
 如果你对本应用有任何的意见或建议，请发送邮件至Novemser@gmail.com，我会努力让iTongJi变的更好:)
 
+<style>
+    img{ float:left }
+</style>
 
-<img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-10-48.jpg" alt="pic1" width="200px" />
-
+<img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-10-48.jpg" width="300px" />
+<img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-10-48.jpg" width="300px" />
+<img src="https://raw.githubusercontent.com/Novemser/iTongJi-App/master/Img/Screenshot_2016-04-04-19-10-48.jpg" width="300px" />
 v0.3.3版本更新:
 ----------------------
 - 修复了通知无法停止的问题

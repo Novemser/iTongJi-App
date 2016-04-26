@@ -9,8 +9,8 @@ android {
         renderscriptSupportModeEnabled true
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 5
-        versionName "0.3.3"
+        versionCode 6
+        versionName "0.3.4"
     }
     aaptOptions {
         additionalParameters "--no-version-vectors"

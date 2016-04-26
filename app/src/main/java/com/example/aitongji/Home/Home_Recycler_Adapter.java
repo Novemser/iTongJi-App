@@ -298,6 +298,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         boolean flag = false;
 //        System.out.println(courses_of_today.size());
         for (Course cour : courses_of_today) {
+            System.out.println(cour.course_name);
             int startTime = Integer.parseInt(getStartTime(cour.start_time).replace(":", ""));
             if (startTime > nowTime) {
                 if (cour.is_single_week == 0 || (cour.is_single_week == 1 && week % 2 == 1) || (cour.is_single_week == 2 && week % 2 == 0)) {
@@ -309,6 +310,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
 //            System.out.println(cour.course_name + " \t" + cour.week_num + cour.classroom + " \t" + cour.teacher_name + " \t" + cour.start_time + " \t" + cour.end_time);
         }
 
+        // 如果下节课程不在当日
         if (!flag) {
             int i = 1;
             while (CourseTable.getInstance().course_table.get((getWeekOfDateDecimal(nowDate) + i) % 7).size() == 0) {
@@ -321,7 +323,17 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
                     return lhs.start_time > rhs.start_time ? 1 : (lhs.start_time == rhs.start_time ? 0 : -1);
                 }
             });
-            course = courses_of_today.get(0);
+            // 找到当日最早课程，注意处理单双周逻辑
+            for (Course cour : courses_of_today) {
+//                Log.d(TAG, cour.course_name + " " + cour.is_single_week + " " + week % 2);
+                if (cour.is_single_week == 0 || (cour.is_single_week == 1 && week % 2 == 1) || (cour.is_single_week == 2 && week % 2 == 0)) {
+                    course = cour;
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+                course = courses_of_today.get(0);
         }
 
         // Time
@@ -336,7 +348,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         textView = (TextView) view.findViewById(R.id.id_text_course_place);
         textView.setText(context.getString(R.string.course_place, course.classroom));
         textView = (TextView) view.findViewById(R.id.id_text_course_day);
-        textView.setText("周"+getWeekOfDate(course.week_num));
+        textView.setText("周" + getWeekOfDate(course.week_num));
 
         // Information
         if (info_time.size() >= 4 && info_title.size() >= 4) {

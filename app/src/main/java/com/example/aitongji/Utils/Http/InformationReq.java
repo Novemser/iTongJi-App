@@ -374,6 +374,8 @@ public class InformationReq {
                             if (cnt == 8) {
                                 String[] temp = element1.text().split(" ");
                                 Collections.addAll(course_raw, temp);
+                                // TODO 你这样写明显会越界啊··· 不细看你逻辑，所以简单提下改的地方
+                                // for (int i = 0; i < temp.length - 5; i = i + 5) {
                                 for (int i = 0; i < temp.length; i = i + 5) {
                                     courseTable.addCourse(course_name, temp[i], temp[i + 1], temp[i + 2], temp[i + 3], temp[i + 4]);
                                 }

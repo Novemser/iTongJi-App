@@ -97,6 +97,11 @@ public class CardRestNotice extends Service {
                             // 保存主要信息
 //                            DataHandler.saveObject(Global.getContext(), "dataBundle.dat", dataBundle);
 //                            System.out.println("Card rest log:" + dataBundle.cardRest);
+                            if (dataBundle == null) {
+                                Log.e("Network","CardRestNotice access cardRest error!");
+                                return;
+                            }
+
                             float card_rest = Float.parseFloat(dataBundle.cardRest);
                             if (card_rest < value) {
                                 NotificationManager mn = (NotificationManager) CardRestNotice.this.getSystemService(NOTIFICATION_SERVICE);

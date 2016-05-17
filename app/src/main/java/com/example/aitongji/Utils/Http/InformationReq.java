@@ -374,9 +374,12 @@ public class InformationReq {
                             if (cnt == 8) {
                                 String[] temp = element1.text().split(" ");
                                 Collections.addAll(course_raw, temp);
-                                for (int i = 0; i < temp.length; i = i + 5) {
-                                    courseTable.addCourse(course_name, temp[i], temp[i + 1], temp[i + 2], temp[i + 3], temp[i + 4]);
-                                }
+
+//                                System.out.println("Tmp length:" + temp.length);
+                                if (temp.length >= 5)
+                                    for (int i = 0; i <= temp.length - 5; i = i + 5) {
+                                        courseTable.addCourse(course_name, temp[i], temp[i + 1], temp[i + 2], temp[i + 3], temp[i + 4]);
+                                    }
                                 break;
                             } else {
                                 cnt++;
@@ -435,8 +438,8 @@ public class InformationReq {
     /***
      * 半角转换为全角
      *
-     * @param input
-     * @return
+     * @param String input input String
+     * @return String heheda
      */
     public static String ToDBC(String input) {
         char[] c = input.toCharArray();

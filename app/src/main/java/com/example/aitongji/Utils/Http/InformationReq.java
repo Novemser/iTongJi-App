@@ -38,7 +38,9 @@ public class InformationReq {
     private static final String loginUrl_v2 = "http://tjis.tongji.edu.cn:58080/amserver/UI/Login";
     private static final String urlTest1 = "http://4m3.tongji.edu.cn/eams/home!welcome.action";
     private static final String CARD_INFO = "http://urp.tongji.edu.cn/index.portal?.pn=p84_p468_p469";
-    private static final String CARD_DETAIL = "http://urp.tongji.edu.cn/index.portal?.p=Znxjb20ud2lzY29tLnBvcnRhbC5zaXRlLnYyLmltcGwuRnJhZ21lbnRXaW5kb3d8ZjEwODJ8dmlld3xub3JtYWx8YWN0aW9uPXBlcnNvbmFsU2FsYXJ5UXVlcnk_";
+    private static final String CARD_DETAIL = "http://urp.tongji.edu.cn/index.portal?." +
+            "p=Znxjb20ud2lzY29tLnBvcnRhbC5zaXRlLnYyLmltcGwuRnJhZ21lbnRXaW5" +
+            "kb3d8ZjEwODJ8dmlld3xub3JtYWx8YWN0aW9uPXBlcnNvbmFsU2FsYXJ5UXVlcnk_";
     private static final String COURSE_INFO = "http://4m3.tongji.edu.cn/eams/courseTableForStd!courseTable.action";
     private static final String COURSE_INFO_IDS = "http://4m3.tongji.edu.cn/eams/courseTableForStd.action";
     private static final String CARD_LOGIN_1 = "http://urp.tongji.edu.cn/";
@@ -64,7 +66,8 @@ public class InformationReq {
             protected Boolean doInBackground(Void... params) {
                 Map<String, String> postValue = new HashMap<>();
                 postValue.put("goto", "http://4m3.tongji.edu.cn:80/eams/home.action");
-                postValue.put("gotoOnFail", "http://4m3.tongji.edu.cn:80/eams/login.action?error=1&username=333&password=37693cfc748049e45d87b8c7d8b9aacd");
+                postValue.put("gotoOnFail", "http://4m3.tongji.edu.cn:80/eams/login.action?" +
+                        "error=1&username=333&password=37693cfc748049e45d87b8c7d8b9aacd");
                 postValue.put("Login.Token1", username);
                 postValue.put("Login.Token2", password);
                 postValue.put("session_locale", "zh_CN");
@@ -72,7 +75,10 @@ public class InformationReq {
 
                 Connection.Response response;
                 try {
-                    response = Jsoup.connect(loginUrl_v2).method(Connection.Method.POST).data(postValue).timeout(10000).execute();
+                    response = Jsoup.connect(loginUrl_v2).method(Connection.Method.POST).
+                            data(postValue).
+                            timeout(10000).
+                            execute();
                     Pattern pattern = Pattern.compile("用户和密码错误");
                     Matcher matcher = pattern.matcher(response.parse().html());
                     if (matcher.find()) {
@@ -327,7 +333,9 @@ public class InformationReq {
                     for (Map.Entry<String, String> entry : cookies.entrySet()) {
                         connectToCourse.cookie(entry.getKey(), entry.getValue());
                     }
-                    Connection.Response courseIdsResponse = connectToCourse.method(Connection.Method.GET).timeout(10000).execute();
+                    Connection.Response courseIdsResponse = connectToCourse.
+                            method(Connection.Method.GET).
+                            timeout(10000).execute();
                     String courseIDS_raw = courseIdsResponse.body();
                     pattern = Pattern.compile("\"ids\",\"(.*?)\"");
                     matcher = pattern.matcher(courseIDS_raw);
@@ -352,7 +360,12 @@ public class InformationReq {
                         // 设置cookies
                         connectionCourseTable.cookie(entry.getKey(), entry.getValue());
                     }
-                    Connection.Response courseTableResponse = connectionCourseTable.method(Connection.Method.POST).data(postValue).timeout(10000).execute();
+                    Connection.Response courseTableResponse =
+                            connectionCourseTable.
+                                    method(Connection.Method.POST).
+                                    data(postValue).
+                                    timeout(10000).
+                                    execute();
                     Document document = courseTableResponse.parse();
                     // 删除上面的课表
 //                    document.select("#manualArrangeCourseTable").remove();
@@ -374,12 +387,6 @@ public class InformationReq {
                             if (cnt == 8) {
                                 String[] temp = element1.text().split(" ");
                                 Collections.addAll(course_raw, temp);
-
-//                                System.out.println("Tmp length:" + temp.length);
-                                if (temp.length >= 5)
-                                    for (int i = 0; i <= temp.length - 5; i = i + 5) {
-                                        courseTable.addCourse(course_name, temp[i], temp[i + 1], temp[i + 2], temp[i + 3], temp[i + 4]);
-                                    }
 
                                 // TODO 你这样写明显会越界啊··· 不细看你逻辑，所以简单提下改的地方
                                 // TODO yes，。。。。I am zhizhang..

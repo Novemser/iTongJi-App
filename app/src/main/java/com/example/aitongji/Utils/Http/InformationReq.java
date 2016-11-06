@@ -36,6 +36,8 @@ import cz.msebera.android.httpclient.Header;
  * Created by Novemser on 2016/2/11.
  */
 public class InformationReq {
+    private static final String login4m3 = "http://4m3.tongji.edu.cn/eams/samlCheck";
+
     private static final String loginUrl_v2 = "http://tjis.tongji.edu.cn:58080/amserver/UI/Login";
     private static final String urlTest1 = "http://4m3.tongji.edu.cn/eams/home!welcome.action";
     private static final String CARD_INFO = "http://urp.tongji.edu.cn/index.portal?.pn=p84_p468_p469";

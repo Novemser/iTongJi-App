@@ -26,6 +26,7 @@ import com.example.aitongji.Utils.DataBundle;
 import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
+import com.example.aitongji.Utils.Global;
 import com.example.aitongji.Utils.Http.InformationReq;
 import com.rey.material.widget.CheckBox;
 import com.umeng.analytics.MobclickAgent;
@@ -147,13 +148,15 @@ public class WelcomeSceneAty extends AppCompatActivity {
                             editor.apply();
 
                             // 保存主要信息
-                            DataHandler.saveObject(WelcomeSceneAty.this.getBaseContext(), "dataBundle.dat", dataBundle);
+                            //DataHandler.saveObject(WelcomeSceneAty.this.getApplicationContext(), "dataBundle.dat", dataBundle);
+                            Global.dataBundle = dataBundle;
 
                             // 尝试拉绩点
                             new GetGPA(getApplicationContext(), username, password, new GetGPA.SuccessCallback() {
                                 @Override
                                 public void onSuccess(StudentGPA studentGPA) {
-                                    DataHandler.saveObject(WelcomeSceneAty.this.getBaseContext(), "studentGPA.dat", studentGPA);
+                                    Global.studentGPA = studentGPA;
+                                    //DataHandler.saveObject(WelcomeSceneAty.this.getApplicationContext(), "studentGPA.dat", studentGPA);
                                     startActivity(intent);
                                     finish();
                                 }

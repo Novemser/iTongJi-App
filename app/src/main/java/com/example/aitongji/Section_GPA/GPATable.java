@@ -34,6 +34,7 @@ import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
+import com.example.aitongji.Utils.Global;
 import com.example.aitongji.Utils.ScreenShot;
 import com.github.mikephil.charting.data.Entry;
 import com.umeng.analytics.MobclickAgent;
@@ -97,7 +98,8 @@ public class GPATable extends AppCompatActivity {
                     @Override
                     public void onSuccess(StudentGPA sg) {
                         studentGPA = sg;
-                        DataHandler.saveObject(getApplicationContext(), "studentGPA.dat", sg);
+                        Global.studentGPA = sg;
+                        //DataHandler.saveObject(getApplicationContext(), "studentGPA.dat", sg);
                         tableLayout.removeAllViews();
                         setTableContent();
                         Snackbar.make(tableLayout, "更新成功", Snackbar.LENGTH_SHORT)

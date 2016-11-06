@@ -63,9 +63,9 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
  * Created by Novemser on 2016/2/1.
  */
 public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Adapter.ViewHolder> {
-    private String time_today = null;
-    private String time_week = null;
-    private String card_rest = null;
+    private String time_today;
+    private String time_week;
+    private String card_rest;
     private String username;
     private String password;
     private String course_table_str;
@@ -89,7 +89,14 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         password = infoBundle.getString("password");
         info_id = infoBundle.getStringArrayList("info_id");
         course_table_str = infoBundle.getString("course_table_str");
-        week = Integer.parseInt(time_week);
+        try {
+            week = Integer.parseInt(time_week);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            week = 0;
+        }
         this.activity = activity;
     }
 
@@ -174,7 +181,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            studentGPA = (StudentGPA) DataHandler.getObject(MainActivity.getContext(), "studentGPA.dat");
+            studentGPA = Global.studentGPA;
 
             cardInformation.setOnClickListener(new View.OnClickListener() {
                 @Override

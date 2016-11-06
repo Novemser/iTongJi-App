@@ -51,7 +51,7 @@ public class HomePageCards extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.home_fragment, container, false);
-        DataBundle db = (DataBundle) DataHandler.getObject(MainActivity.getContext(), "dataBundle.dat");
+        DataBundle db = Global.dataBundle;
         if (db != null)
             setBundle(db);
 
@@ -114,14 +114,16 @@ public class HomePageCards extends Fragment {
                     return;
                 }
 
-                DataHandler.saveObject(getActivity().getApplicationContext(), "dataBundle.dat", dataBundle);
+                Global.dataBundle = dataBundle;
+                //DataHandler.saveObject(getActivity().getApplicationContext(), "dataBundle.dat", dataBundle);
                 setBundle(dataBundle);
 
                 // 尝试拉绩点
                 new GetGPA(getActivity().getApplicationContext(), sharedPreferences.getString("username", ""), sharedPreferences.getString("password", ""), new GetGPA.SuccessCallback() {
                     @Override
                     public void onSuccess(StudentGPA studentGPA) {
-                        DataHandler.saveObject(getActivity().getApplicationContext(), "studentGPA.dat", studentGPA);
+                        Global.studentGPA = studentGPA;
+                        //DataHandler.saveObject(getActivity().getApplicationContext(), "studentGPA.dat", studentGPA);
 
                         Home_Recycler_Adapter adapter = new Home_Recycler_Adapter(bundle, getActivity());
                         mRecyclerView.setAdapter(adapter);

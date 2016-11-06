@@ -95,6 +95,7 @@ public class CardRestNotice extends Service {
                         @Override
                         public void onSuccess(DataBundle dataBundle) {
                             // 保存主要信息
+                            Global.dataBundle = dataBundle;
 //                            DataHandler.saveObject(Global.getContext(), "dataBundle.dat", dataBundle);
 //                            System.out.println("Card rest log:" + dataBundle.cardRest);
                             // TODO  fix 1 只是简单的处理，网络层有点乱··

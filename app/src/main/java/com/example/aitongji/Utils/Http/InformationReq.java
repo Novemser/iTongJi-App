@@ -3,9 +3,8 @@ package com.example.aitongji.Utils.Http;
 import android.os.AsyncTask;
 import android.os.Looper;
 
-import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DataBundle;
-import com.example.aitongji.Utils.Global;
+import com.example.aitongji.Utils.AndroidResource;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
@@ -13,17 +12,8 @@ import com.loopj.android.http.SyncHttpClient;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -116,7 +106,7 @@ public class InformationReq {
                     final SyncHttpClient syncHttpClient = new SyncHttpClient();
 
                     // 设置Cookie容器，每次请求都需要清除以前保留的cookie
-                    PersistentCookieStore persistentCookieStore = new PersistentCookieStore(Global.getContext());
+                    PersistentCookieStore persistentCookieStore = new PersistentCookieStore(AndroidResource.getContext());
                     persistentCookieStore.clear();
                     syncHttpClient.setCookieStore(persistentCookieStore);
                     syncHttpClient.get(CARD_LOGIN_1, new AsyncHttpResponseHandler(Looper.getMainLooper()) {

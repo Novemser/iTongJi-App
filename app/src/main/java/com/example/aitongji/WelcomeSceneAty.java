@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -21,18 +20,15 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.aitongji.Home.MainActivity;
+import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DataBundle;
-import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
-import com.example.aitongji.Utils.Global;
 import com.example.aitongji.Utils.Http.InformationReq;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.rey.material.widget.CheckBox;
 import com.umeng.analytics.MobclickAgent;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -133,6 +129,8 @@ public class WelcomeSceneAty extends AppCompatActivity {
                     materialProgressBar.setVisibility(View.VISIBLE);
                     username = etAccount.getText().toString();
                     password = etPW.getText().toString();
+                    ResourceManager.getInstance().setUserName(username);
+                    ResourceManager.getInstance().setUserPwd(password);
 
                     new InformationReq(username, password, new InformationReq.SuccessCallback() {
                         @Override
@@ -148,15 +146,15 @@ public class WelcomeSceneAty extends AppCompatActivity {
                             editor.apply();
 
                             // 保存主要信息
-                            //DataHandler.saveObject(WelcomeSceneAty.this.getApplicationContext(), "dataBundle.dat", dataBundle);
-                            Global.dataBundle = dataBundle;
+                            //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "dataBundle.dat", dataBundle);
+                            AndroidResource.dataBundle = dataBundle;
 
                             // 尝试拉绩点
                             new GetGPA(getApplicationContext(), username, password, new GetGPA.SuccessCallback() {
                                 @Override
                                 public void onSuccess(StudentGPA studentGPA) {
-                                    Global.studentGPA = studentGPA;
-                                    //DataHandler.saveObject(WelcomeSceneAty.this.getApplicationContext(), "studentGPA.dat", studentGPA);
+                                    AndroidResource.studentGPA = studentGPA;
+                                    //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "studentGPA.dat", studentGPA);
                                     startActivity(intent);
                                     finish();
                                 }

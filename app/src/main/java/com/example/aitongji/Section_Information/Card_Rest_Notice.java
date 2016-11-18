@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.R;
 import com.example.aitongji.Service.CardRestNotice;
-import com.example.aitongji.Utils.Global;
+import com.example.aitongji.Utils.AndroidResource;
 
 /**
  * Created by Novemser on 2/25/2016.
@@ -58,7 +58,7 @@ public class Card_Rest_Notice extends PreferenceFragment {
                     Log.d("switchFalse", "False");
                     editTextPreference.setEnabled(false);
                     CardRestNotice.cleanAllNotification();
-                    Global.getContext().stopService(serviceIntent);
+                    AndroidResource.getContext().stopService(serviceIntent);
                 }
                 return true;
             }

@@ -1,8 +1,6 @@
 package com.example.aitongji.Section_GPA;
 
-import android.app.ActionBar;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.CollapsibleActionView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -19,24 +16,18 @@ import android.text.style.ForegroundColorSpan;
 import android.transition.Explode;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.R;
-import com.example.aitongji.Utils.DataHandler;
+import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
-import com.example.aitongji.Utils.Global;
-import com.example.aitongji.Utils.ScreenShot;
-import com.github.mikephil.charting.data.Entry;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
@@ -98,8 +89,8 @@ public class GPATable extends AppCompatActivity {
                     @Override
                     public void onSuccess(StudentGPA sg) {
                         studentGPA = sg;
-                        Global.studentGPA = sg;
-                        //DataHandler.saveObject(getApplicationContext(), "studentGPA.dat", sg);
+                        AndroidResource.studentGPA = sg;
+                        //SerializationUtil.saveObject(getApplicationContext(), "studentGPA.dat", sg);
                         tableLayout.removeAllViews();
                         setTableContent();
                         Snackbar.make(tableLayout, "更新成功", Snackbar.LENGTH_SHORT)

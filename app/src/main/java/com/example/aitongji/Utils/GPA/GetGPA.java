@@ -9,6 +9,9 @@ import android.os.AsyncTask;
 import android.os.Looper;
 import android.util.Log;
 
+import com.example.aitongji.Utils.Http.GPAGetter;
+import com.example.aitongji.Utils.Managers.NetWorkManager;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
@@ -298,13 +301,27 @@ public class GetGPA {
             @Override
             protected StudentGPA doInBackground(Void... params) {
                 int count = 0;
-                StudentGPA studentGPA = startTask();
+                GPAGetter gpaGetter = new GPAGetter();
+                try {
+                    gpaGetter.loadData();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//                StudentGPA studentGPA = startTask();
                 // 最多自动验证10次
-                while (count < 10 && (null == studentGPA)) {
-                    studentGPA = startTask();
+                while (count < 10 && (null == ResourceManager.getInstance().getGPATable())) {
+//                    studentGPA = startTask();
+                    try {
+                        gpaGetter.loadData();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     count++;
                 }
-                return studentGPA;
+                StudentGPA gpa = ResourceManager.getInstance().getGPATable();
+                System.out.println(gpa);
+
+                return ResourceManager.getInstance().getGPATable();
             }
 
             @Override
@@ -333,6 +350,10 @@ public class GetGPA {
         return j;
     }
 
+    /**
+     * 根据选课网验证码的像素信息进行拆分
+     * @param bitmap
+     */
     private void spiltCheckImage(Bitmap bitmap) {
         pieces.clear();
         for (int i = 0; i < 4; i++) {

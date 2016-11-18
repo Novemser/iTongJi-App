@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -30,7 +29,7 @@ import com.example.aitongji.About;
 import com.example.aitongji.R;
 import com.example.aitongji.Section_Information.Card_Rest_Notice;
 import com.example.aitongji.Service.CardRestNotice;
-import com.example.aitongji.Utils.Global;
+import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.WelcomeSceneAty;
 import com.qihoo.appstore.updatelib.UpdateManager;
 import com.umeng.analytics.MobclickAgent;
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // 正在刷新，禁止点击
-                        if (Global.isRefreshing()) {
+                        if (AndroidResource.isRefreshing()) {
                             Snackbar.make(mDrawerLayout, "正在刷新数据，请稍后", Snackbar.LENGTH_SHORT).show();
                             return false;
                         }

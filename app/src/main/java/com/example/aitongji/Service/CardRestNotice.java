@@ -2,9 +2,7 @@ package com.example.aitongji.Service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
@@ -12,21 +10,12 @@ import android.util.Log;
 
 import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.R;
+import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.DataBundle;
-import com.example.aitongji.Utils.DataHandler;
-import com.example.aitongji.Utils.Global;
 import com.example.aitongji.Utils.Http.InformationReq;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CardRestNotice extends Service {
     static Timer timer = null;
@@ -95,8 +84,8 @@ public class CardRestNotice extends Service {
                         @Override
                         public void onSuccess(DataBundle dataBundle) {
                             // 保存主要信息
-                            Global.dataBundle = dataBundle;
-//                            DataHandler.saveObject(Global.getContext(), "dataBundle.dat", dataBundle);
+                            AndroidResource.dataBundle = dataBundle;
+//                            SerializationUtil.saveObject(AndroidResource.getContext(), "dataBundle.dat", dataBundle);
 //                            System.out.println("Card rest log:" + dataBundle.cardRest);
                             // TODO  fix 1 只是简单的处理，网络层有点乱··
                             if (dataBundle == null) {

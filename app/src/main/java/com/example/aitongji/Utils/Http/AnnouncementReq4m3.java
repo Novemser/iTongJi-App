@@ -1,13 +1,11 @@
 package com.example.aitongji.Utils.Http;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

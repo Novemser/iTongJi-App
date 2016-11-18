@@ -48,7 +48,7 @@ public class ElectricityQuery extends ToolbarActivity {
         // Configure the client to use when opening URLs
         myWebView.setWebViewClient(new MyBrowser());
         // Load the initial URL
-        myWebView.loadUrl("http://202.120.165.79:8800/Default.aspx");
+        myWebView.loadUrl("http://202.120.163.129:88/");
         myWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {

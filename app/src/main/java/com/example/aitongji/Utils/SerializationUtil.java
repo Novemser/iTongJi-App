@@ -2,6 +2,8 @@ package com.example.aitongji.Utils;
 
 import android.content.Context;
 
+import com.example.aitongji.Utils.Managers.ResourceManager;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,9 +13,10 @@ import java.io.ObjectOutputStream;
 /**
  * Created by Novemser on 3/12/2016.
  */
-public class DataHandler {
+public class SerializationUtil {
 
-    public static void saveObject(Context context, String name, Object object) {
+    public static void saveObject(String name, Object object) {
+        Context context = ResourceManager.getInstance().getApplicationContext();
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
@@ -43,7 +46,9 @@ public class DataHandler {
         }
     }
 
-    public static Object getObject(Context context, String name) {
+    public static Object getObject(String name) {
+        Context context = ResourceManager.getInstance().getApplicationContext();
+
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {

@@ -27,6 +27,7 @@ android {
 repositories {
     maven { url "https://jitpack.io" }
 }
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.4'

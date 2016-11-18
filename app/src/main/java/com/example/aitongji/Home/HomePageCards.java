@@ -3,7 +3,6 @@ package com.example.aitongji.Home;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
@@ -13,21 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.example.aitongji.R;
+import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DataBundle;
-import com.example.aitongji.Utils.DataHandler;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
-import com.example.aitongji.Utils.Global;
 import com.example.aitongji.Utils.Http.InformationReq;
-import com.example.aitongji.WelcomeSceneAty;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.Bind;
@@ -51,7 +46,7 @@ public class HomePageCards extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.home_fragment, container, false);
-        DataBundle db = Global.dataBundle;
+        DataBundle db = AndroidResource.dataBundle;
         if (db != null)
             setBundle(db);
 
@@ -102,7 +97,7 @@ public class HomePageCards extends Fragment {
 
     private void updateData() {
         Log.d("Refreshing", "Start");
-        Global.setIsRefreshing(true);
+        AndroidResource.setIsRefreshing(true);
         new InformationReq(sharedPreferences.getString("username", ""), sharedPreferences.getString("password", ""), new InformationReq.SuccessCallback() {
             @Override
             public void onSuccess(final DataBundle dataBundle) {
@@ -110,20 +105,20 @@ public class HomePageCards extends Fragment {
                 // 保存主要信息
                 if (getActivity() == null || getActivity().getApplicationContext() == null) {
                     Log.d("Refreshing", "Stop");
-                    Global.setIsRefreshing(false);
+                    AndroidResource.setIsRefreshing(false);
                     return;
                 }
 
-                Global.dataBundle = dataBundle;
-                //DataHandler.saveObject(getActivity().getApplicationContext(), "dataBundle.dat", dataBundle);
+                AndroidResource.dataBundle = dataBundle;
+                //SerializationUtil.saveObject(getActivity().getApplicationContext(), "dataBundle.dat", dataBundle);
                 setBundle(dataBundle);
 
                 // 尝试拉绩点
                 new GetGPA(getActivity().getApplicationContext(), sharedPreferences.getString("username", ""), sharedPreferences.getString("password", ""), new GetGPA.SuccessCallback() {
                     @Override
                     public void onSuccess(StudentGPA studentGPA) {
-                        Global.studentGPA = studentGPA;
-                        //DataHandler.saveObject(getActivity().getApplicationContext(), "studentGPA.dat", studentGPA);
+                        AndroidResource.studentGPA = studentGPA;
+                        //SerializationUtil.saveObject(getActivity().getApplicationContext(), "studentGPA.dat", studentGPA);
 
                         Home_Recycler_Adapter adapter = new Home_Recycler_Adapter(bundle, getActivity());
                         mRecyclerView.setAdapter(adapter);
@@ -132,7 +127,7 @@ public class HomePageCards extends Fragment {
                         pullRefreshLayout.setRefreshing(false);
                         Snackbar.make(mRecyclerView, "刷新成功", Snackbar.LENGTH_SHORT).show();
 
-                        Global.setIsRefreshing(false);
+                        AndroidResource.setIsRefreshing(false);
                     }
                 }, new GetGPA.FailureCallback() {
                     @Override
@@ -140,7 +135,7 @@ public class HomePageCards extends Fragment {
                         Snackbar.make(mRecyclerView, "多次登陆失败 请稍后再试", Snackbar.LENGTH_SHORT).show();
                         pullRefreshLayout.setRefreshing(false);
 
-                        Global.setIsRefreshing(false);
+                        AndroidResource.setIsRefreshing(false);
                     }
                 });
 
@@ -152,7 +147,7 @@ public class HomePageCards extends Fragment {
                 Snackbar.make(mRecyclerView, "登陆失败 请检查网络/密码后重试", Snackbar.LENGTH_SHORT).show();
                 pullRefreshLayout.setRefreshing(false);
 
-                Global.setIsRefreshing(false);
+                AndroidResource.setIsRefreshing(false);
             }
         });
     }

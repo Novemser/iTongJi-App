@@ -8,7 +8,7 @@ import com.example.aitongji.Utils.GPA.StudentGPA;
 /**
  * Created by Novemser on 4/1/2016.
  */
-public class Global extends Application {
+public class AndroidResource extends Application {
     private static boolean isRefreshing;
     private static Context context;
     public static StudentGPA studentGPA;
@@ -30,6 +30,6 @@ public class Global extends Application {
     }
 
     public static void setIsRefreshing(boolean isRefreshing) {
-        Global.isRefreshing = isRefreshing;
+        AndroidResource.isRefreshing = isRefreshing;
     }
 }

@@ -72,7 +72,7 @@ public class BYCourseTableGetter extends BYGenericGetter {
         Document document = courseTableResponse.parse();
         // 删除上面的课表
 //        document.select("#manualArrangeCourseTable").remove();
-//        course_table_str = document.html();
+        course_table_str = document.html();
 //        course_table_str = document.select("").remove().html();
         CourseTable.setInstance(null);
         CourseTable courseTable = CourseTable.getInstance();
@@ -91,8 +91,6 @@ public class BYCourseTableGetter extends BYGenericGetter {
                     String[] temp = element1.text().split(" ");
                     Collections.addAll(course_raw, temp);
 
-                    // TODO 你这样写明显会越界啊··· 不细看你逻辑，所以简单提下改的地方
-                    // TODO yes，。。。。I am zhizhang..
                     for (int i = 0; i <= temp.length - 5; i = i + 5) {
                         courseTable.addCourse(course_name, temp[i], temp[i + 1], temp[i + 2], temp[i + 3], temp[i + 4]);
                     }
@@ -103,14 +101,14 @@ public class BYCourseTableGetter extends BYGenericGetter {
             }
         }
 
-        for (ArrayList<Course> courses : courseTable.course_table) {
-            System.out.println("Size of today: " + courses.size());
-            for (Course cour : courses) {
-                System.out.println(cour.course_name + " \t\t" + cour.week_num + cour.classroom + " \t" + cour.teacher_name + " \t" + cour.start_time + " \t" + cour.end_time);
-            }
-        }
-        System.out.println(all_course_raw.get(1));
-        System.out.println(courseTableResponse.parse().getElementsByClass("grid").select("tbody").select("tr"));
+//        for (ArrayList<Course> courses : courseTable.course_table) {
+//            System.out.println("Size of today: " + courses.size());
+//            for (Course cour : courses) {
+//                System.out.println(cour.course_name + " \t\t" + cour.week_num + cour.classroom + " \t" + cour.teacher_name + " \t" + cour.start_time + " \t" + cour.end_time);
+//            }
+//        }
+//        System.out.println(all_course_raw.get(1));
+//        System.out.println(courseTableResponse.parse().getElementsByClass("grid").select("tbody").select("tr"));
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.aitongji.Utils.Http.operation.request;
 
 import com.example.aitongji.Utils.Managers.NetWorkManager;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -89,8 +90,8 @@ public class CookieGetter implements INetResourceGetter {
         String step4 = doc.select("form").attr("action");
 
         postData.put("option", "credential");
-        postData.put("Ecom_User_ID", "1452681");
-        postData.put("Ecom_Password", "a20131002");
+        postData.put("Ecom_User_ID", ResourceManager.getInstance().getUserName());
+        postData.put("Ecom_Password", ResourceManager.getInstance().getUserPwd());
         postData.put("submit", "登录");
 
         connection = Jsoup
@@ -139,9 +140,9 @@ public class CookieGetter implements INetResourceGetter {
             for (Map.Entry<String, String> entry : cookies4m3.entrySet()) {
                 connection.cookie(entry.getKey(), entry.getValue());
             }
-
-            response = connection.execute();
-            doc = response.parse();
+            // 一定要执行最后一步
+            // 以使服务器确认完成认证
+            connection.execute();
         }
     }
 

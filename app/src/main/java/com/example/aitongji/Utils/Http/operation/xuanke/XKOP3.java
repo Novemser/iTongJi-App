@@ -30,7 +30,9 @@ public class XKOP3 extends Operation {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 // length 小于2000才是成功 否则密码错误(很tricky...)
-                final int len = Jsoup.parse(new String(responseBody)).body().html().length();
+                String s = new String(responseBody);
+                System.out.println(s);
+                final int len = Jsoup.parse(new String(responseBody)).html().length();
                 if (len < 2000) {
                     stepToNext();
                 } else {

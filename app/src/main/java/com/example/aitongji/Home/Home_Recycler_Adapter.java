@@ -312,30 +312,30 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         }
 
         // 如果下节课程不在当日
-//        if (!flag) {
-//            int i = 1;
-//            while (CourseTable.getInstance().course_table.get((getWeekOfDateDecimal(nowDate) + i) % 7).size() == 0) {
-//                i++;
-//            }
-//            courses_of_today = CourseTable.getInstance().course_table.get((getWeekOfDateDecimal(nowDate) + i) % 7);
-//            Collections.sort(courses_of_today, new Comparator<Course>() {
-//                @Override
-//                public int compare(Course lhs, Course rhs) {
-//                    return lhs.start_time > rhs.start_time ? 1 : (lhs.start_time == rhs.start_time ? 0 : -1);
-//                }
-//            });
-//            // 找到当日最早课程，注意处理单双周逻辑
-//            for (Course cour : courses_of_today) {
-////                Log.d(TAG, cour.course_name + " " + cour.is_single_week + " " + week % 2);
-//                if (cour.is_single_week == 0 || (cour.is_single_week == 1 && week % 2 == 1) || (cour.is_single_week == 2 && week % 2 == 0)) {
-//                    course = cour;
-//                    flag = true;
-//                    break;
-//                }
-//            }
-//            if (!flag)
-//                course = courses_of_today.get(0);
-//        }
+        if (!flag) {
+            int i = 1;
+            while (CourseTable.getInstance().course_table.get((getWeekOfDateDecimal(nowDate) + i) % 7).size() == 0) {
+                i++;
+            }
+            courses_of_today = CourseTable.getInstance().course_table.get((getWeekOfDateDecimal(nowDate) + i) % 7);
+            Collections.sort(courses_of_today, new Comparator<Course>() {
+                @Override
+                public int compare(Course lhs, Course rhs) {
+                    return lhs.start_time > rhs.start_time ? 1 : (lhs.start_time == rhs.start_time ? 0 : -1);
+                }
+            });
+            // 找到当日最早课程，注意处理单双周逻辑
+            for (Course cour : courses_of_today) {
+//                Log.d(TAG, cour.course_name + " " + cour.is_single_week + " " + week % 2);
+                if (cour.is_single_week == 0 || (cour.is_single_week == 1 && week % 2 == 1) || (cour.is_single_week == 2 && week % 2 == 0)) {
+                    course = cour;
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+                course = courses_of_today.get(0);
+        }
 
         // Time
         TextView textView = (TextView) view.findViewById(R.id.id_text_week);
@@ -344,12 +344,12 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         textView.setText(context.getString(R.string.date_and_week, year, month, day, getWeekOfDate(nowDate)));
 
         // Course
-//        textView = (TextView) view.findViewById(R.id.id_text_course_time_and_name);
-//        textView.setText(context.getString(R.string.course_time_and_name, getStartTime(course.start_time), course.course_name));
-//        textView = (TextView) view.findViewById(R.id.id_text_course_place);
-//        textView.setText(context.getString(R.string.course_place, course.classroom));
-//        textView = (TextView) view.findViewById(R.id.id_text_course_day);
-//        textView.setText("周" + getWeekOfDate(course.week_num));
+        textView = (TextView) view.findViewById(R.id.id_text_course_time_and_name);
+        textView.setText(context.getString(R.string.course_time_and_name, getStartTime(course.start_time), course.course_name));
+        textView = (TextView) view.findViewById(R.id.id_text_course_place);
+        textView.setText(context.getString(R.string.course_place, course.classroom));
+        textView = (TextView) view.findViewById(R.id.id_text_course_day);
+        textView.setText("周" + getWeekOfDate(course.week_num));
 
         // Information
 //        if (info_time.size() >= 4 && info_title.size() >= 4) {

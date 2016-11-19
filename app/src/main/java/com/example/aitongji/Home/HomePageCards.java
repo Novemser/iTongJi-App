@@ -153,7 +153,7 @@ public class HomePageCards extends Fragment {
     }
 
     private void setBundle(DataBundle dataBundle) {
-        CourseTable.setInstance(dataBundle.courseTable);
+//        CourseTable.setInstance(dataBundle.courseTable);
         bundle = new Bundle();
         bundle.putString("username", dataBundle.username);
         bundle.putString("password", dataBundle.password);

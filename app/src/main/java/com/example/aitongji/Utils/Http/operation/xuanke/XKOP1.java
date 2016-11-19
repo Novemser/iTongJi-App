@@ -1,15 +1,13 @@
-package com.example.aitongji.Utils.Factory.callback.xuanke;
+package com.example.aitongji.Utils.Http.operation.xuanke;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Looper;
 
-import com.example.aitongji.Utils.Factory.Operation;
-import com.example.aitongji.Utils.Factory.callback.ISuccessCallBack;
+import com.example.aitongji.Utils.Http.callback.Operation;
 import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
-import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.SyncHttpClient;
@@ -25,12 +23,11 @@ import cz.msebera.android.httpclient.Header;
 public class XKOP1 extends Operation {
     private final static String CHECK_IMAGE = "http://xuanke.tongji.edu.cn/CheckImage";
 
-    private ISuccessCallBack successCallBack;
     private SyncHttpClient syncHttpClient;
 
     public XKOP1(List<Operation> operations) {
         super(operations);
-        syncHttpClient = NetWorkManager.getInstance().getSyncHttpClient();
+        syncHttpClient = NetWorkManager.getInstance().getXuanKeHttpClient();
     }
 
     @Override
@@ -70,8 +67,7 @@ public class XKOP1 extends Operation {
 
                 manager.setOcrResult(result);
                 // 进行下一个操作
-                if (!operations.isEmpty())
-                    operations.remove(0).perform();
+                stepToNext();
             }
 
             @Override

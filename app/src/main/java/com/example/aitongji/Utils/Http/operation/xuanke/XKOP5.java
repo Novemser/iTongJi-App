@@ -1,8 +1,8 @@
-package com.example.aitongji.Utils.Factory.callback.xuanke;
+package com.example.aitongji.Utils.Http.operation.xuanke;
 
 import android.util.Log;
 
-import com.example.aitongji.Utils.Factory.Operation;
+import com.example.aitongji.Utils.Http.callback.Operation;
 import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.Semester;
 import com.example.aitongji.Utils.GPA.StudentGPA;
@@ -36,8 +36,8 @@ public class XKOP5 extends Operation {
     @Override
     public void perform() {
         // 根据权限id拉出绩点表
-        NetWorkManager.getInstance().getSyncHttpClient()
-                .get(manager.getGPA_QUERY(), new AsyncHttpResponseHandler() {
+        NetWorkManager.getInstance().getXuanKeHttpClient()
+                .get(getNextUrl(), new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         Log.d(getClass().getName(), "Getting GPA table successfully!");
@@ -124,6 +124,7 @@ public class XKOP5 extends Operation {
                             manager.setGPATable(gpa_table);
                             manager.setSemester(semester);
                             manager.setCourseGPA(courseGPA);
+
                         }
                     }
 

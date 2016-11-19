@@ -1,4 +1,4 @@
-package com.example.aitongji.Utils.Http;
+package com.example.aitongji.Utils.Http.operation.request;
 
 /**
  * Created by Novemser on 2016/11/14.

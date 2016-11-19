@@ -26,7 +26,6 @@ public class ResourceManager {
     private ArrayList<Bitmap> pieces;
     private String ocrResult;
     private Semester semester;
-    private String GPA_QUERY;
     private CourseGPA courseGPA;
 
 
@@ -122,14 +121,6 @@ public class ResourceManager {
 
     public Context getApplicationContext() {
         return AndroidResource.getContext();
-    }
-
-    public String getGPA_QUERY() {
-        return GPA_QUERY;
-    }
-
-    public void setGPA_QUERY(String GPA_QUERY) {
-        this.GPA_QUERY = GPA_QUERY;
     }
 
     public Semester getSemester() {

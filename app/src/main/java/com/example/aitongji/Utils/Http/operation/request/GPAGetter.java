@@ -1,11 +1,11 @@
-package com.example.aitongji.Utils.Http;
+package com.example.aitongji.Utils.Http.operation.request;
 
-import com.example.aitongji.Utils.Factory.Operation;
-import com.example.aitongji.Utils.Factory.callback.xuanke.XKOP1;
-import com.example.aitongji.Utils.Factory.callback.xuanke.XKOP2;
-import com.example.aitongji.Utils.Factory.callback.xuanke.XKOP3;
-import com.example.aitongji.Utils.Factory.callback.xuanke.XKOP4;
-import com.example.aitongji.Utils.Factory.callback.xuanke.XKOP5;
+import com.example.aitongji.Utils.Http.callback.Operation;
+import com.example.aitongji.Utils.Http.operation.xuanke.XKOP1;
+import com.example.aitongji.Utils.Http.operation.xuanke.XKOP2;
+import com.example.aitongji.Utils.Http.operation.xuanke.XKOP3;
+import com.example.aitongji.Utils.Http.operation.xuanke.XKOP4;
+import com.example.aitongji.Utils.Http.operation.xuanke.XKOP5;
 
 import java.util.ArrayList;
 import java.util.List;

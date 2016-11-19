@@ -1,8 +1,8 @@
-package com.example.aitongji.Utils.Factory.callback.xuanke;
+package com.example.aitongji.Utils.Http.operation.xuanke;
 
 import android.util.Log;
 
-import com.example.aitongji.Utils.Factory.Operation;
+import com.example.aitongji.Utils.Http.callback.Operation;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -30,7 +30,7 @@ public class XKOP4 extends Operation {
     public void perform() {
         // 4.获取权限id
         // 用于获取GPA
-        NetWorkManager.getInstance().getSyncHttpClient().
+        NetWorkManager.getInstance().getXuanKeHttpClient().
                 get(LOGIN_TREE, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -61,9 +61,8 @@ public class XKOP4 extends Operation {
 
                             // 根据权限id拉出绩点表
                             GPA_QUERY += "qxid=" + qxid + "$mkid=" + mkid + "&qxid=" + qxid + "&HELP_URL=null&MYXSJL=null";
-                            manager.setGPA_QUERY(GPA_QUERY);
-                            if (!operations.isEmpty())
-                                operations.remove(0).perform();
+                            setNextUrl(GPA_QUERY);
+                            stepToNext();
 
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();

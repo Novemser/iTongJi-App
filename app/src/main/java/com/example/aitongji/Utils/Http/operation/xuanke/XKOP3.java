@@ -1,8 +1,8 @@
-package com.example.aitongji.Utils.Factory.callback.xuanke;
+package com.example.aitongji.Utils.Http.operation.xuanke;
 
 import android.util.Log;
 
-import com.example.aitongji.Utils.Factory.Operation;
+import com.example.aitongji.Utils.Http.callback.Operation;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -23,7 +23,7 @@ public class XKOP3 extends Operation {
 
     @Override
     public void perform() {
-        NetWorkManager.getInstance().getSyncHttpClient()
+        NetWorkManager.getInstance().getXuanKeHttpClient()
                 .get(
                         "http://xuanke.tongji.edu.cn/pass.jsp?checkCode=" + manager.getOcrResult()
                         , new AsyncHttpResponseHandler() {
@@ -32,8 +32,7 @@ public class XKOP3 extends Operation {
                 // length 小于2000才是成功 否则密码错误(很tricky...)
                 final int len = Jsoup.parse(new String(responseBody)).body().html().length();
                 if (len < 2000) {
-                    if (!operations.isEmpty())
-                        operations.remove(0).perform();
+                    stepToNext();
                 } else {
                     Log.d(getClass().getName(), "自动识别验证码错误！");
                     manager.setGPATable(null);

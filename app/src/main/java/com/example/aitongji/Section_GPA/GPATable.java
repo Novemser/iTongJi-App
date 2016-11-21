@@ -28,6 +28,7 @@ import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
@@ -69,7 +70,7 @@ public class GPATable extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gpatable);
         ButterKnife.bind(this);
-        studentGPA = (StudentGPA) getIntent().getSerializableExtra("studentGPA");
+        studentGPA = ResourceManager.getInstance().getGPATable();
 
         setSupportActionBar(toolbar);
 

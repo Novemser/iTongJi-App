@@ -1,7 +1,12 @@
 package com.example.aitongji.Home;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.aitongji.R;
+import com.example.aitongji.Section_Course.Course_Page;
+import com.example.aitongji.Section_Elect.ElectricityQuery;
+import com.example.aitongji.Section_GPA.GPATable;
+import com.example.aitongji.Section_Information.Card_Information;
 import com.example.aitongji.Utils.Commons;
 import com.example.aitongji.Utils.Course.Course;
 import com.example.aitongji.Utils.Course.CourseTable;
@@ -45,7 +58,10 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
  */
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+    private Activity activity;
+    public RecyclerAdapter(Activity activity) {
+        this.activity = activity;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -60,11 +76,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             case 1:
                 contactView = inflater.inflate(R.layout.home_information_row_2, parent, false);
-                return new ViewHolder1(contactView);
+                return new ViewHolder1(contactView, activity);
 
             case 2:
                 contactView = inflater.inflate(R.layout.home_information_row_3, parent, false);
-                return new ViewHolder2(contactView);
+                return new ViewHolder2(contactView, activity);
 
             default:
                 contactView = inflater.inflate(R.layout.home_information_row_1, parent, false);
@@ -203,9 +219,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         @Bind(R.id.id_home_text_information_info_4)
         TextView textView4;
 
-        public ViewHolder0(View itemView) {
+        public ViewHolder0(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            cardInformation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), Card_Information.class);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
 
         }
     }
@@ -233,8 +257,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView textCoursePlace;
         @Bind(R.id.id_text_course_day)
         TextView textCourseDay;
+        int cardCardCnt = 0;
+        int cardWeekCnt = 0;
 
-        public ViewHolder1(View itemView) {
+        public ViewHolder1(final View itemView, final Activity activity) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             Date nowDate = new Date();
@@ -243,6 +269,65 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             CharSequence day = DateFormat.format("dd", nowDate.getTime());
 
             textDateAndWeek.setText(ResourceManager.getInstance().getApplicationContext().getString(R.string.date_and_week, year, month, day, Commons.getWeekOfDate(nowDate)));
+            cardWeekTime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    YoYo.with(Techniques.Bounce).duration(700).playOn(cardWeekTime);
+                    cardWeekCnt++;
+                    if (cardWeekCnt == 5) {
+                        Snackbar.make(itemView, "据说连续点击可以让假期更快到来(大雾", Snackbar.LENGTH_SHORT).show();
+                        cardWeekCnt = 0;
+                    }
+                }
+            });
+
+            cardCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(cardCard);
+                    cardCardCnt++;
+                    if (cardCardCnt == 5) {
+                        Snackbar.make(itemView, "再怎么点余额也不会变多嘛>.<", Snackbar.LENGTH_LONG).setAction("知道啦", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        }).show();
+                        cardCardCnt = 0;
+                    }
+                }
+            });
+
+            cardElect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new MaterialDialog.Builder(MainActivity.getContext())
+                            .title("小提示")
+                            .content("电费只能在连接校园内网时查询哦")
+                            .positiveText("好的")
+                            .negativeText("取消")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(MaterialDialog dialog, DialogAction which) {
+                                    itemView.getContext().startActivity(new Intent(itemView.getContext(), ElectricityQuery.class));
+                                }
+                            })
+                            .show();
+
+                }
+            });
+
+            cardCourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(itemView.getContext(), Course_Page.class);
+
+                    ActivityOptionsCompat optionsCompat =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity, itemView.findViewById(R.id.ic_alarm), "alarm");
+                    ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+//                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 
@@ -254,10 +339,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         @Bind(R.id.gpa_chart)
         LineChart chart;
 
-        public ViewHolder2(View itemView) {
+        public ViewHolder2(final View itemView, final Activity activity) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            cardGPA.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, GPATable.class);
 
+                    ActivityOptionsCompat optionsCompat =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity, itemView.findViewById(R.id.ic_school), "school");
+                    ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+                }
+            });
         }
 
         private void setChartView() {

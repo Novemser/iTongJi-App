@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.example.aitongji.R;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 
 import java.util.ArrayList;
 
@@ -34,12 +35,12 @@ public class Card_Info_Adapter extends RecyclerView.Adapter<Card_Info_Adapter.Vi
     private static final int DELAY = 138;
     private int mLastPosition = -1;
 
-    public Card_Info_Adapter(ArrayList<String> info_title, ArrayList<String> info_time, String username, String password, ArrayList<String> info_id) {
-        this.info_title = info_title;
-        this.info_time = info_time;
-        this.username = username;
-        this.password = password;
-        this.info_id = info_id;
+    public Card_Info_Adapter() {
+        this.info_title = ResourceManager.getInstance().getInfoTitles();
+        this.info_time = ResourceManager.getInstance().getInfoTimes();
+        this.username = ResourceManager.getInstance().getUserName();
+        this.password = ResourceManager.getInstance().getUserPwd();
+        this.info_id = ResourceManager.getInstance().getInfoIds();
     }
 
     @Override

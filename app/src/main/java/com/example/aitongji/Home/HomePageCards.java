@@ -52,7 +52,7 @@ public class HomePageCards extends Fragment {
 
         ButterKnife.bind(this, root);
 
-        RecyclerView.Adapter mAdapter = new RecyclerAdapter();
+        RecyclerView.Adapter mAdapter = new RecyclerAdapter(getActivity());
         ObserverManager.getInstance().setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         mRecyclerView.setAdapter(mAdapter);

@@ -24,6 +24,7 @@ import com.example.aitongji.R;
 import com.example.aitongji.Utils.Course.Course;
 import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DensityUtil;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -110,8 +111,10 @@ public class Course_Page extends AppCompatActivity implements ScrollViewListener
         collapsingToolbarLayout.setTitle("我的课表");
 
         // 设置周数
-        nowWeek = week = Integer.parseInt(getIntent().getStringExtra("time_week"));
-
+        if (ResourceManager.getInstance().getWeekStr() != null)
+            nowWeek = week = Integer.parseInt(ResourceManager.getInstance().getWeekStr());
+        else
+            nowWeek = week = 1;
         setContent();
 
         sv1.setOnScrollViewListener(this);
@@ -126,7 +129,7 @@ public class Course_Page extends AppCompatActivity implements ScrollViewListener
         tvMonth.setText(month + "月");
         time_week_tv.setText("第 " + String.valueOf(week) + " 周");
 
-        ArrayList<ArrayList<Course>> courseTable = CourseTable.getInstance().course_table;
+        ArrayList<ArrayList<Course>> courseTable = ResourceManager.getInstance().getCourseTable().course_table;
         for (int i = 0; i < courseTable.size(); i++) {
             for (int j = 0; j < courseTable.get(i).size(); j++) {
                 Course course = courseTable.get(i).get(j);

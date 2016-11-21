@@ -1,6 +1,7 @@
 package com.example.aitongji.Utils.Http.operation.request;
 
 import com.example.aitongji.Utils.Managers.ObserverManager;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -22,9 +23,9 @@ public class BYTimeNotificationGetter extends BYGenericGetter {
 
     private String time_today;
     private String time_week;
-    private ArrayList<String> info_title = new ArrayList<>();
-    private ArrayList<String> info_time = new ArrayList<>();
-    private ArrayList<String> info_id = new ArrayList<>();
+    private ArrayList<String> info_title = ResourceManager.getInstance().getInfoTitles();
+    private ArrayList<String> info_time = ResourceManager.getInstance().getInfoTimes();
+    private ArrayList<String> info_id = ResourceManager.getInstance().getInfoIds();
 
     private void resetLists() {
         info_id.clear();
@@ -46,7 +47,7 @@ public class BYTimeNotificationGetter extends BYGenericGetter {
         Pattern pattern = Pattern.compile("第(.+?)周");
         Matcher matcher = pattern.matcher(elements.text());
         if (matcher.find()) {
-            time_week = matcher.group(1);
+            ResourceManager.getInstance().setWeekStr(matcher.group(1));
         }
 
         // 匹配信息通知的id
@@ -82,7 +83,8 @@ public class BYTimeNotificationGetter extends BYGenericGetter {
             cnt++;
         }
 
-        ObserverManager.getInstance().notifyRowChanged(1);
+        ObserverManager.getInstance().notifyRowChanged(0);
+
     }
 
     @Override

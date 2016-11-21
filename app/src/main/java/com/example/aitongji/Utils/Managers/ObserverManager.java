@@ -1,12 +1,18 @@
 package com.example.aitongji.Utils.Managers;
 
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 /**
  * Created by Novemser on 2016/11/21.
  */
 public class ObserverManager {
+    private Handler mHandler;
+
     private static ObserverManager manager;
 
     public RecyclerView.Adapter getAdapter() {
@@ -19,7 +25,18 @@ public class ObserverManager {
 
     private RecyclerView.Adapter adapter;
 
-    private ObserverManager() {}
+    private ObserverManager() {
+        mHandler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                Integer row = (Integer) msg.obj;
+                if (null != adapter) {
+                    adapter.notifyItemChanged(row);
+//                    Log.e("更新", "Update:" + row + "成功");
+                }
+            }
+        };
+    }
 
     public static ObserverManager getInstance() {
         if (null == manager)
@@ -33,10 +50,13 @@ public class ObserverManager {
 
     /**
      * 通知某一行数据发生了变更
+     *
      * @param row 行号 从0开始
      */
     public void notifyRowChanged(int row) {
-        if (null != adapter)
-            adapter.notifyItemChanged(row);
+        if (null != adapter) {
+            Message updateMessage = mHandler.obtainMessage(row, row);
+            updateMessage.sendToTarget();
+        }
     }
 }

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.app.Fragment;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             w.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 //            w.setEnterTransition(new Explode());
 //            w.setExitTransition(new Explode());
+
         }
 
 

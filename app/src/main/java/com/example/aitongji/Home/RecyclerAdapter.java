@@ -3,12 +3,19 @@ package com.example.aitongji.Home;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.aitongji.R;
+import com.example.aitongji.Utils.Commons;
+import com.example.aitongji.Utils.Managers.ResourceManager;
+
+import java.util.Date;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,7 +54,31 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case 0:
+                ViewHolder0 viewHolder0 = (ViewHolder0) holder;
+                List<String> info_time = ResourceManager.getInstance().getInfoTimes();
+                List<String> info_title = ResourceManager.getInstance().getInfoTitles();
+                // Information
+                if (info_time.size() >= 4 && info_title.size() >= 4) {
+                    viewHolder0.textView1.setText(info_time.get(0) + " " + info_title.get(0));
+                    viewHolder0.textView2.setText(info_time.get(1) + " " + info_title.get(1));
+                    viewHolder0.textView3.setText(info_time.get(2) + " " + info_title.get(2));
+                    viewHolder0.textView4.setText(info_time.get(3) + " " + info_title.get(3));
+                }
+                break;
+            case 1:
+                ViewHolder1 viewHolder1 = (ViewHolder1) holder;
+                if (ResourceManager.getInstance().getWeekStr() != null)
+                    viewHolder1.textWeek.setText(ResourceManager.getInstance().getApplicationContext().getString(R.string.week_num, ResourceManager.getInstance().getWeekStr()));
 
+                break;
+            case 2:
+                ViewHolder2 viewHolder2 = (ViewHolder2) holder;
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -71,6 +102,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView textView3;
         @Bind(R.id.id_home_text_information_info_4)
         TextView textView4;
+
         public ViewHolder0(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -87,10 +119,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         CardView cardCard;
         @Bind(R.id.id_card_elect)
         CardView cardElect;
+        @Bind(R.id.id_text_week)
+        TextView textWeek;
+        @Bind(R.id.id_text_date_and_week)
+        TextView textDateAndWeek;
+
         public ViewHolder1(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            Date nowDate = new Date();
+            CharSequence year = DateFormat.format("yyyy", nowDate.getTime());
+            CharSequence month = DateFormat.format("MM", nowDate.getTime());
+            CharSequence day = DateFormat.format("dd", nowDate.getTime());
 
+            textDateAndWeek.setText(ResourceManager.getInstance().getApplicationContext().getString(R.string.date_and_week, year, month, day, Commons.getWeekOfDate(nowDate)));
         }
     }
 
@@ -99,6 +141,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView textGpaAvg;
         @Bind(R.id.id_card_gpa)
         CardView cardGPA;
+
         public ViewHolder2(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

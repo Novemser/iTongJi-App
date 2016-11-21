@@ -24,9 +24,65 @@ public class ResourceManager {
     private UserInfo userInfo;
     private Map<String, String> cookie; // 4m3的Cookie
     private ArrayList<Bitmap> pieces;
+
+    private ArrayList<String> infoIds;
+
+    public ArrayList<String> getInfoTitles() {
+        return infoTitles;
+    }
+
+    private ArrayList<String> infoTitles;
+
+    public ArrayList<String> getInfoTimes() {
+        return infoTimes;
+    }
+
+    private ArrayList<String> infoTimes;
+
+    private ResourceManager() {
+        GPATable = new StudentGPA();
+        pieces = new ArrayList<>();
+        userInfo = new UserInfo();
+        infoIds = new ArrayList<>();
+        infoTimes = new ArrayList<>();
+        infoTitles = new ArrayList<>();
+
+        // 从Assets文件夹读取BP神经网络
+        try {
+            ObjectInputStream ois = new ObjectInputStream(getApplicationContext().getAssets().open("bp.dat"));
+            bp = (BP) ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<String> getInfoIds() {
+        return infoIds;
+    }
+
+    public void clearInfos() {
+        if (infoIds != null)
+            infoIds.clear();
+        if (infoTitles != null)
+            infoTitles.clear();
+        if (infoTimes != null)
+            infoTimes.clear();
+    }
+
     private String ocrResult;
     private Semester semester;
     private CourseGPA courseGPA;
+
+    public String getWeekStr() {
+        return weekStr;
+    }
+
+    public void setWeekStr(String weekStr) {
+        this.weekStr = weekStr;
+        ObserverManager.getInstance().notifyRowChanged(1);
+    }
+
+    private String weekStr;
 
 
     public BP getBpNN() {
@@ -105,19 +161,6 @@ public class ResourceManager {
         return manager;
     }
 
-    private ResourceManager() {
-        GPATable = new StudentGPA();
-        pieces = new ArrayList<>();
-        userInfo = new UserInfo();
-
-        // 从Assets文件夹读取BP神经网络
-        try {
-            ObjectInputStream ois = new ObjectInputStream(getApplicationContext().getAssets().open("bp.dat"));
-            bp = (BP) ois.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public Context getApplicationContext() {
         return AndroidResource.getContext();

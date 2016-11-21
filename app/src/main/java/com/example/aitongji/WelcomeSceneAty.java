@@ -26,6 +26,7 @@ import com.example.aitongji.Utils.DataBundle;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.Http.InformationReq;
+import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.rey.material.widget.CheckBox;
 import com.umeng.analytics.MobclickAgent;
@@ -131,55 +132,57 @@ public class WelcomeSceneAty extends AppCompatActivity {
                     password = etPW.getText().toString();
                     ResourceManager.getInstance().setUserName(username);
                     ResourceManager.getInstance().setUserPwd(password);
-
-                    new InformationReq(username, password, new InformationReq.SuccessCallback() {
-                        @Override
-                        public void onSuccess(DataBundle dataBundle) {
-                            Log.d("Login to 4m3", "Login Succeed");
-                            materialProgressBar.setVisibility(View.INVISIBLE);
-                            button.setText("加载页面中...");
-
-                            // 记住用户名和密码
-                            editor.putString("username", username);
-                            editor.putString("password", password);
-                            editor.putBoolean("REFRESH", false);
-                            editor.apply();
-
-                            // 保存主要信息
-                            //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "dataBundle.dat", dataBundle);
-                            AndroidResource.dataBundle = dataBundle;
-
-                            // 尝试拉绩点
-                            new GetGPA(getApplicationContext(), username, password, new GetGPA.SuccessCallback() {
-                                @Override
-                                public void onSuccess(StudentGPA studentGPA) {
-                                    AndroidResource.studentGPA = studentGPA;
-                                    //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "studentGPA.dat", studentGPA);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }, new GetGPA.FailureCallback() {
-                                @Override
-                                public void onFailure() {
-                                    materialProgressBar.setVisibility(View.INVISIBLE);
-                                    button.setText("立即登录");
-                                    Snackbar.make(button.getRootView(), "多次登陆失败 请稍后再试", Snackbar.LENGTH_SHORT).show();
-                                    button.setEnabled(true);
-
-                                }
-                            });
-
-
-                        }
-                    }, new InformationReq.FailureCallback() {
-                        @Override
-                        public void onFailure() {
-                            materialProgressBar.setVisibility(View.INVISIBLE);
-                            button.setText("立即登录");
-                            Snackbar.make(button.getRootView(), "登陆失败 请检查网络/密码后重试", Snackbar.LENGTH_SHORT).show();
-                            button.setEnabled(true);
-                        }
-                    });
+                    NetWorkManager.getInstance().obtainAllDataThenNotify();
+                    startActivity(intent);
+                    finish();
+//                    new InformationReq(username, password, new InformationReq.SuccessCallback() {
+//                        @Override
+//                        public void onSuccess(DataBundle dataBundle) {
+//                            Log.d("Login to 4m3", "Login Succeed");
+//                            materialProgressBar.setVisibility(View.INVISIBLE);
+//                            button.setText("加载页面中...");
+//
+//                            // 记住用户名和密码
+//                            editor.putString("username", username);
+//                            editor.putString("password", password);
+//                            editor.putBoolean("REFRESH", false);
+//                            editor.apply();
+//
+//                            // 保存主要信息
+//                            //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "dataBundle.dat", dataBundle);
+//                            AndroidResource.dataBundle = dataBundle;
+//
+//                            // 尝试拉绩点
+//                            new GetGPA(getApplicationContext(), username, password, new GetGPA.SuccessCallback() {
+//                                @Override
+//                                public void onSuccess(StudentGPA studentGPA) {
+//                                    AndroidResource.studentGPA = studentGPA;
+//                                    //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "studentGPA.dat", studentGPA);
+//                                    startActivity(intent);
+//                                    finish();
+//                                }
+//                            }, new GetGPA.FailureCallback() {
+//                                @Override
+//                                public void onFailure() {
+//                                    materialProgressBar.setVisibility(View.INVISIBLE);
+//                                    button.setText("立即登录");
+//                                    Snackbar.make(button.getRootView(), "多次登陆失败 请稍后再试", Snackbar.LENGTH_SHORT).show();
+//                                    button.setEnabled(true);
+//
+//                                }
+//                            });
+//
+//
+//                        }
+//                    }, new InformationReq.FailureCallback() {
+//                        @Override
+//                        public void onFailure() {
+//                            materialProgressBar.setVisibility(View.INVISIBLE);
+//                            button.setText("立即登录");
+//                            Snackbar.make(button.getRootView(), "登陆失败 请检查网络/密码后重试", Snackbar.LENGTH_SHORT).show();
+//                            button.setEnabled(true);
+//                        }
+//                    });
                 }
 
             }

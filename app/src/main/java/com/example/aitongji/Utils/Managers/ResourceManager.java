@@ -39,6 +39,17 @@ public class ResourceManager {
 
     private ArrayList<String> infoTimes;
 
+    public static ResourceManager getInstance() {
+
+        if (null == manager) {
+            synchronized (new Object()) {
+                if (null == manager)
+                    manager = new ResourceManager();
+            }
+        }
+
+        return manager;
+    }
     private ResourceManager() {
         GPATable = new StudentGPA();
         pieces = new ArrayList<>();
@@ -72,6 +83,17 @@ public class ResourceManager {
     private String ocrResult;
     private Semester semester;
     private CourseGPA courseGPA;
+    private String cardRest;
+
+    public String getCardRest() {
+        return cardRest;
+    }
+
+    public void setCardRest(String cardRest) {
+        this.cardRest = cardRest;
+        ObserverManager.getInstance().notifyRowChanged(1);
+    }
+
 
     public String getWeekStr() {
         return weekStr;
@@ -147,18 +169,6 @@ public class ResourceManager {
 
     public void setCookie(Map<String, String> cookie) {
         this.cookie = cookie;
-    }
-
-    public static ResourceManager getInstance() {
-
-        if (null == manager) {
-            synchronized (new Object()) {
-                if (null == manager)
-                    manager = new ResourceManager();
-            }
-        }
-
-        return manager;
     }
 
 

@@ -5,6 +5,7 @@ import android.os.Looper;
 
 import com.example.aitongji.Utils.DataBundle;
 import com.example.aitongji.Utils.AndroidResource;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
@@ -155,7 +156,7 @@ public class InformationReq {
                                                             int cnt = 0;
                                                             while (matcher.find()) {
                                                                 if (cnt == 12) {
-                                                                    card_rest = matcher.group(1);
+                                                                    ResourceManager.getInstance().setCardRest(matcher.group(1));
                                                                 }
                                                                 cnt++;
                                                             }

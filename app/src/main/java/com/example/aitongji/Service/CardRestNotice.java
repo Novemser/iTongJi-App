@@ -13,6 +13,7 @@ import com.example.aitongji.R;
 import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.DataBundle;
 import com.example.aitongji.Utils.Http.InformationReq;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -93,7 +94,7 @@ public class CardRestNotice extends Service {
                                 return;
                             }
 
-                            float card_rest = Float.parseFloat(dataBundle.cardRest);
+                            float card_rest = Float.parseFloat(ResourceManager.getInstance().getCardRest());
                             if (card_rest < value) {
                                 NotificationManager mn = (NotificationManager) CardRestNotice.this.getSystemService(NOTIFICATION_SERVICE);
                                 mn.cancelAll();

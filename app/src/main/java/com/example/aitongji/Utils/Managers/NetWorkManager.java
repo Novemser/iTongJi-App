@@ -3,6 +3,7 @@ package com.example.aitongji.Utils.Managers;
 import com.example.aitongji.Utils.Http.operation.request.BYCourseTableGetter;
 import com.example.aitongji.Utils.Http.operation.request.BYGenericGetter;
 import com.example.aitongji.Utils.Http.operation.request.BYTimeNotificationGetter;
+import com.example.aitongji.Utils.Http.operation.request.CardRestGetter;
 import com.example.aitongji.Utils.Http.operation.request.CookieGetter;
 import com.example.aitongji.Utils.Http.operation.request.GPAGetter;
 import com.loopj.android.http.SyncHttpClient;
@@ -17,10 +18,13 @@ import java.util.concurrent.TimeUnit;
  * Created by Novemser on 2016/11/14.
  */
 public class NetWorkManager {
-    // 定义一个线程池去进行网络请求
-    protected ThreadPoolExecutor fixedThreadPool;
-
     private static NetWorkManager manager;
+
+    public SyncHttpClient getCardRestHttpClient() {
+        return cardRestHttpClient;
+    }
+
+    private SyncHttpClient cardRestHttpClient;
 
     public SyncHttpClient getXuanKeHttpClient() {
         return xuankeHttpClient;
@@ -43,15 +47,18 @@ public class NetWorkManager {
     private NetWorkManager() {
         xuankeHttpClient = new SyncHttpClient();
         benyanHttpClient = new SyncHttpClient();
+        cardRestHttpClient = new SyncHttpClient();
         cookies4m3 = new HashMap<>();
-        // 最多5个线程...
-        fixedThreadPool = new ThreadPoolExecutor(5, 5,
-                0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>());
     }
 
+    public void resetBenYanHttpClient() {
+        benyanHttpClient = new SyncHttpClient();
+    }
     public void resetXuankeHttpClient() {
         xuankeHttpClient = new SyncHttpClient();
+    }
+    public void resetCardRestHttpClient() {
+        cardRestHttpClient = new SyncHttpClient();
     }
 
     public void set4m3Cookie(String key, String value) {
@@ -124,6 +131,16 @@ public class NetWorkManager {
             }
         }).start();
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new CardRestGetter().loadData();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void refreshAllData() {

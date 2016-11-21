@@ -71,7 +71,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 ViewHolder1 viewHolder1 = (ViewHolder1) holder;
                 if (ResourceManager.getInstance().getWeekStr() != null)
                     viewHolder1.textWeek.setText(ResourceManager.getInstance().getApplicationContext().getString(R.string.week_num, ResourceManager.getInstance().getWeekStr()));
-
+                if (ResourceManager.getInstance().getCardRest() != null)
+                    viewHolder1.textCardRest.setText(ResourceManager.getInstance().getCardRest());
                 break;
             case 2:
                 ViewHolder2 viewHolder2 = (ViewHolder2) holder;
@@ -123,6 +124,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView textWeek;
         @Bind(R.id.id_text_date_and_week)
         TextView textDateAndWeek;
+        @Bind(R.id.id_text_card_rest)
+        TextView textCardRest;
 
         public ViewHolder1(View itemView) {
             super(itemView);

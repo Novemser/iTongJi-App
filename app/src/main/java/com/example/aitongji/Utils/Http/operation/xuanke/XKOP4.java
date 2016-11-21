@@ -71,7 +71,7 @@ public class XKOP4 extends Operation {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                        manager.setGPATable(null);
                     }
                 });
     }

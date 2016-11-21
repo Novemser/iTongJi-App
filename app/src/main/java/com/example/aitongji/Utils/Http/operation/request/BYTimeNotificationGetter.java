@@ -1,5 +1,7 @@
 package com.example.aitongji.Utils.Http.operation.request;
 
+import com.example.aitongji.Utils.Managers.ObserverManager;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -79,6 +81,8 @@ public class BYTimeNotificationGetter extends BYGenericGetter {
             }
             cnt++;
         }
+
+        ObserverManager.getInstance().notifyRowChanged(1);
     }
 
     @Override

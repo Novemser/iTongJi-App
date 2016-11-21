@@ -35,6 +35,10 @@ public class NetWorkManager {
         cookies4m3 = new HashMap<>();
     }
 
+    public void resetXuankeHttpClient() {
+        xuankeHttpClient = new SyncHttpClient();
+    }
+
     public void set4m3Cookie(String key, String value) {
         cookies4m3.put(key, value);
     }

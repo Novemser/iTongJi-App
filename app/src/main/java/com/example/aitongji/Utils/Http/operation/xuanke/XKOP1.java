@@ -32,7 +32,6 @@ public class XKOP1 extends Operation {
 
     @Override
     public void perform() {
-        manager.setGPATable(new StudentGPA());
         manager.setPieces(new ArrayList<Bitmap>());
 
         // 设置Cookie容器，每次请求都需要清除以前保留的cookie

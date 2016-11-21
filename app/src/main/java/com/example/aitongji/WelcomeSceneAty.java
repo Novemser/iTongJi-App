@@ -80,7 +80,7 @@ public class WelcomeSceneAty extends AppCompatActivity {
         //set content view AFTER ABOVE sequence (to avoid crash)
         super.onCreate(savedInstanceState);
 
-        this.setContentView(R.layout.activity_welcome_scene_aty);
+        setContentView(R.layout.activity_welcome_scene_aty);
         ButterKnife.bind(this);
         final MaterialProgressBar materialProgressBar = (MaterialProgressBar) findViewById(R.id.id_progressbar_welcome_circle);
         materialProgressBar.setVisibility(View.INVISIBLE);

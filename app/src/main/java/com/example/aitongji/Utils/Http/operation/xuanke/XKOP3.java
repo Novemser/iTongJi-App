@@ -30,20 +30,18 @@ public class XKOP3 extends Operation {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 // length 小于2000才是成功 否则密码错误(很tricky...)
-                String s = new String(responseBody);
-                System.out.println(s);
                 final int len = Jsoup.parse(new String(responseBody)).html().length();
                 if (len < 2000) {
                     stepToNext();
                 } else {
-                    Log.d(getClass().getName(), "自动识别验证码错误！");
+                    Log.w(getClass().getName(), "自动识别验证码错误！");
                     manager.setGPATable(null);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                manager.setGPATable(null);
             }
         });
     }

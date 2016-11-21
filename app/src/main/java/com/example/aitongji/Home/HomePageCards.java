@@ -21,6 +21,7 @@ import com.example.aitongji.Utils.DataBundle;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.Http.InformationReq;
+import com.example.aitongji.Utils.Managers.ObserverManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,7 +42,6 @@ public class HomePageCards extends Fragment {
     private SharedPreferences sharedPreferences;
     private String TAG = "HomePageCards";
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,9 +52,11 @@ public class HomePageCards extends Fragment {
 
         ButterKnife.bind(this, root);
 
-        RecyclerView.Adapter mAdapter = new Home_Recycler_Adapter(bundle, getActivity());
+        RecyclerView.Adapter mAdapter = new RecyclerAdapter();
+        ObserverManager.getInstance().setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         mRecyclerView.setAdapter(mAdapter);
+
         sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         pullRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
 

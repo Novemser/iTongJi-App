@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 public class BP implements Serializable {
+    static final long serialVersionUID = -4508790454000400849L;
     /**
      * input vector.
      */

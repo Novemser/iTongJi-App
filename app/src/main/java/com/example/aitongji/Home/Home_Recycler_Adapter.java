@@ -62,7 +62,6 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
     private String card_rest;
     private String username;
     private String password;
-    private String course_table_str;
     private String TAG = "Home Recycler view";
     private ArrayList<String> info_id = new ArrayList<>();
     private ArrayList<String> info_title = new ArrayList<>();
@@ -82,7 +81,6 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         username = infoBundle.getString("username");
         password = infoBundle.getString("password");
         info_id = infoBundle.getStringArrayList("info_id");
-        course_table_str = infoBundle.getString("course_table_str");
         try {
             week = Integer.parseInt(time_week);
         }
@@ -115,10 +113,11 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         int cardWeekCnt = 0;
 
         private void setChartView() {
+            chart.setNoDataText("绩点信息");
+            chart.setDescription("");
             ArrayList<Entry> vals = new ArrayList<>();
             ArrayList<String> xVals = new ArrayList<>();
             for (int i = 0; i < studentGPA.semesters.size(); i++) {
-//                Log.d(TAG, "Semester " + i + " has " + studentGPA.semesters.get(i).courseGPAs.size() + " courses.");
                 vals.add(new Entry(studentGPA.semesters.get(i).semaster_gpa, i));
                 xVals.add("Sem." + (i + 1));
             }
@@ -176,6 +175,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
             super(itemView);
             ButterKnife.bind(this, itemView);
             studentGPA = AndroidResource.studentGPA;
+            setChartView();
 
             cardInformation.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -232,9 +232,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
                 }
             });
 
-            chart.setNoDataText("绩点信息");
-            chart.setDescription("");
-            setChartView();
+
             cardGPA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -362,7 +360,6 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
 //            textView = (TextView) view.findViewById(R.id.id_home_text_information_info_4);
 //            textView.setText(info_time.get(3) + " " + info_title.get(3));
 //        }
-
         // Card Information
         textView = (TextView) view.findViewById(R.id.id_text_card_rest);
         textView.setText(context.getString(R.string.card_rest, card_rest));
@@ -380,6 +377,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
 
     @Override
     public void onBindViewHolder(Home_Recycler_Adapter.ViewHolder holder, int position) {
+
     }
 
     @Override

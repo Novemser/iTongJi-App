@@ -6,6 +6,7 @@ import com.example.aitongji.Utils.Http.operation.xuanke.XKOP2;
 import com.example.aitongji.Utils.Http.operation.xuanke.XKOP3;
 import com.example.aitongji.Utils.Http.operation.xuanke.XKOP4;
 import com.example.aitongji.Utils.Http.operation.xuanke.XKOP5;
+import com.example.aitongji.Utils.Managers.NetWorkManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,8 @@ import java.util.List;
 public class GPAGetter implements INetResourceGetter {
 
     @Override
-    public void loadData() throws Exception {
+    public synchronized void loadData() throws Exception {
+        NetWorkManager.getInstance().resetXuankeHttpClient();
         List<Operation> operations = new ArrayList<>();
         operations.add(new XKOP1(operations));
         operations.add(new XKOP2(operations));

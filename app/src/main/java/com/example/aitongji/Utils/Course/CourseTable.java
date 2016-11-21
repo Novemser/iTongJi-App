@@ -1,12 +1,15 @@
 package com.example.aitongji.Utils.Course;
 
+import com.example.aitongji.Utils.observable.basic.Observer;
+import com.example.aitongji.Utils.observable.basic.Subject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Novemser on 2/23/2016.
  */
-public class CourseTable implements Serializable {
+public class CourseTable implements Serializable, Subject {
     private static CourseTable instance = null;
     public ArrayList<ArrayList<Course>> course_table = new ArrayList<>();
 
@@ -103,5 +106,20 @@ public class CourseTable implements Serializable {
 //        System.out.println("startWeek:" + tmpStr[0] + " endWeek:" + tmpStr[1] + " Single:" + course.is_single_week);
 
         temp.add(course);
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+
+    }
+
+    @Override
+    public void notifyObservers() {
+
     }
 }

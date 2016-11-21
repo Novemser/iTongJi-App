@@ -7,6 +7,7 @@ import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.Semester;
 import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
+import com.example.aitongji.Utils.Managers.ObserverManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.jsoup.Jsoup;
@@ -35,12 +36,15 @@ public class XKOP5 extends Operation {
 
     @Override
     public void perform() {
+
         // 根据权限id拉出绩点表
         NetWorkManager.getInstance().getXuanKeHttpClient()
                 .get(getNextUrl(), new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         Log.d(getClass().getName(), "Getting GPA table successfully!");
+                        manager.setGPATable(new StudentGPA());
+                        gpa_table = manager.getGPATable();
                         try {
                             Document document = Jsoup.parse(new String(responseBody, "gb2312"));
                             Elements elements = document.select("table").get(1).select("tr");
@@ -118,13 +122,10 @@ public class XKOP5 extends Operation {
                                     }
                                 }
                             }
+
+                            ObserverManager.getInstance().notifyRowChanged(2);
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
-                        } finally {
-                            manager.setGPATable(gpa_table);
-                            manager.setSemester(semester);
-                            manager.setCourseGPA(courseGPA);
-
                         }
                     }
 

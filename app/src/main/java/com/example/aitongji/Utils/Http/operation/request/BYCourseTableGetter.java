@@ -2,6 +2,7 @@ package com.example.aitongji.Utils.Http.operation.request;
 
 import com.example.aitongji.Utils.Course.Course;
 import com.example.aitongji.Utils.Course.CourseTable;
+import com.example.aitongji.Utils.Managers.ObserverManager;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -101,6 +102,7 @@ public class BYCourseTableGetter extends BYGenericGetter {
             }
         }
 
+        ObserverManager.getInstance().notifyRowChanged(1);
 //        for (ArrayList<Course> courses : courseTable.course_table) {
 //            System.out.println("Size of today: " + courses.size());
 //            for (Course cour : courses) {

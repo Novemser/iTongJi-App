@@ -38,7 +38,6 @@ public class XKOP2 extends Operation {
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 // 302到目标地址验证是否登陆成功
                 stepToNext();
-
             }
         });
     }

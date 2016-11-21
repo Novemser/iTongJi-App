@@ -43,7 +43,7 @@ public class CookieGetter implements INetResourceGetter {
         }
 
         connection = Jsoup.connect(step2);
-        connection.cookie("SERVERNAME", "s62");
+        connection.cookie("SERVERNAME", cookies4m3.get("SERVERNAME"));
 
         response = connection.execute();
         for (Map.Entry<String, String> entry : response.cookies().entrySet()) {

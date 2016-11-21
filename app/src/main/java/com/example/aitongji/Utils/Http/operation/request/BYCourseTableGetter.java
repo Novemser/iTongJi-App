@@ -3,6 +3,7 @@ package com.example.aitongji.Utils.Http.operation.request;
 import com.example.aitongji.Utils.Course.Course;
 import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.Managers.ObserverManager;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -76,7 +77,7 @@ public class BYCourseTableGetter extends BYGenericGetter {
         course_table_str = document.html();
 //        course_table_str = document.select("").remove().html();
         CourseTable.setInstance(null);
-        CourseTable courseTable = CourseTable.getInstance();
+        CourseTable courseTable = ResourceManager.getInstance().getCourseTable();
         ArrayList<String> course_raw = new ArrayList<>();
         Elements all_course_raw = courseTableResponse.parse().getElementsByClass("grid").select("tbody").select("tr");
         int cnt = 0;
@@ -103,14 +104,6 @@ public class BYCourseTableGetter extends BYGenericGetter {
         }
 
         ObserverManager.getInstance().notifyRowChanged(1);
-//        for (ArrayList<Course> courses : courseTable.course_table) {
-//            System.out.println("Size of today: " + courses.size());
-//            for (Course cour : courses) {
-//                System.out.println(cour.course_name + " \t\t" + cour.week_num + cour.classroom + " \t" + cour.teacher_name + " \t" + cour.start_time + " \t" + cour.end_time);
-//            }
-//        }
-//        System.out.println(all_course_raw.get(1));
-//        System.out.println(courseTableResponse.parse().getElementsByClass("grid").select("tbody").select("tr"));
 
     }
 

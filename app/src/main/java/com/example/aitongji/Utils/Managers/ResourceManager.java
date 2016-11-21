@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 
 import com.example.aitongji.Model.UserInfo;
 import com.example.aitongji.Utils.AndroidResource;
+import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.Semester;
 import com.example.aitongji.Utils.GPA.StudentGPA;
@@ -39,6 +40,16 @@ public class ResourceManager {
 
     private ArrayList<String> infoTimes;
 
+    public CourseTable getCourseTable() {
+        return courseTable;
+    }
+
+    public void setCourseTable(CourseTable courseTable) {
+        this.courseTable = courseTable;
+    }
+
+    private CourseTable courseTable = CourseTable.getInstance();
+
     public static ResourceManager getInstance() {
 
         if (null == manager) {
@@ -50,6 +61,7 @@ public class ResourceManager {
 
         return manager;
     }
+
     private ResourceManager() {
         GPATable = new StudentGPA();
         pieces = new ArrayList<>();

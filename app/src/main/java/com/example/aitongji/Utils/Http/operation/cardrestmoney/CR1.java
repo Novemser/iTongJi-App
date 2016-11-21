@@ -45,12 +45,11 @@ public class CR1 extends Operation {
         syncHttpClient.get(CARD_LOGIN_1, new AsyncHttpResponseHandler(Looper.getMainLooper()) {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                System.out.println("Suc:" + statusCode);
                 syncHttpClient.get(CARD_LOGIN_2, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-                        final RequestParams params = new RequestParams();
+                        RequestParams params = new RequestParams();
                         params.put("option", "credential");
                         params.put("target", "http://urp.tongji.edu.cn/index.portal");
                         params.put("Ecom_User_ID", ResourceManager.getInstance().getUserName());
@@ -60,27 +59,12 @@ public class CR1 extends Operation {
                         syncHttpClient.post(CARD_LOGIN, params, new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                                            System.out.println("Succeed:" + statusCode);
-//                                            for (Header header : headers) {
-//                                                System.out.println(header.getName() + " " + header.getValue());
-//                                            }
-
                                 syncHttpClient.get(CARD_LOGIN_3, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                                        // 登陆成功
-//                                                    System.out.println("Succeed:" + statusCode);
-//                                                    for (Header header : headers) {
-//                                                        System.out.println(header.getName() + " " + header.getValue());
-//                                                    }
-//                                                    System.out.println(new String(responseBody));
-
                                         syncHttpClient.get(CARD_INFO, new AsyncHttpResponseHandler() {
                                             @Override
                                             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                                                            System.out.println("Card info getting Succeed:" + statusCode);
-//                                                            System.out.println(new String(responseBody));
-
                                                 CharSequence card_info_raw = Jsoup.parse(new String(responseBody))
                                                         .body().getElementsByClass("portletContent").html();
                                                 Pattern pattern = Pattern.compile("<td>(.+?)</td>");
@@ -96,8 +80,6 @@ public class CR1 extends Operation {
 
                                             @Override
                                             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                                                            System.out.println("Card info getting failed:" + statusCode);
-//                                                            error.printStackTrace();
 
                                             }
                                         });
@@ -105,8 +87,6 @@ public class CR1 extends Operation {
 
                                     @Override
                                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                                                    System.out.println("Fail:" + statusCode);
-//                                                    error.printStackTrace();
 
                                     }
                                 });
@@ -115,8 +95,6 @@ public class CR1 extends Operation {
 
                             @Override
                             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                                            System.out.println("Fail:" + statusCode);
-//                                            error.printStackTrace();
 
                             }
                         });
@@ -125,8 +103,6 @@ public class CR1 extends Operation {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                                    System.out.println("Fai:" + statusCode);
-//                                    error.printStackTrace();
 
                     }
                 });
@@ -134,8 +110,6 @@ public class CR1 extends Operation {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-//                            System.out.println("Fai:" + statusCode);
-//                            error.printStackTrace();
             }
         });
 

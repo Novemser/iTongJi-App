@@ -32,7 +32,6 @@ public class ObserverManager {
                 Integer row = (Integer) msg.obj;
                 if (null != adapter) {
                     adapter.notifyItemChanged(row);
-//                    Log.e("更新", "Update:" + row + "成功");
                 }
             }
         };

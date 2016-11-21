@@ -28,7 +28,14 @@ public class Commons {
         return weekDays[w];
     }
 
-    public String getStartTime(int num) {
+    public static String getWeekOfDate(int dt) {
+        String[] weekDays = {"一", "二", "三", "四", "五", "六", "日"};
+        if (dt < 0 || dt > 6)
+            return "";
+        return weekDays[dt];
+    }
+
+    public static String getStartTime(int num) {
         switch (num) {
             case 1:
                 return "08:00";

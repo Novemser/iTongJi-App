@@ -20,12 +20,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.aitongji.Home.MainActivity;
-import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.Course.CourseTable;
-import com.example.aitongji.Utils.DataBundle;
-import com.example.aitongji.Utils.GPA.GetGPA;
-import com.example.aitongji.Utils.GPA.StudentGPA;
-import com.example.aitongji.Utils.Http.InformationReq;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.rey.material.widget.CheckBox;
@@ -155,9 +150,9 @@ public class WelcomeSceneAty extends AppCompatActivity {
 //                            // 尝试拉绩点
 //                            new GetGPA(getApplicationContext(), username, password, new GetGPA.SuccessCallback() {
 //                                @Override
-//                                public void onSuccess(StudentGPA studentGPA) {
-//                                    AndroidResource.studentGPA = studentGPA;
-//                                    //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "studentGPA.dat", studentGPA);
+//                                public void onSuccess(StudentGPASubject studentGPASubject) {
+//                                    AndroidResource.studentGPASubject = studentGPASubject;
+//                                    //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "studentGPASubject.dat", studentGPASubject);
 //                                    startActivity(intent);
 //                                    finish();
 //                                }

@@ -32,7 +32,7 @@ public class WebActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-        Intent intent = getIntent();
+//        Intent intent = getIntent();
         mWebView = (WebView) findViewById(R.id.webview);
 
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
@@ -86,18 +86,18 @@ public class WebActivity extends BaseActivity {
             }
         });
 
-        new AnnouncementReq4m3(intent.getStringExtra("username"), intent.getStringExtra("password"), intent.getStringArrayListExtra("info_id").get(intent.getIntExtra("infoId", 0)), new AnnouncementReq4m3.SuccessCallback() {
-            @Override
-            public void onSuccess(String str) {
-//                Log.d("WebActivity", str);
-                mWebView.loadData(str, "text/html; charset=UTF-8", null);
-            }
-        }, new AnnouncementReq4m3.FailureCallback() {
-            @Override
-            public void onFailure() {
-
-            }
-        });
+//        new AnnouncementReq4m3(intent.getStringExtra("username"), intent.getStringExtra("password"), intent.getStringArrayListExtra("info_id").get(intent.getIntExtra("infoId", 0)), new AnnouncementReq4m3.SuccessCallback() {
+//            @Override
+//            public void onSuccess(String str) {
+////                Log.d("WebActivity", str);
+//                mWebView.loadData(str, "text/html; charset=UTF-8", null);
+//            }
+//        }, new AnnouncementReq4m3.FailureCallback() {
+//            @Override
+//            public void onFailure() {
+//
+//            }
+//        });
     }
 
 }

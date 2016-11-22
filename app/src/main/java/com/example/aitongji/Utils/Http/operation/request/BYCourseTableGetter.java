@@ -1,18 +1,13 @@
 package com.example.aitongji.Utils.Http.operation.request;
 
-import com.example.aitongji.Utils.Course.Course;
-import com.example.aitongji.Utils.Course.CourseTable;
-import com.example.aitongji.Utils.Managers.ObserverManager;
+import com.example.aitongji.Model.CourseTableSubject;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -28,8 +23,6 @@ public class BYCourseTableGetter extends BYGenericGetter {
 
     private String course_IDS;
     private String semester;
-    private String course_table_str;
-
 
     @Override
     public void loadData() throws Exception {
@@ -71,14 +64,10 @@ public class BYCourseTableGetter extends BYGenericGetter {
                         data(postValue).
                         timeout(10000).
                         execute();
-        Document document = courseTableResponse.parse();
-        // 删除上面的课表
-//        document.select("#manualArrangeCourseTable").remove();
-        course_table_str = document.html();
-//        course_table_str = document.select("").remove().html();
-        CourseTable.setInstance(null);
-        CourseTable courseTable = ResourceManager.getInstance().getCourseTable();
-        ArrayList<String> course_raw = new ArrayList<>();
+
+        CourseTableSubject courseTable = ResourceManager.getInstance().getCourseTableSubject();
+        courseTable.reset();
+//        ArrayList<String> course_raw = new ArrayList<>();
         Elements all_course_raw = courseTableResponse.parse().getElementsByClass("grid").select("tbody").select("tr");
         int cnt = 0;
         for (Element element : all_course_raw) {
@@ -91,7 +80,7 @@ public class BYCourseTableGetter extends BYGenericGetter {
 
                 if (cnt == 8) {
                     String[] temp = element1.text().split(" ");
-                    Collections.addAll(course_raw, temp);
+//                    Collections.addAll(course_raw, temp);
 
                     for (int i = 0; i <= temp.length - 5; i = i + 5) {
                         courseTable.addCourse(course_name, temp[i], temp[i + 1], temp[i + 2], temp[i + 3], temp[i + 4]);
@@ -103,7 +92,8 @@ public class BYCourseTableGetter extends BYGenericGetter {
             }
         }
 
-        ObserverManager.getInstance().notifyRowChanged(1);
+        ResourceManager.getInstance().getCourseTableSubject().finishAddCourse();
+//        ObserverManager.getInstance().notifyRowChanged(1);
 
     }
 

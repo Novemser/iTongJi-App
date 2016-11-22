@@ -1,15 +1,15 @@
 package com.example.aitongji.Utils.Managers;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 
+import com.example.aitongji.Model.CourseTableSubject;
+import com.example.aitongji.Model.NewsTitleSubject;
+import com.example.aitongji.Model.StudentGPASubject;
 import com.example.aitongji.Model.UserInfo;
 import com.example.aitongji.Utils.AndroidResource;
-import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.Semester;
-import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.novemser.ocrtest.BP;
 
 import java.io.ObjectInputStream;
@@ -21,34 +21,13 @@ import java.util.Map;
  */
 public class ResourceManager {
     private static ResourceManager manager;
-    private StudentGPA GPATable;
+    private StudentGPASubject GPATable;
     private UserInfo userInfo;
     private Map<String, String> cookie; // 4m3的Cookie
     private ArrayList<Bitmap> pieces;
+    private NewsTitleSubject newsTitleSubject;
+    private CourseTableSubject courseTableSubject;
 
-    private ArrayList<String> infoIds;
-
-    public ArrayList<String> getInfoTitles() {
-        return infoTitles;
-    }
-
-    private ArrayList<String> infoTitles;
-
-    public ArrayList<String> getInfoTimes() {
-        return infoTimes;
-    }
-
-    private ArrayList<String> infoTimes;
-
-    public CourseTable getCourseTable() {
-        return courseTable;
-    }
-
-    public void setCourseTable(CourseTable courseTable) {
-        this.courseTable = courseTable;
-    }
-
-    private CourseTable courseTable = CourseTable.getInstance();
 
     public static ResourceManager getInstance() {
 
@@ -63,12 +42,9 @@ public class ResourceManager {
     }
 
     private ResourceManager() {
-        GPATable = new StudentGPA();
+        GPATable = new StudentGPASubject();
         pieces = new ArrayList<>();
         userInfo = new UserInfo();
-        infoIds = new ArrayList<>();
-        infoTimes = new ArrayList<>();
-        infoTitles = new ArrayList<>();
 
         // 从Assets文件夹读取BP神经网络
         try {
@@ -79,17 +55,9 @@ public class ResourceManager {
         }
     }
 
-    public ArrayList<String> getInfoIds() {
-        return infoIds;
-    }
 
     public void clearInfos() {
-        if (infoIds != null)
-            infoIds.clear();
-        if (infoTitles != null)
-            infoTitles.clear();
-        if (infoTimes != null)
-            infoTimes.clear();
+        newsTitleSubject = new NewsTitleSubject();
     }
 
     private String ocrResult;
@@ -151,11 +119,11 @@ public class ResourceManager {
         this.pieces = pieces;
     }
 
-    public StudentGPA getGPATable() {
+    public StudentGPASubject getGPATable() {
         return GPATable;
     }
 
-    public void setGPATable(StudentGPA GPATable) {
+    public void setGPATable(StudentGPASubject GPATable) {
         this.GPATable = GPATable;
     }
 
@@ -183,7 +151,6 @@ public class ResourceManager {
         this.cookie = cookie;
     }
 
-
     public Context getApplicationContext() {
         return AndroidResource.getContext();
     }
@@ -200,7 +167,17 @@ public class ResourceManager {
         return courseGPA;
     }
 
-    public void setCourseGPA(CourseGPA courseGPA) {
-        this.courseGPA = courseGPA;
+    public NewsTitleSubject getNewsTitleSubject() {
+        if (null == newsTitleSubject)
+            newsTitleSubject = new NewsTitleSubject();
+
+        return newsTitleSubject;
+    }
+
+    public CourseTableSubject getCourseTableSubject() {
+        if (null == courseTableSubject)
+            courseTableSubject = new CourseTableSubject();
+
+        return courseTableSubject;
     }
 }

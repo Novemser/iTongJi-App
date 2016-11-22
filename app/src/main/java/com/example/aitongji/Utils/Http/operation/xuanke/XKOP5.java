@@ -2,10 +2,10 @@ package com.example.aitongji.Utils.Http.operation.xuanke;
 
 import android.util.Log;
 
+import com.example.aitongji.Model.StudentGPASubject;
 import com.example.aitongji.Utils.Http.callback.Operation;
 import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.Semester;
-import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.example.aitongji.Utils.Managers.ObserverManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -26,7 +26,7 @@ import cz.msebera.android.httpclient.Header;
  */
 public class XKOP5 extends Operation {
 
-    private StudentGPA gpa_table = manager.getGPATable();
+    private StudentGPASubject gpa_table = manager.getGPATable();
     private Semester semester = manager.getSemester();
     private CourseGPA courseGPA = manager.getCourseGPA();
 
@@ -43,7 +43,7 @@ public class XKOP5 extends Operation {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         Log.d(getClass().getName(), "Getting GPA table successfully!");
-                        manager.setGPATable(new StudentGPA());
+                        manager.setGPATable(new StudentGPASubject());
                         gpa_table = manager.getGPATable();
                         try {
                             Document document = Jsoup.parse(new String(responseBody, "gb2312"));

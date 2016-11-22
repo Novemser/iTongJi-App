@@ -3,9 +3,9 @@ package com.example.aitongji.Utils.GPA;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.aitongji.Model.StudentGPASubject;
 import com.example.aitongji.Utils.Http.operation.request.BYCourseTableGetter;
 import com.example.aitongji.Utils.Http.operation.request.BYGenericGetter;
-import com.example.aitongji.Utils.Http.operation.request.BYTimeNotificationGetter;
 import com.example.aitongji.Utils.Http.operation.request.CookieGetter;
 import com.example.aitongji.Utils.Http.operation.request.GPAGetter;
 import com.example.aitongji.Utils.Managers.ResourceManager;
@@ -18,9 +18,9 @@ import com.example.aitongji.Utils.Managers.ResourceManager;
 public class GetGPA {
     public GetGPA(Context context, String username, String password, final SuccessCallback successCallback, final FailureCallback failureCallback) {
 
-        new AsyncTask<Void, Void, StudentGPA>() {
+        new AsyncTask<Void, Void, StudentGPASubject>() {
             @Override
-            protected StudentGPA doInBackground(Void... params) {
+            protected StudentGPASubject doInBackground(Void... params) {
                 int count = 0;
                 GPAGetter gpaGetter = new GPAGetter();
                 try {
@@ -55,10 +55,10 @@ public class GetGPA {
             }
 
             @Override
-            protected void onPostExecute(StudentGPA studentGPA) {
-                if (studentGPA != null) {
+            protected void onPostExecute(StudentGPASubject studentGPASubject) {
+                if (studentGPASubject != null) {
                     if (null != successCallback)
-                        successCallback.onSuccess(studentGPA);
+                        successCallback.onSuccess(studentGPASubject);
                 } else {
                     if (null != failureCallback)
                         failureCallback.onFailure();
@@ -69,7 +69,7 @@ public class GetGPA {
     }
 
     public interface SuccessCallback {
-        void onSuccess(StudentGPA studentGPA);
+        void onSuccess(StudentGPASubject studentGPASubject);
     }
 
     public interface FailureCallback {

@@ -3,7 +3,7 @@ package com.example.aitongji.Utils;
 import android.app.Application;
 import android.content.Context;
 
-import com.example.aitongji.Utils.GPA.StudentGPA;
+import com.example.aitongji.Model.StudentGPASubject;
 
 /**
  * Created by Novemser on 4/1/2016.
@@ -11,7 +11,7 @@ import com.example.aitongji.Utils.GPA.StudentGPA;
 public class AndroidResource extends Application {
     private static boolean isRefreshing;
     private static Context context;
-    public static StudentGPA studentGPA;
+    public static StudentGPASubject studentGPASubject;
     public static DataBundle dataBundle;
 
     @Override

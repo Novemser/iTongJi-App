@@ -103,12 +103,20 @@ public class NetWorkManager {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                int count = 0;
+
                 CookieGetter cookieGetter = new CookieGetter();
-                try {
-                    cookieGetter.loadData();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                while (count < 10) {
+                    try {
+                        cookieGetter.loadData();
+                        break;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        count++;
+                    }
                 }
+                if (count == 10)
+                    return;
 
                 new Thread(new Runnable() {
                     @Override

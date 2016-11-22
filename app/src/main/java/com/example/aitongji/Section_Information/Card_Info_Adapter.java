@@ -18,6 +18,7 @@ import com.example.aitongji.R;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,20 +28,20 @@ import butterknife.ButterKnife;
  */
 public class Card_Info_Adapter extends RecyclerView.Adapter<Card_Info_Adapter.ViewHolder> {
 
-    private ArrayList<String> info_title = new ArrayList<>();
-    private ArrayList<String> info_time = new ArrayList<>();
-    private ArrayList<String> info_id = new ArrayList<>();
+    private List<String> info_title = new ArrayList<>();
+    private List<String> info_time = new ArrayList<>();
+    private List<String> info_id = new ArrayList<>();
     private String username;
     private String password;
     private static final int DELAY = 138;
     private int mLastPosition = -1;
 
     public Card_Info_Adapter() {
-        this.info_title = ResourceManager.getInstance().getInfoTitles();
-        this.info_time = ResourceManager.getInstance().getInfoTimes();
+        this.info_title = ResourceManager.getInstance().getNewsTitleSubject().getInfoTitles();
+        this.info_time = ResourceManager.getInstance().getNewsTitleSubject().getInfoTimes();
         this.username = ResourceManager.getInstance().getUserName();
         this.password = ResourceManager.getInstance().getUserPwd();
-        this.info_id = ResourceManager.getInstance().getInfoIds();
+        this.info_id = ResourceManager.getInstance().getNewsTitleSubject().getInfoIds();
     }
 
     @Override
@@ -69,10 +70,6 @@ public class Card_Info_Adapter extends RecyclerView.Adapter<Card_Info_Adapter.Vi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(holder.itemView.getContext(), WebActivity.class);
-                intent.putExtra("infoId", position);
-                intent.putExtra("username", username);
-                intent.putExtra("password", password);
-                intent.putStringArrayListExtra("info_id", info_id);
                 holder.itemView.getContext().startActivity(intent);
             }
         });

@@ -23,11 +23,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.aitongji.Model.StudentGPASubject;
 import com.example.aitongji.R;
 import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.GetGPA;
-import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -46,7 +46,7 @@ public class GPATable extends AppCompatActivity {
     @Bind(R.id.ic_school)
     ImageView is;
 
-    private StudentGPA studentGPA;
+    private StudentGPASubject studentGPASubject;
 
     @Override
     protected void onResume() {
@@ -70,7 +70,7 @@ public class GPATable extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gpatable);
         ButterKnife.bind(this);
-        studentGPA = ResourceManager.getInstance().getGPATable();
+        studentGPASubject = ResourceManager.getInstance().getGPATable();
 
         setSupportActionBar(toolbar);
 
@@ -88,10 +88,10 @@ public class GPATable extends AppCompatActivity {
 
                 new GetGPA(getApplicationContext(), username, password, new GetGPA.SuccessCallback() {
                     @Override
-                    public void onSuccess(StudentGPA sg) {
-                        studentGPA = sg;
-                        AndroidResource.studentGPA = sg;
-                        //SerializationUtil.saveObject(getApplicationContext(), "studentGPA.dat", sg);
+                    public void onSuccess(StudentGPASubject sg) {
+                        studentGPASubject = sg;
+                        AndroidResource.studentGPASubject = sg;
+                        //SerializationUtil.saveObject(getApplicationContext(), "studentGPASubject.dat", sg);
                         tableLayout.removeAllViews();
                         setTableContent();
                         Snackbar.make(tableLayout, "更新成功", Snackbar.LENGTH_SHORT)
@@ -120,14 +120,14 @@ public class GPATable extends AppCompatActivity {
         tableLayout.setColumnStretchable(2, true);
         tableLayout.setColumnStretchable(3, true);
 
-        for (int i = 0; i < studentGPA.semesters.size(); i++) {
-            Log.d("GPATable", "Semaster " + i + " has " + studentGPA.semesters.get(i).courseGPAs.size() + " courses.");
+        for (int i = 0; i < studentGPASubject.semesters.size(); i++) {
+            Log.d("GPATable", "Semaster " + i + " has " + studentGPASubject.semesters.get(i).courseGPAs.size() + " courses.");
             TableRow tableRow = new TableRow(this);
             tableRow.setGravity(Gravity.CENTER);
             tableRow.setPadding(0, 10, 0, 10);
             tableRow.setBackgroundResource(R.drawable.shape_top_corner_no_bottom_line);
             TextView semesterTitle = new TextView(this);
-            semesterTitle.setText(studentGPA.semesters.get(i).semaster_info);
+            semesterTitle.setText(studentGPASubject.semesters.get(i).semaster_info);
             semesterTitle.setGravity(Gravity.CENTER);
             semesterTitle.setTextSize(18);
             semesterTitle.setTextColor(Color.BLACK);
@@ -163,8 +163,8 @@ public class GPATable extends AppCompatActivity {
 
             tableLayout.addView(tableRow);
             tableLayout.addView(header);
-            for (int j = 0; j < studentGPA.semesters.get(i).courseGPAs.size(); j++) {
-                CourseGPA courseGPA = studentGPA.semesters.get(i).courseGPAs.get(j);
+            for (int j = 0; j < studentGPASubject.semesters.get(i).courseGPAs.size(); j++) {
+                CourseGPA courseGPA = studentGPASubject.semesters.get(i).courseGPAs.get(j);
                 c1 = new TextView(this);
                 c2 = new TextView(this);
                 c3 = new TextView(this);
@@ -203,7 +203,7 @@ public class GPATable extends AppCompatActivity {
             header = new TableRow(this);
             TextView footer = new TextView(this);
             footer.setGravity(Gravity.CENTER);
-            String gpa = String.valueOf(studentGPA.semesters.get(i).semaster_gpa);
+            String gpa = String.valueOf(studentGPASubject.semesters.get(i).semaster_gpa);
             SpannableStringBuilder stringBuilder = new SpannableStringBuilder(gpa);
             stringBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0, gpa.length(), Spanned.SPAN_COMPOSING);
             footer.setText(new SpannableStringBuilder("本学期平均绩点：").append(stringBuilder));
@@ -227,8 +227,8 @@ public class GPATable extends AppCompatActivity {
         // 总平均绩点
         avgGPA.setTextSize(20);
         avgGPA.setGravity(Gravity.CENTER);
-        SpannableStringBuilder sb = new SpannableStringBuilder(String.valueOf(studentGPA.total_gpa));
-        sb.setSpan(new ForegroundColorSpan(Color.RED), 0, String.valueOf(studentGPA.total_gpa).length(), Spanned.SPAN_COMPOSING);
+        SpannableStringBuilder sb = new SpannableStringBuilder(String.valueOf(studentGPASubject.total_gpa));
+        sb.setSpan(new ForegroundColorSpan(Color.RED), 0, String.valueOf(studentGPASubject.total_gpa).length(), Spanned.SPAN_COMPOSING);
         avgGPA.setText(new SpannableStringBuilder("总平均绩点：").append(sb));
         avgGPA.setPadding(0, 15, 0, 15);
         header = new TableRow(this);
@@ -240,18 +240,18 @@ public class GPATable extends AppCompatActivity {
         TextView maj = new TextView(this);
         TextView get = new TextView(this);
         TextView fail = new TextView(this);
-        sb = new SpannableStringBuilder(String.valueOf(studentGPA.grade_majored));
-        sb.setSpan(new ForegroundColorSpan(Color.RED), 0, String.valueOf(studentGPA.grade_majored).length(), Spanned.SPAN_COMPOSING);
+        sb = new SpannableStringBuilder(String.valueOf(studentGPASubject.grade_majored));
+        sb.setSpan(new ForegroundColorSpan(Color.RED), 0, String.valueOf(studentGPASubject.grade_majored).length(), Spanned.SPAN_COMPOSING);
         maj.setText(new SpannableStringBuilder("选课学分：").append(sb));
         maj.setGravity(Gravity.CENTER);
 
-        sb = new SpannableStringBuilder(String.valueOf(studentGPA.grade_get));
-        sb.setSpan(new ForegroundColorSpan(Color.RED), 0, String.valueOf(studentGPA.grade_get).length(), Spanned.SPAN_COMPOSING);
+        sb = new SpannableStringBuilder(String.valueOf(studentGPASubject.grade_get));
+        sb.setSpan(new ForegroundColorSpan(Color.RED), 0, String.valueOf(studentGPASubject.grade_get).length(), Spanned.SPAN_COMPOSING);
         get.setText(new SpannableStringBuilder("实修学分：").append(sb));
         get.setGravity(Gravity.CENTER);
 
-        sb = new SpannableStringBuilder(String.valueOf(studentGPA.failed_courses));
-        sb.setSpan(new ForegroundColorSpan(Color.RED), 0, String.valueOf(studentGPA.failed_courses).length(), Spanned.SPAN_COMPOSING);
+        sb = new SpannableStringBuilder(String.valueOf(studentGPASubject.failed_courses));
+        sb.setSpan(new ForegroundColorSpan(Color.RED), 0, String.valueOf(studentGPASubject.failed_courses).length(), Spanned.SPAN_COMPOSING);
         fail.setText(new SpannableStringBuilder("不及格门数：").append(sb));
         fail.setGravity(Gravity.CENTER);
 

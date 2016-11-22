@@ -129,7 +129,7 @@ public class Course_Page extends AppCompatActivity implements ScrollViewListener
         tvMonth.setText(month + "月");
         time_week_tv.setText("第 " + String.valueOf(week) + " 周");
 
-        ArrayList<ArrayList<Course>> courseTable = ResourceManager.getInstance().getCourseTable().course_table;
+        ArrayList<ArrayList<Course>> courseTable = ResourceManager.getInstance().getCourseTableSubject().course_table;
         for (int i = 0; i < courseTable.size(); i++) {
             for (int j = 0; j < courseTable.get(i).size(); j++) {
                 Course course = courseTable.get(i).get(j);

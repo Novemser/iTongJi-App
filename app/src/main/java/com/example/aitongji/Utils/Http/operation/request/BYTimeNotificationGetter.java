@@ -23,9 +23,9 @@ public class BYTimeNotificationGetter extends BYGenericGetter {
 
     private String time_today;
     private String time_week;
-    private ArrayList<String> info_title = ResourceManager.getInstance().getInfoTitles();
-    private ArrayList<String> info_time = ResourceManager.getInstance().getInfoTimes();
-    private ArrayList<String> info_id = ResourceManager.getInstance().getInfoIds();
+    private ArrayList<String> info_title = new ArrayList<>();
+    private ArrayList<String> info_time = new ArrayList<>();
+    private ArrayList<String> info_id = new ArrayList<>();
 
     private void resetLists() {
         info_id.clear();
@@ -83,8 +83,7 @@ public class BYTimeNotificationGetter extends BYGenericGetter {
             cnt++;
         }
 
-        ObserverManager.getInstance().notifyRowChanged(0);
-
+        ResourceManager.getInstance().getNewsTitleSubject().setNewsInfo(info_id, info_time, info_title);
     }
 
     @Override

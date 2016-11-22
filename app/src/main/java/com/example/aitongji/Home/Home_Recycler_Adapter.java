@@ -29,7 +29,7 @@ import com.example.aitongji.Section_Information.Card_Information;
 import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.Course.Course;
 import com.example.aitongji.Utils.Course.CourseTable;
-import com.example.aitongji.Utils.GPA.StudentGPA;
+import com.example.aitongji.Model.StudentGPASubject;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -69,7 +69,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
 
     private int week;
 
-    private StudentGPA studentGPA;
+    private StudentGPASubject studentGPASubject;
     private Activity activity;
 
     public Home_Recycler_Adapter(Bundle infoBundle, Activity activity) {
@@ -117,11 +117,11 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
             chart.setDescription("");
             ArrayList<Entry> vals = new ArrayList<>();
             ArrayList<String> xVals = new ArrayList<>();
-            for (int i = 0; i < studentGPA.semesters.size(); i++) {
-                vals.add(new Entry(studentGPA.semesters.get(i).semaster_gpa, i));
+            for (int i = 0; i < studentGPASubject.semesters.size(); i++) {
+                vals.add(new Entry(studentGPASubject.semesters.get(i).semaster_gpa, i));
                 xVals.add("Sem." + (i + 1));
             }
-            textGpaAvg.setText("总平均绩点:" + studentGPA.total_gpa);
+            textGpaAvg.setText("总平均绩点:" + studentGPASubject.total_gpa);
 
             LineDataSet dataSet = new LineDataSet(vals, "GPA");
             dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -174,7 +174,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            studentGPA = AndroidResource.studentGPA;
+            studentGPASubject = AndroidResource.studentGPASubject;
             setChartView();
 
             cardInformation.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +237,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(activity, GPATable.class);
-                    intent.putExtra("studentGPA", studentGPA);
+                    intent.putExtra("studentGPASubject", studentGPASubject);
 
                     ActivityOptionsCompat optionsCompat =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(activity, itemView.findViewById(R.id.ic_school), "school");

@@ -7,10 +7,13 @@ import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.example.aitongji.Utils.observable.Observer;
+import com.example.aitongji.Utils.observable.Subject;
+
 /**
  * Created by Novemser on 2016/11/21.
  */
-public class ObserverManager {
+public class ObserverManager implements Observer {
     private Handler mHandler;
 
     private static ObserverManager manager;
@@ -35,6 +38,9 @@ public class ObserverManager {
                 }
             }
         };
+        // 注册Data
+        ResourceManager.getInstance().getNewsTitleSubject().registerObserver(this);
+        ResourceManager.getInstance().getCourseTableSubject().registerObserver(this);
     }
 
     public static ObserverManager getInstance() {
@@ -57,5 +63,10 @@ public class ObserverManager {
             Message updateMessage = mHandler.obtainMessage(row, row);
             updateMessage.sendToTarget();
         }
+    }
+
+    @Override
+    public void update(int rowNumber) {
+        notifyRowChanged(rowNumber);
     }
 }

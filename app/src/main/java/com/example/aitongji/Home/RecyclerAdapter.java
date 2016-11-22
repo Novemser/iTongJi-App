@@ -21,6 +21,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.aitongji.Model.CourseTableSubject;
 import com.example.aitongji.R;
 import com.example.aitongji.Section_Course.Course_Page;
 import com.example.aitongji.Section_Elect.ElectricityQuery;
@@ -93,8 +94,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (holder.getItemViewType()) {
             case 0:
                 ViewHolder0 viewHolder0 = (ViewHolder0) holder;
-                List<String> info_time = ResourceManager.getInstance().getInfoTimes();
-                List<String> info_title = ResourceManager.getInstance().getInfoTitles();
+                List<String> info_time = ResourceManager.getInstance().getNewsTitleSubject().getInfoTimes();
+                List<String> info_title = ResourceManager.getInstance().getNewsTitleSubject().getInfoTitles();
                 // Information
                 if (info_time.size() >= 4 && info_title.size() >= 4) {
                     viewHolder0.textView1.setText(info_time.get(0) + " " + info_title.get(0));
@@ -119,8 +120,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if (ResourceManager.getInstance().getCardRest() != null)
                     viewHolder1.textCardRest.setText(ResourceManager.getInstance().getApplicationContext().getString(R.string.card_rest, ResourceManager.getInstance().getCardRest()));
                 // 课表
-                if (ResourceManager.getInstance().getCourseTable() != null && ResourceManager.getInstance().getWeekStr() != null) {
-                    CourseTable courseTable = ResourceManager.getInstance().getCourseTable();
+                if (ResourceManager.getInstance().getCourseTableSubject().course_table.size() != 0 && ResourceManager.getInstance().getWeekStr() != null) {
+                    CourseTableSubject courseTable = ResourceManager.getInstance().getCourseTableSubject();
                     // 无课表返回
                     if (courseTable.course_table.size() <= 0)
                         return;

@@ -1,9 +1,16 @@
 package com.example.aitongji.Utils.Http.operation.xuanke;
 
+import android.content.Intent;
 import android.util.Log;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.aitongji.Home.MainActivity;
+import com.example.aitongji.Section_Elect.ElectricityQuery;
 import com.example.aitongji.Utils.Http.callback.Operation;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
+import com.example.aitongji.Utils.Managers.ResourceManager;
+import com.example.aitongji.WelcomeSceneAty;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.jsoup.Jsoup;
@@ -11,6 +18,7 @@ import org.jsoup.Jsoup;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.util.EncodingUtils;
 
 /**
  * Created by Novemser on 2016/11/19.
@@ -34,7 +42,13 @@ public class XKOP3 extends Operation {
                 if (len < 2000) {
                     stepToNext();
                 } else {
-                    Log.w(getClass().getName(), "自动识别验证码错误！");
+                    String sb = new String(responseBody);
+                    if (sb.contains("ͳһ�����֤ʧ��,�����µ�¼!")) {
+                        Log.w(getClass().getName(), "密码错误！");
+                    }
+                    else {
+                        Log.w(getClass().getName(), "自动识别验证码错误！");
+                    }
                     manager.setGPATable(null);
                 }
             }

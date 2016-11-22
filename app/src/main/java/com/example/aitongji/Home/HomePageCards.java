@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,11 +15,7 @@ import android.view.ViewGroup;
 import com.baoyz.widget.PullRefreshLayout;
 import com.example.aitongji.R;
 import com.example.aitongji.Utils.AndroidResource;
-import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.DataBundle;
-import com.example.aitongji.Utils.GPA.GetGPA;
-import com.example.aitongji.Utils.GPA.StudentGPA;
-import com.example.aitongji.Utils.Http.InformationReq;
 import com.example.aitongji.Utils.Managers.ObserverManager;
 
 import java.text.SimpleDateFormat;
@@ -74,7 +69,7 @@ public class HomePageCards extends Fragment {
                 @Override
                 public void run() {
                     pullRefreshLayout.setRefreshing(true);
-                    updateData();
+//                    updateData();
                     sharedPreferences.edit().putString("REFRESH_DATE", String.valueOf(day)).apply();
                     sharedPreferences.edit().putString("REFRESH_YEAR", new SimpleDateFormat("yyyy").format(now)).apply();
                 }
@@ -88,7 +83,7 @@ public class HomePageCards extends Fragment {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            updateData();
+//                            updateData();
                         }
                     }).start();
                 }
@@ -97,62 +92,62 @@ public class HomePageCards extends Fragment {
         return root;
     }
 
-    private void updateData() {
-        Log.d("Refreshing", "Start");
-        AndroidResource.setIsRefreshing(true);
-        new InformationReq(sharedPreferences.getString("username", ""), sharedPreferences.getString("password", ""), new InformationReq.SuccessCallback() {
-            @Override
-            public void onSuccess(final DataBundle dataBundle) {
-                Log.d("Login to 4m3", "Login Succeed");
-                // 保存主要信息
-                if (getActivity() == null || getActivity().getApplicationContext() == null) {
-                    Log.d("Refreshing", "Stop");
-                    AndroidResource.setIsRefreshing(false);
-                    return;
-                }
-
-                AndroidResource.dataBundle = dataBundle;
-                //SerializationUtil.saveObject(getActivity().getApplicationContext(), "dataBundle.dat", dataBundle);
-                setBundle(dataBundle);
-
-                // 尝试拉绩点
-                new GetGPA(getActivity().getApplicationContext(), sharedPreferences.getString("username", ""), sharedPreferences.getString("password", ""), new GetGPA.SuccessCallback() {
-                    @Override
-                    public void onSuccess(StudentGPA studentGPA) {
-                        AndroidResource.studentGPA = studentGPA;
-                        //SerializationUtil.saveObject(getActivity().getApplicationContext(), "studentGPA.dat", studentGPA);
-
-                        Home_Recycler_Adapter adapter = new Home_Recycler_Adapter(bundle, getActivity());
-                        mRecyclerView.setAdapter(adapter);
-                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-                        mRecyclerView.invalidate();
-                        pullRefreshLayout.setRefreshing(false);
-                        Snackbar.make(mRecyclerView, "刷新成功", Snackbar.LENGTH_SHORT).show();
-
-                        AndroidResource.setIsRefreshing(false);
-                    }
-                }, new GetGPA.FailureCallback() {
-                    @Override
-                    public void onFailure() {
-                        Snackbar.make(mRecyclerView, "多次登陆失败 请稍后再试", Snackbar.LENGTH_SHORT).show();
-                        pullRefreshLayout.setRefreshing(false);
-
-                        AndroidResource.setIsRefreshing(false);
-                    }
-                });
-
-
-            }
-        }, new InformationReq.FailureCallback() {
-            @Override
-            public void onFailure() {
-                Snackbar.make(mRecyclerView, "登陆失败 请检查网络/密码后重试", Snackbar.LENGTH_SHORT).show();
-                pullRefreshLayout.setRefreshing(false);
-
-                AndroidResource.setIsRefreshing(false);
-            }
-        });
-    }
+//    private void updateData() {
+//        Log.d("Refreshing", "Start");
+//        AndroidResource.setIsRefreshing(true);
+//        new InformationReq(sharedPreferences.getString("username", ""), sharedPreferences.getString("password", ""), new InformationReq.SuccessCallback() {
+//            @Override
+//            public void onSuccess(final DataBundle dataBundle) {
+//                Log.d("Login to 4m3", "Login Succeed");
+//                // 保存主要信息
+//                if (getActivity() == null || getActivity().getApplicationContext() == null) {
+//                    Log.d("Refreshing", "Stop");
+//                    AndroidResource.setIsRefreshing(false);
+//                    return;
+//                }
+//
+//                AndroidResource.dataBundle = dataBundle;
+//                //SerializationUtil.saveObject(getActivity().getApplicationContext(), "dataBundle.dat", dataBundle);
+//                setBundle(dataBundle);
+//
+//                // 尝试拉绩点
+//                new GetGPA(getActivity().getApplicationContext(), sharedPreferences.getString("username", ""), sharedPreferences.getString("password", ""), new GetGPA.SuccessCallback() {
+//                    @Override
+//                    public void onSuccess(StudentGPASubject studentGPASubject) {
+//                        AndroidResource.studentGPASubject = studentGPASubject;
+//                        //SerializationUtil.saveObject(getActivity().getApplicationContext(), "studentGPASubject.dat", studentGPASubject);
+//
+//                        Home_Recycler_Adapter adapter = new Home_Recycler_Adapter(bundle, getActivity());
+//                        mRecyclerView.setAdapter(adapter);
+//                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+//                        mRecyclerView.invalidate();
+//                        pullRefreshLayout.setRefreshing(false);
+//                        Snackbar.make(mRecyclerView, "刷新成功", Snackbar.LENGTH_SHORT).show();
+//
+//                        AndroidResource.setIsRefreshing(false);
+//                    }
+//                }, new GetGPA.FailureCallback() {
+//                    @Override
+//                    public void onFailure() {
+//                        Snackbar.make(mRecyclerView, "多次登陆失败 请稍后再试", Snackbar.LENGTH_SHORT).show();
+//                        pullRefreshLayout.setRefreshing(false);
+//
+//                        AndroidResource.setIsRefreshing(false);
+//                    }
+//                });
+//
+//
+//            }
+//        }, new InformationReq.FailureCallback() {
+//            @Override
+//            public void onFailure() {
+//                Snackbar.make(mRecyclerView, "登陆失败 请检查网络/密码后重试", Snackbar.LENGTH_SHORT).show();
+//                pullRefreshLayout.setRefreshing(false);
+//
+//                AndroidResource.setIsRefreshing(false);
+//            }
+//        });
+//    }
 
     private void setBundle(DataBundle dataBundle) {
 //        CourseTable.setInstance(dataBundle.courseTable);

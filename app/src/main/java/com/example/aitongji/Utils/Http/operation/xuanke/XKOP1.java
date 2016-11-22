@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Looper;
 
 import com.example.aitongji.Utils.Http.callback.Operation;
-import com.example.aitongji.Utils.GPA.StudentGPA;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;

@@ -1,5 +1,7 @@
 package com.example.aitongji.Utils.Http.operation.request;
 
+import android.util.Log;
+
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 
@@ -143,6 +145,7 @@ public class CookieGetter implements INetResourceGetter {
             // 一定要执行最后一步
             // 以使服务器确认完成认证
             connection.execute();
+            Log.d("Login:", "Login to 4m3 succeed.");
         }
     }
 

@@ -128,6 +128,9 @@ public class WelcomeSceneAty extends AppCompatActivity {
                     ResourceManager.getInstance().setUserName(username);
                     ResourceManager.getInstance().setUserPwd(password);
                     NetWorkManager.getInstance().obtainAllDataThenNotify();
+                    editor.putString("username", username);
+                    editor.putString("password", password);
+                    editor.apply();
                     startActivity(intent);
                     finish();
 //                    new InformationReq(username, password, new InformationReq.SuccessCallback() {

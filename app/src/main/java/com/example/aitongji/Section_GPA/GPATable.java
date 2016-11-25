@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import com.example.aitongji.Model.StudentGPASubject;
 import com.example.aitongji.R;
-import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.GetGPA;
 import com.example.aitongji.Utils.Managers.ResourceManager;
@@ -90,7 +89,7 @@ public class GPATable extends AppCompatActivity {
                     @Override
                     public void onSuccess(StudentGPASubject sg) {
                         studentGPASubject = sg;
-                        AndroidResource.studentGPASubject = sg;
+//                        AndroidResource.studentGPASubject = sg;
                         //SerializationUtil.saveObject(getApplicationContext(), "studentGPASubject.dat", sg);
                         tableLayout.removeAllViews();
                         setTableContent();

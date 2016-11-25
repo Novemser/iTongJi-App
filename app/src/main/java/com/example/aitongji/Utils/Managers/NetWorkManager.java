@@ -10,9 +10,6 @@ import com.loopj.android.http.SyncHttpClient;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Novemser on 2016/11/14.
@@ -44,19 +41,26 @@ public class NetWorkManager {
 
     private SyncHttpClient benyanHttpClient;
 
+//    private Semaphore semaphore;
+
+//    private static final int networkThreadCnt = 5;
+
     private NetWorkManager() {
         xuankeHttpClient = new SyncHttpClient();
         benyanHttpClient = new SyncHttpClient();
         cardRestHttpClient = new SyncHttpClient();
         cookies4m3 = new HashMap<>();
+//        semaphore = new Semaphore(networkThreadCnt, true);
     }
 
     public void resetBenYanHttpClient() {
         benyanHttpClient = new SyncHttpClient();
     }
+
     public void resetXuankeHttpClient() {
         xuankeHttpClient = new SyncHttpClient();
     }
+
     public void resetCardRestHttpClient() {
         cardRestHttpClient = new SyncHttpClient();
     }
@@ -78,6 +82,7 @@ public class NetWorkManager {
     }
 
     public void obtainAllDataThenNotify() {
+
         new Thread(new Runnable() {
             @Override
             public void run() {

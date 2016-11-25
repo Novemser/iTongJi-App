@@ -21,13 +21,12 @@ import java.util.Map;
  */
 public class ResourceManager {
     private static ResourceManager manager;
-    private StudentGPASubject GPATable;
     private UserInfo userInfo;
     private Map<String, String> cookie; // 4m3的Cookie
     private ArrayList<Bitmap> pieces;
+    private StudentGPASubject GPATable;
     private NewsTitleSubject newsTitleSubject;
     private CourseTableSubject courseTableSubject;
-
 
     public static ResourceManager getInstance() {
 
@@ -42,7 +41,6 @@ public class ResourceManager {
     }
 
     private ResourceManager() {
-        GPATable = new StudentGPASubject();
         pieces = new ArrayList<>();
         userInfo = new UserInfo();
 
@@ -119,10 +117,6 @@ public class ResourceManager {
         this.pieces = pieces;
     }
 
-    public StudentGPASubject getGPATable() {
-        return GPATable;
-    }
-
     public void setGPATable(StudentGPASubject GPATable) {
         this.GPATable = GPATable;
     }
@@ -172,6 +166,13 @@ public class ResourceManager {
             newsTitleSubject = new NewsTitleSubject();
 
         return newsTitleSubject;
+    }
+
+    public StudentGPASubject getGPATable() {
+        if (null == GPATable)
+            GPATable = new StudentGPASubject();
+
+        return GPATable;
     }
 
     public CourseTableSubject getCourseTableSubject() {

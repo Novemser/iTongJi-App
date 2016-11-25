@@ -5,10 +5,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.example.aitongji.Utils.observable.Observer;
-import com.example.aitongji.Utils.observable.Subject;
 
 /**
  * Created by Novemser on 2016/11/21.

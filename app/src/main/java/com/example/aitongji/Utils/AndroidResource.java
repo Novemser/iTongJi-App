@@ -3,15 +3,13 @@ package com.example.aitongji.Utils;
 import android.app.Application;
 import android.content.Context;
 
-import com.example.aitongji.Model.StudentGPASubject;
-
 /**
  * Created by Novemser on 4/1/2016.
  */
 public class AndroidResource extends Application {
     private static boolean isRefreshing;
     private static Context context;
-    public static StudentGPASubject studentGPASubject;
+//    public static StudentGPASubject studentGPASubject;
     public static DataBundle dataBundle;
 
     @Override

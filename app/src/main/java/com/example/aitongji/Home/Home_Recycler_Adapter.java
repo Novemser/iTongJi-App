@@ -21,15 +21,14 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.aitongji.Model.StudentGPASubject;
 import com.example.aitongji.R;
 import com.example.aitongji.Section_Course.Course_Page;
 import com.example.aitongji.Section_Elect.ElectricityQuery;
 import com.example.aitongji.Section_GPA.GPATable;
 import com.example.aitongji.Section_Information.Card_Information;
-import com.example.aitongji.Utils.AndroidResource;
 import com.example.aitongji.Utils.Course.Course;
 import com.example.aitongji.Utils.Course.CourseTable;
-import com.example.aitongji.Model.StudentGPASubject;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -56,6 +55,8 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 /**
  * Created by Novemser on 2016/2/1.
  */
+@Deprecated
+@SuppressWarnings("all")
 public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Adapter.ViewHolder> {
     private String time_today;
     private String time_week;
@@ -174,7 +175,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
         public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            studentGPASubject = AndroidResource.studentGPASubject;
+//            studentGPASubject = AndroidResource.studentGPASubject;
             setChartView();
 
             cardInformation.setOnClickListener(new View.OnClickListener() {

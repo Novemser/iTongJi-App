@@ -1,5 +1,7 @@
 package com.example.aitongji.Utils.Http.operation.request;
 
+import android.util.Log;
+
 import com.example.aitongji.Model.CourseTableSubject;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 
@@ -93,6 +95,8 @@ public class BYCourseTableGetter extends BYGenericGetter {
         }
 
         ResourceManager.getInstance().getCourseTableSubject().finishAddCourse();
+        Log.e("Login:", "finishAddCourse");
+
 //        ObserverManager.getInstance().notifyRowChanged(1);
 
     }

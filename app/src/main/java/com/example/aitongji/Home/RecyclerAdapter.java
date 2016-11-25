@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import com.example.aitongji.Section_GPA.GPATable;
 import com.example.aitongji.Section_Information.Card_Information;
 import com.example.aitongji.Utils.Commons;
 import com.example.aitongji.Utils.Course.Course;
-import com.example.aitongji.Utils.Course.CourseTable;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -158,10 +156,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     // 如果下节课程不在当日
                     if (!flag) {
                         int i = 1;
-                        while (CourseTable.getInstance().course_table.get((Commons.getWeekOfDateDecimal(nowDate) + i) % 7).size() == 0) {
+                        while (ResourceManager.getInstance().getCourseTableSubject().course_table.get((Commons.getWeekOfDateDecimal(nowDate) + i) % 7).size() == 0) {
                             i++;
                         }
-                        courses_of_today = CourseTable.getInstance().course_table.get((Commons.getWeekOfDateDecimal(nowDate) + i) % 7);
+                        courses_of_today = ResourceManager.getInstance().getCourseTableSubject().course_table.get((Commons.getWeekOfDateDecimal(nowDate) + i) % 7);
                         Collections.sort(courses_of_today, new Comparator<Course>() {
                             @Override
                             public int compare(Course lhs, Course rhs) {

@@ -4,9 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.example.aitongji.Model.StudentGPASubject;
-import com.example.aitongji.Utils.Http.operation.request.BYCourseTableGetter;
-import com.example.aitongji.Utils.Http.operation.request.BYGenericGetter;
-import com.example.aitongji.Utils.Http.operation.request.CookieGetter;
 import com.example.aitongji.Utils.Http.operation.request.GPAGetter;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 
@@ -36,19 +33,6 @@ public class GetGPA {
                         e.printStackTrace();
                     }
                     count++;
-                }
-                CookieGetter cookieGetter = new CookieGetter();
-                try {
-                    cookieGetter.loadData();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                BYGenericGetter getter = new BYCourseTableGetter();
-                try {
-                    getter.loadData();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
                 return ResourceManager.getInstance().getGPATable();

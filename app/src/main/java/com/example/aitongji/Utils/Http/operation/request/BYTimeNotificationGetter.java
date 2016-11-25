@@ -1,6 +1,7 @@
 package com.example.aitongji.Utils.Http.operation.request;
 
-import com.example.aitongji.Utils.Managers.ObserverManager;
+import android.util.Log;
+
 import com.example.aitongji.Utils.Managers.ResourceManager;
 
 import org.jsoup.Connection;
@@ -84,6 +85,8 @@ public class BYTimeNotificationGetter extends BYGenericGetter {
         }
 
         ResourceManager.getInstance().getNewsTitleSubject().setNewsInfo(info_id, info_time, info_title);
+        Log.e("Login:", "setNewsInfo");
+
     }
 
     @Override

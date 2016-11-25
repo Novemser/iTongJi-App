@@ -28,7 +28,6 @@ public class XKOP5 extends Operation {
 
     private StudentGPASubject gpa_table = manager.getGPATable();
     private Semester semester = manager.getSemester();
-    private CourseGPA courseGPA = manager.getCourseGPA();
 
     public XKOP5(List<Operation> operations) {
         super(operations);
@@ -107,7 +106,7 @@ public class XKOP5 extends Operation {
 //                                                                                Log.d(TAG, "Course have " + tmp_course.length + " attributes.");
 
                                         if (tmp_course.length == 9) {
-                                            courseGPA = new CourseGPA();
+                                            CourseGPA courseGPA = new CourseGPA();
                                             courseGPA.course_id = tmp_course[0];
                                             courseGPA.course_name = tmp_course[1];
                                             courseGPA.evaluation = tmp_course[2];

@@ -1,14 +1,24 @@
 package com.example.aitongji.Service;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
 
 import com.example.aitongji.Home.MainActivity;
+import com.example.aitongji.R;
+import com.example.aitongji.Utils.AndroidResource;
+import com.example.aitongji.Utils.DataBundle;
+import com.example.aitongji.Utils.Http.InformationReq;
+import com.example.aitongji.Utils.Managers.NetWorkManager;
+import com.example.aitongji.Utils.Managers.ResourceManager;
+import com.example.aitongji.Utils.observable.Observer;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class CardRestNotice extends Service {
     static Timer timer = null;
@@ -17,7 +27,7 @@ public class CardRestNotice extends Service {
     private int value;
     private static final String loginUrl_v2 = "http://tjis.tongji.edu.cn:58080/amserver/UI/Login";
     private static final String CARD_INFO = "http://urp.tongji.edu.cn/index.portal?.pn=p84_p468_p469";
-
+    private Observer restMoneyObserver;
     //清除通知
     public static void cleanAllNotification() {
         NotificationManager mn = (NotificationManager) MainActivity.getContext().getSystemService(NOTIFICATION_SERVICE);
@@ -43,6 +53,28 @@ public class CardRestNotice extends Service {
     }
 
     public CardRestNotice() {
+        restMoneyObserver = new Observer() {
+            @Override
+            public void update(int rowNumber) {
+                Log.e(getClass().getName(), "Row Number:" + rowNumber);
+
+                float card_rest = Float.parseFloat(ResourceManager.getInstance().getRestMoneySubject().getCardRest());
+                if (card_rest < value) {
+                    NotificationManager mn = (NotificationManager) CardRestNotice.this.getSystemService(NOTIFICATION_SERVICE);
+                    mn.cancelAll();
+                    Notification.Builder builder = new Notification.Builder(CardRestNotice.this);
+                    builder.setSmallIcon(R.drawable.ic_stat_editor_attach_money);
+                    builder.setTicker("您的校园卡余额不足" + value + "元"); //测试通知栏标题
+                    builder.setContentText("请及时充值 :)"); //下拉通知啦内容
+                    builder.setContentTitle("余额:" + card_rest + "元");//下拉通知栏标题
+                    builder.setAutoCancel(true);
+                    builder.setDefaults(Notification.DEFAULT_ALL);
+                    Notification notification = builder.build();
+                    mn.notify((int) System.currentTimeMillis(), notification);
+                }
+            }
+        };
+        ResourceManager.getInstance().getRestMoneySubject().registerObserver(restMoneyObserver);
     }
 
     public void setValue(int value) {
@@ -55,51 +87,52 @@ public class CardRestNotice extends Service {
     }
 
     public int onStartCommand(final Intent intent, int flags, int startId) {
-//        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-//        username = sharedPreferences.getString("username", "");
-//        password = sharedPreferences.getString("password", "");
-//        value = Integer.parseInt(sharedPreferences.getString("value", "10000"));
-//
-//        long period = 30 * 60 * 1000; //半小时一个周期
-//        if (null == timer) {
-//            timer = new Timer();
-//        } else if (!sharedPreferences.getBoolean("FORCE_REFRESH", true)) {
-//            return super.onStartCommand(intent, flags, startId);
-//        }
-//        sharedPreferences.edit().putBoolean("FORCE_REFRESH", false).apply();
-//
-//        timer.schedule(new TimerTask() {
-//
-//            @Override
-//            public void run() {
+        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+        username = sharedPreferences.getString("username", "");
+        password = sharedPreferences.getString("password", "");
+        value = Integer.parseInt(sharedPreferences.getString("value", "10000"));
+
+        long period = 30 * 60 * 1000; //半小时一个周期
+        if (null == timer) {
+            timer = new Timer();
+        } else if (!sharedPreferences.getBoolean("FORCE_REFRESH", true)) {
+            return super.onStartCommand(intent, flags, startId);
+        }
+        sharedPreferences.edit().putBoolean("FORCE_REFRESH", false).apply();
+
+        timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                NetWorkManager.getInstance().getCardRestThenNotify();
 //                if (username != null && !username.equals("")) {
 //                    new InformationReq(username, password, new InformationReq.SuccessCallback() {
 //                        @Override
 //                        public void onSuccess(DataBundle dataBundle) {
 //                            // 保存主要信息
-//                            AndroidResource.dataBundle = dataBundle;
+////                            AndroidResource.dataBundle = dataBundle;
 ////                            SerializationUtil.saveObject(AndroidResource.getContext(), "dataBundle.dat", dataBundle);
 ////                            System.out.println("Card rest log:" + dataBundle.cardRest);
 //                            // TODO  fix 1 只是简单的处理，网络层有点乱··
-//                            if (dataBundle == null) {
-//                                Log.e("Network","CardRestNotice access cardRest error!");
-//                                return;
-//                            }
+////                            if (dataBundle == null) {
+////                                Log.e("Network","CardRestNotice access cardRest error!");
+////                                return;
+////                            }
 //
-//                            float card_rest = Float.parseFloat(ResourceManager.getInstance().getCardRest());
-//                            if (card_rest < value) {
-//                                NotificationManager mn = (NotificationManager) CardRestNotice.this.getSystemService(NOTIFICATION_SERVICE);
-//                                mn.cancelAll();
-//                                Notification.Builder builder = new Notification.Builder(CardRestNotice.this);
-//                                builder.setSmallIcon(R.drawable.ic_stat_editor_attach_money);
-//                                builder.setTicker("您的校园卡余额不足" + value + "元"); //测试通知栏标题
-//                                builder.setContentText("请及时充值 :)"); //下拉通知啦内容
-//                                builder.setContentTitle("余额:" + card_rest + "元");//下拉通知栏标题
-//                                builder.setAutoCancel(true);
-//                                builder.setDefaults(Notification.DEFAULT_ALL);
-//                                Notification notification = builder.build();
-//                                mn.notify((int) System.currentTimeMillis(), notification);
-//                            }
+////                            float card_rest = Float.parseFloat(ResourceManager.getInstance().getCardRest());
+////                            if (card_rest < value) {
+////                                NotificationManager mn = (NotificationManager) CardRestNotice.this.getSystemService(NOTIFICATION_SERVICE);
+////                                mn.cancelAll();
+////                                Notification.Builder builder = new Notification.Builder(CardRestNotice.this);
+////                                builder.setSmallIcon(R.drawable.ic_stat_editor_attach_money);
+////                                builder.setTicker("您的校园卡余额不足" + value + "元"); //测试通知栏标题
+////                                builder.setContentText("请及时充值 :)"); //下拉通知啦内容
+////                                builder.setContentTitle("余额:" + card_rest + "元");//下拉通知栏标题
+////                                builder.setAutoCancel(true);
+////                                builder.setDefaults(Notification.DEFAULT_ALL);
+////                                Notification notification = builder.build();
+////                                mn.notify((int) System.currentTimeMillis(), notification);
+////                            }
 //                        }
 //                    }, new InformationReq.FailureCallback() {
 //                        @Override
@@ -108,9 +141,9 @@ public class CardRestNotice extends Service {
 //                        }
 //                    });
 //                }
-//
-//            }
-//        }, 0, period);
+
+            }
+        }, 0, period);
 
         return super.onStartCommand(intent, flags, startId);
     }

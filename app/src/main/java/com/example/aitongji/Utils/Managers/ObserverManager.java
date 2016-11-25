@@ -39,6 +39,7 @@ public class ObserverManager implements Observer {
         // 注册Data
         ResourceManager.getInstance().getNewsTitleSubject().registerObserver(this);
         ResourceManager.getInstance().getCourseTableSubject().registerObserver(this);
+        ResourceManager.getInstance().getRestMoneySubject().registerObserver(this);
     }
 
     public static ObserverManager getInstance() {

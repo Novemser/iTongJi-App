@@ -83,28 +83,27 @@ public class NetWorkManager {
 
     public void obtainAllDataThenNotify() {
 
+        getGPAThenNotify();
+
+        get4m3ThenNotify();
+
+        getCardRestThenNotify();
+    }
+
+    public void getCardRestThenNotify() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int count = 0;
-                GPAGetter gpaGetter = new GPAGetter();
                 try {
-                    gpaGetter.loadData();
+                    new CardRestGetter().loadData();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                // 最多自动验证10次
-                while (count < 10 && (null == ResourceManager.getInstance().getGPATable())) {
-                    try {
-                        gpaGetter.loadData();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    count++;
-                }
             }
         }).start();
+    }
 
+    public void get4m3ThenNotify() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -143,14 +142,27 @@ public class NetWorkManager {
                 }).start();
             }
         }).start();
+    }
 
+    public void getGPAThenNotify() {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                int count = 0;
+                GPAGetter gpaGetter = new GPAGetter();
                 try {
-                    new CardRestGetter().loadData();
+                    gpaGetter.loadData();
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+                // 最多自动验证10次
+                while (count < 10 && (null == ResourceManager.getInstance().getGPATable())) {
+                    try {
+                        gpaGetter.loadData();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    count++;
                 }
             }
         }).start();

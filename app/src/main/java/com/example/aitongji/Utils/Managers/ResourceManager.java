@@ -5,10 +5,10 @@ import android.graphics.Bitmap;
 
 import com.example.aitongji.Model.CourseTableSubject;
 import com.example.aitongji.Model.NewsTitleSubject;
+import com.example.aitongji.Model.RestMoneySubject;
 import com.example.aitongji.Model.StudentGPASubject;
 import com.example.aitongji.Model.UserInfo;
 import com.example.aitongji.Utils.AndroidResource;
-import com.example.aitongji.Utils.GPA.CourseGPA;
 import com.example.aitongji.Utils.GPA.Semester;
 import com.novemser.ocrtest.BP;
 
@@ -27,6 +27,7 @@ public class ResourceManager {
     private StudentGPASubject GPATable;
     private NewsTitleSubject newsTitleSubject;
     private CourseTableSubject courseTableSubject;
+    private RestMoneySubject restMoneySubject;
 
     public static ResourceManager getInstance() {
 
@@ -60,16 +61,11 @@ public class ResourceManager {
 
     private String ocrResult;
     private Semester semester;
-    private CourseGPA courseGPA;
-    private String cardRest;
 
-    public String getCardRest() {
-        return cardRest;
-    }
 
     public void setCardRest(String cardRest) {
-        this.cardRest = cardRest;
-        ObserverManager.getInstance().notifyRowChanged(1);
+        restMoneySubject.setCardRest(cardRest);
+//        ObserverManager.getInstance().notifyRowChanged(1);
     }
 
 
@@ -157,10 +153,6 @@ public class ResourceManager {
         this.semester = semester;
     }
 
-    public CourseGPA getCourseGPA() {
-        return courseGPA;
-    }
-
     public NewsTitleSubject getNewsTitleSubject() {
         if (null == newsTitleSubject)
             newsTitleSubject = new NewsTitleSubject();
@@ -180,5 +172,12 @@ public class ResourceManager {
             courseTableSubject = new CourseTableSubject();
 
         return courseTableSubject;
+    }
+
+    public RestMoneySubject getRestMoneySubject() {
+        if (null == restMoneySubject)
+            restMoneySubject = new RestMoneySubject();
+
+        return restMoneySubject;
     }
 }

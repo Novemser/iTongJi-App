@@ -115,8 +115,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
                 // 余额
-                if (ResourceManager.getInstance().getCardRest() != null)
-                    viewHolder1.textCardRest.setText(ResourceManager.getInstance().getApplicationContext().getString(R.string.card_rest, ResourceManager.getInstance().getCardRest()));
+                if (ResourceManager.getInstance().getRestMoneySubject().getCardRest() != null)
+                    viewHolder1.textCardRest.setText(ResourceManager.getInstance().getApplicationContext().getString(R.string.card_rest, ResourceManager.getInstance().getRestMoneySubject().getCardRest()));
                 // 课表
                 if (ResourceManager.getInstance().getCourseTableSubject().course_table.size() != 0 && ResourceManager.getInstance().getWeekStr() != null) {
                     CourseTableSubject courseTable = ResourceManager.getInstance().getCourseTableSubject();

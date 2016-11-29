@@ -16,12 +16,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.example.aitongji.Base.BaseActivity;
+import com.example.aitongji.activity.BaseActivity;
 import com.example.aitongji.R;
-import com.example.aitongji.Utils.Http.AnnouncementReq4m3;
 
 public class WebActivity extends BaseActivity {
     private WebView mWebView;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,8 @@ public class WebActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-//        Intent intent = getIntent();
+        Intent intent = getIntent();
+        position = intent.getIntExtra("position", 0);
         mWebView = (WebView) findViewById(R.id.webview);
 
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);

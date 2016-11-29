@@ -8,7 +8,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.example.aitongji.Base.ToolbarActivity;
+import com.example.aitongji.activity.ToolbarActivity;
 import com.example.aitongji.R;
 import com.umeng.analytics.MobclickAgent;
 

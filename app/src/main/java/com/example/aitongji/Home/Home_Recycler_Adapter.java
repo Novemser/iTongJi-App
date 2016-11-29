@@ -23,7 +23,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.aitongji.Model.StudentGPASubject;
 import com.example.aitongji.R;
-import com.example.aitongji.Section_Course.Course_Page;
+import com.example.aitongji.Section_Course.CoursePageActivity;
 import com.example.aitongji.Section_Elect.ElectricityQuery;
 import com.example.aitongji.Section_GPA.GPATable;
 import com.example.aitongji.Section_Information.Card_Information;
@@ -223,7 +223,7 @@ public class Home_Recycler_Adapter extends RecyclerView.Adapter<Home_Recycler_Ad
             cardCourse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), Course_Page.class);
+                    Intent intent = new Intent(itemView.getContext(), CoursePageActivity.class);
                     intent.putExtra("time_week", time_week);
 
                     ActivityOptionsCompat optionsCompat =

@@ -1,29 +1,16 @@
 package com.example.aitongji.Section_Course;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
-import android.transition.Explode;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
-import com.example.aitongji.Base.BaseActivity;
-import com.example.aitongji.Base.ToolbarActivity;
 import com.example.aitongji.R;
 import com.example.aitongji.Utils.Course.Course;
-import com.example.aitongji.Utils.Course.CourseTable;
-import com.example.aitongji.Utils.DensityUtil;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -34,7 +21,7 @@ import java.util.Date;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class Course_Page extends AppCompatActivity implements ScrollViewListener {
+public class CoursePageActivity extends AppCompatActivity implements ScrollViewListener {
 
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout collapsingToolbarLayout;

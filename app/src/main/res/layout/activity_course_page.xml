@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:id="@+id/coord"
-    tools:context="com.example.aitongji.Section_Course.Course_Page">
+    tools:context=".Section_Course.CoursePageActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"

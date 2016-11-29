@@ -22,7 +22,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.aitongji.Model.CourseTableSubject;
 import com.example.aitongji.R;
-import com.example.aitongji.Section_Course.Course_Page;
+import com.example.aitongji.Section_Course.CoursePageActivity;
 import com.example.aitongji.Section_Elect.ElectricityQuery;
 import com.example.aitongji.Section_GPA.GPATable;
 import com.example.aitongji.Section_Information.Card_Information;
@@ -319,7 +319,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             cardCourse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), Course_Page.class);
+                    Intent intent = new Intent(itemView.getContext(), CoursePageActivity.class);
 
                     ActivityOptionsCompat optionsCompat =
                             ActivityOptionsCompat.makeSceneTransitionAnimation(activity, itemView.findViewById(R.id.ic_alarm), "alarm");

@@ -70,6 +70,7 @@ public class Card_Info_Adapter extends RecyclerView.Adapter<Card_Info_Adapter.Vi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(holder.itemView.getContext(), WebActivity.class);
+                intent.putExtra("position", holder.getAdapterPosition());
                 holder.itemView.getContext().startActivity(intent);
             }
         });

@@ -16,12 +16,18 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
+import com.example.aitongji.Utils.Managers.CacheManager;
+import com.example.aitongji.Utils.Managers.ResourceManager;
+import com.example.aitongji.Utils.cache.NewsInfo;
 import com.example.aitongji.activity.BaseActivity;
 import com.example.aitongji.R;
 
 public class WebActivity extends BaseActivity {
     private WebView mWebView;
     private int position;
+    private String infoId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,10 @@ public class WebActivity extends BaseActivity {
         setContentView(R.layout.activity_web);
         Intent intent = getIntent();
         position = intent.getIntExtra("position", 0);
+
+        if (position < ResourceManager.getInstance().getNewsTitleSubject().getInfoIds().size())
+            infoId = ResourceManager.getInstance().getNewsTitleSubject().getInfoIds().get(position);
+
         mWebView = (WebView) findViewById(R.id.webview);
 
         mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
@@ -87,6 +97,23 @@ public class WebActivity extends BaseActivity {
             }
         });
 
+        NewsInfo info = (NewsInfo) CacheManager.getInfo(infoId);
+        // 未生成缓存
+        if (null == info)
+            CacheManager.loadCache(ResourceManager.getInstance().getNewsTitleSubject().getInfoIds().get(position),
+                    new SuccessCallBack() {
+                        @Override
+                        public void onSuccess(Object data) {
+                            mWebView.loadData(String.valueOf(data), "text/html; charset=UTF-8", null);
+                        }
+                    }, new FailCallBack() {
+                        @Override
+                        public void onFailure(Object data) {
+
+                        }
+                    });
+        else
+            mWebView.loadData(info.getContent(), "text/html; charset=UTF-8", null);
 //        new AnnouncementReq4m3(intent.getStringExtra("username"), intent.getStringExtra("password"), intent.getStringArrayListExtra("info_id").get(intent.getIntExtra("infoId", 0)), new AnnouncementReq4m3.SuccessCallback() {
 //            @Override
 //            public void onSuccess(String str) {

@@ -12,12 +12,20 @@ import java.util.Map;
  * Created by Novemser on 2016/11/30.
  */
 public class NewsContentGetter implements INetResourceGetter {
-    private static final String loginUrl_v2 = "http://tjis.tongji.edu.cn:58080/amserver/UI/Login";
     protected Map<String, String> cookies = NetWorkManager.getInstance().getCookies4m3();
     private String info_id;
+    private String content;
+
+    public NewsContentGetter(String infoId) {
+        info_id = infoId;
+    }
+
+    public String getContent() {
+        return content;
+    }
 
     @Override
-    public void loadData() throws Exception {
+    public void loadData() {
         Connection.Response response;
         try {
             String INFO_BY_ID = "http://4m3.tongji.edu.cn/eams/noticeDocument!info.action?ifMain=1&notice.id=";
@@ -29,7 +37,7 @@ public class NewsContentGetter implements INetResourceGetter {
             }
 
             response = connect.method(Connection.Method.GET).timeout(10000).execute();
-            String text = response.parse().body().html().replaceAll("src=\"/eams", "src=\"http://4m3.tongji.edu.cn/eams");
+            content = response.parse().body().html().replaceAll("src=\"/eams", "src=\"http://4m3.tongji.edu.cn/eams");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,7 +45,7 @@ public class NewsContentGetter implements INetResourceGetter {
     }
 
     @Override
-    public void refresh() throws Exception {
+    public void refresh() {
 
     }
 }

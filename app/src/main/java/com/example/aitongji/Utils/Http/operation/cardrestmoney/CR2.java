@@ -23,10 +23,6 @@ public class CR2 extends Operation {
         super(operations, successCallBack, failCallBack);
     }
 
-//    public CR2(List<Operation> operations) {
-//        super(operations);
-//    }
-
     @Override
     public void perform() {
         NetWorkManager.getInstance().getCardRestHttpClient()

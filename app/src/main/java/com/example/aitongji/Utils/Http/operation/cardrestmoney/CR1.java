@@ -23,11 +23,6 @@ public class CR1 extends Operation {
     private SyncHttpClient syncHttpClient;
     private static final String CARD_LOGIN_1 = "http://urp.tongji.edu.cn/";
 
-//    public CR1(List<Operation> operations) {
-//        super(operations);
-//        syncHttpClient = NetWorkManager.getInstance().getCardRestHttpClient();
-//    }
-
     public CR1(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
         super(operations, successCallBack, failCallBack);
         syncHttpClient = NetWorkManager.getInstance().getCardRestHttpClient();

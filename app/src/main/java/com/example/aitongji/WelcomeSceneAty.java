@@ -104,6 +104,11 @@ public class WelcomeSceneAty extends AppCompatActivity {
             // 自动登陆处理
             if (sharedPreferences.getBoolean("IS_AUTO", false)) {
                 cbAl.setChecked(true);
+                username = etAccount.getText().toString();
+                password = etPW.getText().toString();
+                ResourceManager.getInstance().setUserName(username);
+                ResourceManager.getInstance().setUserPwd(password);
+                NetWorkManager.getInstance().obtainAllDataThenNotify(button.getRootView());
                 startActivity(intent);
                 finish();
             }

@@ -28,10 +28,6 @@ public class XKOP4 extends Operation {
         super(operations, successCallBack, failCallBack);
     }
 
-//    public XKOP4(List<Operation> operations) {
-//        super(operations);
-//    }
-
     @Override
     public void perform() {
         // 4.获取权限id

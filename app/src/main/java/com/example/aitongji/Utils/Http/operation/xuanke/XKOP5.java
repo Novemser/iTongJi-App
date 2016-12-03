@@ -35,10 +35,6 @@ public class XKOP5 extends Operation {
         super(operations, successCallBack, failCallBack);
     }
 
-//    public XKOP5(List<Operation> operations) {
-//        super(operations);
-//    }
-
     @Override
     public void perform() {
 

@@ -24,10 +24,6 @@ public class CR3 extends Operation {
         super(operations, successCallBack, failCallBack);
     }
 
-//    public CR3(List<Operation> operations) {
-//        super(operations);
-//    }
-
     @Override
     public void perform() {
         RequestParams params = new RequestParams();

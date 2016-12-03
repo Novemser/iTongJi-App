@@ -27,10 +27,6 @@ public class CR5 extends Operation {
         super(operations, successCallBack, failCallBack);
     }
 
-//    public CR5(List<Operation> operations) {
-//        super(operations);
-//    }
-
     @Override
     public void perform() {
         NetWorkManager.getInstance().getCardRestHttpClient()

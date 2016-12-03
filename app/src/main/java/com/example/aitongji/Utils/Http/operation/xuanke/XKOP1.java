@@ -32,11 +32,6 @@ public class XKOP1 extends Operation {
         syncHttpClient = NetWorkManager.getInstance().getXuanKeHttpClient();
     }
 
-//    public XKOP1(List<Operation> operations) {
-//        super(operations);
-//        syncHttpClient = NetWorkManager.getInstance().getXuanKeHttpClient();
-//    }
-
     @Override
     public void perform() {
         manager.setPieces(new ArrayList<Bitmap>());

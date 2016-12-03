@@ -22,10 +22,6 @@ public class XKOP3 extends Operation {
         super(operations, successCallBack, failCallBack);
     }
 
-//    public XKOP3(List<Operation> operations) {
-//        super(operations);
-//    }
-
     @Override
     public void perform() {
         NetWorkManager.getInstance().getXuanKeHttpClient()

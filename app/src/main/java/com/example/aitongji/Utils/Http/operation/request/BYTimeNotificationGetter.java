@@ -37,10 +37,8 @@ public class BYTimeNotificationGetter extends BYGenericGetter {
     }
 
     @Override
-    public void loadData(SuccessCallBack successCallBack, FailCallBack failCallBack) throws Exception {
+    public void loadData(SuccessCallBack successCallBack, FailCallBack failCallBack){
         try {
-
-
             // 匹配第几周
             Connection connect = Jsoup.connect(homeAction);
             for (Map.Entry<String, String> entry : cookies.entrySet()) {

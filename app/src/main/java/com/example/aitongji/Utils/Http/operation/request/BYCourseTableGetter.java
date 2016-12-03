@@ -29,7 +29,7 @@ public class BYCourseTableGetter extends BYGenericGetter {
     private String semester;
 
     @Override
-    public void loadData(SuccessCallBack successCallBack, FailCallBack failCallBack) throws Exception {
+    public void loadData(SuccessCallBack successCallBack, FailCallBack failCallBack) {
         try {
             // 获取课表IDS
             Connection connectToCourse = Jsoup.connect(COURSE_INFO_IDS);

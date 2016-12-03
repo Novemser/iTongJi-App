@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Novemser on 2016/12/3.
+ * Project: AiTongji
+ * Time: 2016/12/3 20:50
+ * Package: ${PACKAGE_NAME}
+ * Author: Novemser.
  */
 public abstract class RequestFactory {
     protected List<Operation> operations = new ArrayList<>();

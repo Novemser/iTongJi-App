@@ -17,7 +17,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Novemser on 2016/11/19.
+ * Project: AiTongji
+ * Time: 2016/11/19 20:53
+ * Package: ${PACKAGE_NAME}
+ * Author: Novemser.
  */
 public class CookieGetter implements INetResourceGetter {
 
@@ -35,7 +38,7 @@ public class CookieGetter implements INetResourceGetter {
     private final String step3 = "http://4m3.tongji.edu.cn/eams/samlCheck";
 
     @Override
-    public void loadData(SuccessCallBack successCallBack, FailCallBack failCallBack) throws Exception {
+    public void loadData(SuccessCallBack successCallBack, FailCallBack failCallBack) {
         cookiesIds.clear();
         cookies4m3.clear();
         postData.clear();
@@ -153,7 +156,6 @@ public class CookieGetter implements INetResourceGetter {
         } catch (Exception e) {
             e.printStackTrace();
             failCallBack.onFailure(getClass());
-            throw e;
         }
     }
 

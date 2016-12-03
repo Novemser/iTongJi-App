@@ -17,7 +17,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Novemser on 2016/11/22.
  */
-public class CR3 extends Operation {
+public class CR3 extends CardOperation {
     private static final String CARD_LOGIN = "https://ids.tongji.edu.cn:8443/nidp/idff/sso?sid=0&sid=0";
 
     public CR3(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
@@ -42,7 +42,7 @@ public class CR3 extends Operation {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                         Log.e(getClass().getName(), "Failed!");
-                        defaultFailCallBack.onFailure(getClass());
+                        defaultFailCallBack.onFailure(FAIL_MSG);
                     }
                 });
     }

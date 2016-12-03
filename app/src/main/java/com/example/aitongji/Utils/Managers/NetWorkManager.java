@@ -3,6 +3,7 @@ package com.example.aitongji.Utils.Managers;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
@@ -102,121 +103,112 @@ public class NetWorkManager {
             return;
         }
 
-        getGPAThenNotify();
+        getGPAThenNotify(view);
 
-        get4m3ThenNotify();
+        get4m3ThenNotify(view);
 
-        getCardRestThenNotify();
+        getCardRestThenNotify(view);
     }
 
-    public void getCardRestThenNotify() {
-        new Thread(new Runnable() {
+    private int cardRestTryCnt;
+
+    public void getCardRestThenNotify(final View view) {
+        new AsyncTask<View, Void, Void>() {
+
             @Override
-            public void run() {
-                int count = 0;
-                while (count < MAX_RETRY_TIME) {
-                    try {
-                        new CardRestGetter().loadData(new SuccessCallBack() {
-                            @Override
-                            public void onSuccess(Object data) {
-                                Log.e(getClass().getName(), "加载余额成功！");
-                            }
-                        }, new FailCallBack() {
-                            @Override
-                            public void onFailure(Object data) {
-                                Log.e(getClass().getName(), "加载余额失败！");
-                            }
-                        });
-                        break;
-                    } catch (Exception e) {
-                        e.printStackTrace();
+            protected Void doInBackground(View... params) {
+                new CardRestGetter().loadData(new SuccessCallBack() {
+                    @Override
+                    public void onSuccess(Object data) {
+                        if (null != view)
+                            Snackbar.make(view, "加载余额成功了！", Snackbar.LENGTH_SHORT).show();
+
+                        Log.e(getClass().getName(), "加载余额成功！");
+                        cardRestTryCnt = 0;
                     }
-                    count++;
-                }
+                }, new FailCallBack() {
+                    @Override
+                    public void onFailure(Object data) {
+                        Log.e(getClass().getName(), "加载余额失败！");
+                        if (cardRestTryCnt < MAX_RETRY_TIME) {
+                            cardRestTryCnt++;
+                            getCardRestThenNotify(view);
+                        }
+                    }
+                });
+                return null;
             }
-        }).start();
+        }.execute(view);
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }).start();
     }
 
-    public void get4m3ThenNotify() {
+    private int byCookieTryCnt;
+
+    public void get4m3ThenNotify(final View view) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int count = 0;
 
                 CookieGetter cookieGetter = new CookieGetter();
-                while (count < MAX_RETRY_TIME) {
-                    try {
-                        cookieGetter.loadData(new SuccessCallBack() {
-                            @Override
-                            public void onSuccess(Object data) {
-                                Log.e(getClass().getName(), "加载Cookie成功！");
-                            }
-                        }, new FailCallBack() {
-                            @Override
-                            public void onFailure(Object data) {
-                                Log.e(getClass().getName(), "加载Cookie失败！");
-                            }
-                        });
-                        break;
-                    } catch (Exception e) {
-//                        Log.e(getClass().getName(), "加载Cookie失败！");
-//                        e.printStackTrace();
-                        count++;
-                    }
-                }
-
-                if (count == MAX_RETRY_TIME)
-                    return;
-
-                new Thread(new Runnable() {
+                cookieGetter.loadData(new SuccessCallBack() {
                     @Override
-                    public void run() {
-                        BYGenericGetter getter = new BYCourseTableGetter();
-                        try {
-                            getter.loadData(new SuccessCallBack() {
-                                @Override
-                                public void onSuccess(Object data) {
-                                    Log.e(getClass().getName(), "加载Course成功！");
+                    public void onSuccess(Object data) {
+                        Log.e(getClass().getName(), "加载Cookie成功！");
+                        byCookieTryCnt = 0;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                BYGenericGetter getter = new BYCourseTableGetter();
+                                getter.loadData(new SuccessCallBack() {
+                                    @Override
+                                    public void onSuccess(Object data) {
+                                        Log.e(getClass().getName(), "加载Course成功！");
 
-                                }
-                            }, new FailCallBack() {
-                                @Override
-                                public void onFailure(Object data) {
-                                    Log.e(getClass().getName(), "加载Course失败！");
+                                    }
+                                }, new FailCallBack() {
+                                    @Override
+                                    public void onFailure(Object data) {
+                                        Log.e(getClass().getName(), "加载Course失败！");
+                                    }
+                                });
 
-                                }
-                            });
-                        } catch (Exception e) {
-//                            Log.e(getClass().getName(), "加载Course失败！");
-                            e.printStackTrace();
-                        }
-
-                        getter = new BYTimeNotificationGetter();
-                        try {
-                            getter.loadData(new SuccessCallBack() {
-                                @Override
-                                public void onSuccess(Object data) {
-                                    Log.e(getClass().getName(), "加载TimeNotification成功！");
-
-                                }
-                            }, new FailCallBack() {
-                                @Override
-                                public void onFailure(Object data) {
-                                    Log.e(getClass().getName(), "加载TimeNotification失败！");
-
-                                }
-                            });
-                        } catch (Exception e) {
-//                            Log.e(getClass().getName(), "加载TimeNotification失败！");
-                            e.printStackTrace();
+                                getter = new BYTimeNotificationGetter();
+                                getter.loadData(new SuccessCallBack() {
+                                    @Override
+                                    public void onSuccess(Object data) {
+                                        Log.e(getClass().getName(), "加载TimeNotification成功！");
+                                    }
+                                }, new FailCallBack() {
+                                    @Override
+                                    public void onFailure(Object data) {
+                                        Log.e(getClass().getName(), "加载TimeNotification失败！");
+                                    }
+                                });
+                            }
+                        }).start();
+                    }
+                }, new FailCallBack() {
+                    @Override
+                    public void onFailure(Object data) {
+                        Log.e(getClass().getName(), "加载Cookie失败！");
+                        if (byCookieTryCnt < MAX_RETRY_TIME) {
+                            byCookieTryCnt++;
+                            get4m3ThenNotify(view);
                         }
                     }
-                }).start();
+                });
+
             }
         }).start();
     }
 
-    public void getGPAThenNotify() {
+    public void getGPAThenNotify(View view) {
         final SuccessCallBack successCallBack = new SuccessCallBack() {
             @Override
             public void onSuccess(Object data) {
@@ -250,7 +242,6 @@ public class NetWorkManager {
                         gpaGetter.loadData(successCallBack, failCallBack);
                         break;
                     } catch (Exception e) {
-//                        Log.e(getClass().getName(), "加载GPA失败！");
                         e.printStackTrace();
                     }
                     count++;

@@ -104,7 +104,7 @@ public class CardRestNotice extends Service {
 
             @Override
             public void run() {
-                NetWorkManager.getInstance().getCardRestThenNotify();
+                NetWorkManager.getInstance().getCardRestThenNotify(null);
 //                if (username != null && !username.equals("")) {
 //                    new InformationReq(username, password, new InformationReq.SuccessCallback() {
 //                        @Override

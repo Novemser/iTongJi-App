@@ -19,7 +19,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Novemser on 2016/11/21.
  */
-public class CR1 extends Operation {
+public class CR1 extends CardOperation {
     private SyncHttpClient syncHttpClient;
     private static final String CARD_LOGIN_1 = "http://urp.tongji.edu.cn/";
 
@@ -44,7 +44,7 @@ public class CR1 extends Operation {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Log.e(getClass().getName(), "Failed!");
-                defaultFailCallBack.onFailure(this.getClass());
+                defaultFailCallBack.onFailure(FAIL_MSG);
             }
         });
 

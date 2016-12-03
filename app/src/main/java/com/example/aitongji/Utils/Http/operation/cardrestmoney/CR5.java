@@ -20,7 +20,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Novemser on 2016/11/22.
  */
-public class CR5 extends Operation {
+public class CR5 extends CardOperation {
     private static final String CARD_INFO = "http://urp.tongji.edu.cn/index.portal?.pn=p84_p468_p469";
 
     public CR5(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
@@ -41,7 +41,7 @@ public class CR5 extends Operation {
                         while (matcher.find()) {
                             if (cnt == 12) {
                                 ResourceManager.getInstance().setCardRest(matcher.group(1));
-                                defaultSuccessCallBack.onSuccess(this.getClass());
+                                defaultSuccessCallBack.onSuccess(statusCode);
                             }
                             cnt++;
                         }
@@ -50,7 +50,7 @@ public class CR5 extends Operation {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                         Log.e(getClass().getName(), "Failed!");
-                        defaultFailCallBack.onFailure(this.getClass());
+                        defaultFailCallBack.onFailure(FAIL_MSG);
                     }
                 });
     }

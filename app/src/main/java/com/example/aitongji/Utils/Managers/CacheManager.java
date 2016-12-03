@@ -1,6 +1,7 @@
 package com.example.aitongji.Utils.Managers;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.aitongji.Utils.Http.callback.FailCallBack;
 import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
@@ -33,7 +34,17 @@ public class CacheManager {
             @Override
             protected String doInBackground(String... params) {
                 NewsContentGetter getter = new NewsContentGetter(params[0]);
-                getter.loadData();
+                getter.loadData(new SuccessCallBack() {
+                    @Override
+                    public void onSuccess(Object data) {
+                        Log.d(getClass().getName(), "加载cache成功");
+                    }
+                }, new FailCallBack() {
+                    @Override
+                    public void onFailure(Object data) {
+                        Log.d(getClass().getName(), "加载cache失败");
+                    }
+                });
                 Info info = new NewsInfo(params[0]);
                 info.setContent(getter.getContent());
                 infoMap.put(params[0], info);

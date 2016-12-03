@@ -2,6 +2,8 @@ package com.example.aitongji.Utils.Http.operation.request;
 
 import android.util.Log;
 
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 
 import org.jsoup.Connection;
@@ -35,64 +37,71 @@ public class BYTimeNotificationGetter extends BYGenericGetter {
     }
 
     @Override
-    public void loadData() throws Exception {
-        // 匹配第几周
-        Connection connect = Jsoup.connect(homeAction);
-        for (Map.Entry<String, String> entry : cookies.entrySet()) {
-            connect.cookie(entry.getKey(), entry.getValue());
-        }
+    public void loadData(SuccessCallBack successCallBack, FailCallBack failCallBack) throws Exception {
+        try {
 
-        Connection.Response response = connect.execute();
-        Document doc = response.parse();
-        Elements elements = doc.body().getElementsByClass("modulebody");
-        Pattern pattern = Pattern.compile("第(.+?)周");
-        Matcher matcher = pattern.matcher(elements.text());
-        if (matcher.find()) {
-            ResourceManager.getInstance().setWeekStr(matcher.group(1));
-        }
 
-        // 匹配信息通知的id
-        pattern = Pattern.compile("getNewNoticeInfo\\('(.+?)'\\);");
-        matcher = pattern.matcher(response.body());
-        while (matcher.find()) {
-            info_id.add(matcher.group(1));
-        }
-
-        int cnt = 0;
-        // 匹配信息标题
-        pattern = Pattern.compile(";\">(.+?)</a></td>");
-        matcher = pattern.matcher(response.body());
-
-        while (matcher.find()) {
-            String tmp = ToDBC(matcher.group(1));
-            info_title.add(tmp);
-
-        }
-
-        pattern = Pattern.compile("[0-9]{4}-[0-9]+-[0-9]+");
-        matcher = pattern.matcher(response.body());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        cnt = 0;
-        while (matcher.find()) {
-            Date date = dateFormat.parse(matcher.group());
-            String str = dateFormat.format(date);
-            if (cnt != 0) {
-                info_time.add(str.replace("2016-", "").replace("2015-", "").replace("-", "."));
-            } else {
-                time_today = str;
+            // 匹配第几周
+            Connection connect = Jsoup.connect(homeAction);
+            for (Map.Entry<String, String> entry : cookies.entrySet()) {
+                connect.cookie(entry.getKey(), entry.getValue());
             }
-            cnt++;
+
+            Connection.Response response = connect.execute();
+            Document doc = response.parse();
+            Elements elements = doc.body().getElementsByClass("modulebody");
+            Pattern pattern = Pattern.compile("第(.+?)周");
+            Matcher matcher = pattern.matcher(elements.text());
+            if (matcher.find()) {
+                ResourceManager.getInstance().setWeekStr(matcher.group(1));
+            }
+
+            // 匹配信息通知的id
+            pattern = Pattern.compile("getNewNoticeInfo\\('(.+?)'\\);");
+            matcher = pattern.matcher(response.body());
+            while (matcher.find()) {
+                info_id.add(matcher.group(1));
+            }
+
+            int cnt = 0;
+            // 匹配信息标题
+            pattern = Pattern.compile(";\">(.+?)</a></td>");
+            matcher = pattern.matcher(response.body());
+
+            while (matcher.find()) {
+                String tmp = ToDBC(matcher.group(1));
+                info_title.add(tmp);
+
+            }
+
+            pattern = Pattern.compile("[0-9]{4}-[0-9]+-[0-9]+");
+            matcher = pattern.matcher(response.body());
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            cnt = 0;
+            while (matcher.find()) {
+                Date date = dateFormat.parse(matcher.group());
+                String str = dateFormat.format(date);
+                if (cnt != 0) {
+                    info_time.add(str.replace("2016-", "").replace("2015-", "").replace("-", "."));
+                } else {
+                    time_today = str;
+                }
+                cnt++;
+            }
+
+            ResourceManager.getInstance().getNewsTitleSubject().setNewsInfo(info_id, info_time, info_title);
+            Log.e("Login:", "setNewsInfo");
+            successCallBack.onSuccess(getClass());
+        } catch (Exception e) {
+            e.printStackTrace();
+            failCallBack.onFailure(getClass());
         }
-
-        ResourceManager.getInstance().getNewsTitleSubject().setNewsInfo(info_id, info_time, info_title);
-        Log.e("Login:", "setNewsInfo");
-
     }
 
     @Override
     public void refresh() throws Exception {
         resetLists();
-        loadData();
+//        loadData();
     }
 
     /**

@@ -1,6 +1,10 @@
 package com.example.aitongji.Utils.Http.operation.cardrestmoney;
 
+import android.util.Log;
+
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
 import com.example.aitongji.Utils.Http.callback.Operation;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -14,9 +18,13 @@ import cz.msebera.android.httpclient.Header;
 public class CR4 extends Operation {
     private static final String CARD_LOGIN_3 = "https://ids.tongji.edu.cn:8443/nidp/idff/sso?sid=0";
 
-    public CR4(List<Operation> operations) {
-        super(operations);
+    public CR4(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
+        super(operations, successCallBack, failCallBack);
     }
+
+//    public CR4(List<Operation> operations) {
+//        super(operations);
+//    }
 
     @Override
     public void perform() {
@@ -29,7 +37,8 @@ public class CR4 extends Operation {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                        Log.e(getClass().getName(), "Failed!");
+                        defaultFailCallBack.onFailure(getClass());
                     }
                 });
     }

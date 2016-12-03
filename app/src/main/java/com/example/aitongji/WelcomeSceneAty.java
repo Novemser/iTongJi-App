@@ -118,71 +118,22 @@ public class WelcomeSceneAty extends AppCompatActivity {
                         public void onClick(View v) {
                         }
                     }).show();
-                } else {
-                    button.setEnabled(false);
-                    Log.d("BTN", "clicked");
-                    button.setText("正在登录...");
-                    materialProgressBar.setVisibility(View.VISIBLE);
-                    username = etAccount.getText().toString();
-                    password = etPW.getText().toString();
-                    ResourceManager.getInstance().setUserName(username);
-                    ResourceManager.getInstance().setUserPwd(password);
-                    NetWorkManager.getInstance().obtainAllDataThenNotify();
-                    editor.putString("username", username);
-                    editor.putString("password", password);
-                    editor.apply();
-                    startActivity(intent);
-                    finish();
-//                    new InformationReq(username, password, new InformationReq.SuccessCallback() {
-//                        @Override
-//                        public void onSuccess(DataBundle dataBundle) {
-//                            Log.d("Login to 4m3", "Login Succeed");
-//                            materialProgressBar.setVisibility(View.INVISIBLE);
-//                            button.setText("加载页面中...");
-//
-//                            // 记住用户名和密码
-//                            editor.putString("username", username);
-//                            editor.putString("password", password);
-//                            editor.putBoolean("REFRESH", false);
-//                            editor.apply();
-//
-//                            // 保存主要信息
-//                            //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "dataBundle.dat", dataBundle);
-//                            AndroidResource.dataBundle = dataBundle;
-//
-//                            // 尝试拉绩点
-//                            new GetGPA(getApplicationContext(), username, password, new GetGPA.SuccessCallback() {
-//                                @Override
-//                                public void onSuccess(StudentGPASubject studentGPASubject) {
-//                                    AndroidResource.studentGPASubject = studentGPASubject;
-//                                    //SerializationUtil.saveObject(WelcomeSceneAty.this.getApplicationContext(), "studentGPASubject.dat", studentGPASubject);
-//                                    startActivity(intent);
-//                                    finish();
-//                                }
-//                            }, new GetGPA.FailureCallback() {
-//                                @Override
-//                                public void onFailure() {
-//                                    materialProgressBar.setVisibility(View.INVISIBLE);
-//                                    button.setText("立即登录");
-//                                    Snackbar.make(button.getRootView(), "多次登陆失败 请稍后再试", Snackbar.LENGTH_SHORT).show();
-//                                    button.setEnabled(true);
-//
-//                                }
-//                            });
-//
-//
-//                        }
-//                    }, new InformationReq.FailureCallback() {
-//                        @Override
-//                        public void onFailure() {
-//                            materialProgressBar.setVisibility(View.INVISIBLE);
-//                            button.setText("立即登录");
-//                            Snackbar.make(button.getRootView(), "登陆失败 请检查网络/密码后重试", Snackbar.LENGTH_SHORT).show();
-//                            button.setEnabled(true);
-//                        }
-//                    });
+                    return;
                 }
-
+                button.setEnabled(false);
+                Log.d("BTN", "clicked");
+                button.setText("正在登录...");
+                materialProgressBar.setVisibility(View.VISIBLE);
+                username = etAccount.getText().toString();
+                password = etPW.getText().toString();
+                ResourceManager.getInstance().setUserName(username);
+                ResourceManager.getInstance().setUserPwd(password);
+                NetWorkManager.getInstance().obtainAllDataThenNotify(button.getRootView());
+                editor.putString("username", username);
+                editor.putString("password", password);
+                editor.apply();
+                startActivity(intent);
+                finish();
             }
         });
     }

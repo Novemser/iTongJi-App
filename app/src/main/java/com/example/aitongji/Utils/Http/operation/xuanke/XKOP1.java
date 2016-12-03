@@ -4,8 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Looper;
+import android.util.Log;
 
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
 import com.example.aitongji.Utils.Http.callback.Operation;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
@@ -24,10 +27,15 @@ public class XKOP1 extends Operation {
 
     private SyncHttpClient syncHttpClient;
 
-    public XKOP1(List<Operation> operations) {
-        super(operations);
+    public XKOP1(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
+        super(operations, successCallBack, failCallBack);
         syncHttpClient = NetWorkManager.getInstance().getXuanKeHttpClient();
     }
+
+//    public XKOP1(List<Operation> operations) {
+//        super(operations);
+//        syncHttpClient = NetWorkManager.getInstance().getXuanKeHttpClient();
+//    }
 
     @Override
     public void perform() {
@@ -41,6 +49,7 @@ public class XKOP1 extends Operation {
         syncHttpClient.get(CHECK_IMAGE, new AsyncHttpResponseHandler(Looper.getMainLooper()) {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                // 用神经网络识别验证码
                 manager.setCheckCodeBm(BitmapFactory.decodeByteArray(responseBody, 0, responseBody.length));
 
                 if (manager.getCheckCodeBm() != null)
@@ -71,6 +80,8 @@ public class XKOP1 extends Operation {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 manager.setGPATable(null);
+                Log.e(getClass().getName(), "Failed!");
+                defaultFailCallBack.onFailure(this.getClass());
             }
         });
     }

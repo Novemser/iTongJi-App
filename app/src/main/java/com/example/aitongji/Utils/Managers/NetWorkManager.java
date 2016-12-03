@@ -1,5 +1,14 @@
 package com.example.aitongji.Utils.Managers;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.view.View;
+
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Http.operation.request.BYCourseTableGetter;
 import com.example.aitongji.Utils.Http.operation.request.BYGenericGetter;
 import com.example.aitongji.Utils.Http.operation.request.BYTimeNotificationGetter;
@@ -41,6 +50,8 @@ public class NetWorkManager {
 
     private SyncHttpClient benyanHttpClient;
 
+    private final int MAX_RETRY_TIME = 5;
+
 //    private Semaphore semaphore;
 
 //    private static final int networkThreadCnt = 5;
@@ -81,7 +92,15 @@ public class NetWorkManager {
         return manager;
     }
 
-    public void obtainAllDataThenNotify() {
+    public void obtainAllDataThenNotify(View view) {
+        if (!isNetworkAvailable()) {
+            Snackbar.make(view, "网络连接似乎不太好 X﹏X", Snackbar.LENGTH_SHORT).setAction("知道啦", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                }
+            }).show();
+            return;
+        }
 
         getGPAThenNotify();
 
@@ -94,10 +113,25 @@ public class NetWorkManager {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    new CardRestGetter().loadData();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                int count = 0;
+                while (count < MAX_RETRY_TIME) {
+                    try {
+                        new CardRestGetter().loadData(new SuccessCallBack() {
+                            @Override
+                            public void onSuccess(Object data) {
+                                Log.e(getClass().getName(), "加载余额成功！");
+                            }
+                        }, new FailCallBack() {
+                            @Override
+                            public void onFailure(Object data) {
+                                Log.e(getClass().getName(), "加载余额失败！");
+                            }
+                        });
+                        break;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    count++;
                 }
             }
         }).start();
@@ -110,16 +144,28 @@ public class NetWorkManager {
                 int count = 0;
 
                 CookieGetter cookieGetter = new CookieGetter();
-                while (count < 10) {
+                while (count < MAX_RETRY_TIME) {
                     try {
-                        cookieGetter.loadData();
+                        cookieGetter.loadData(new SuccessCallBack() {
+                            @Override
+                            public void onSuccess(Object data) {
+                                Log.e(getClass().getName(), "加载Cookie成功！");
+                            }
+                        }, new FailCallBack() {
+                            @Override
+                            public void onFailure(Object data) {
+                                Log.e(getClass().getName(), "加载Cookie失败！");
+                            }
+                        });
                         break;
                     } catch (Exception e) {
-                        e.printStackTrace();
+//                        Log.e(getClass().getName(), "加载Cookie失败！");
+//                        e.printStackTrace();
                         count++;
                     }
                 }
-                if (count == 10)
+
+                if (count == MAX_RETRY_TIME)
                     return;
 
                 new Thread(new Runnable() {
@@ -127,15 +173,41 @@ public class NetWorkManager {
                     public void run() {
                         BYGenericGetter getter = new BYCourseTableGetter();
                         try {
-                            getter.loadData();
+                            getter.loadData(new SuccessCallBack() {
+                                @Override
+                                public void onSuccess(Object data) {
+                                    Log.e(getClass().getName(), "加载Course成功！");
+
+                                }
+                            }, new FailCallBack() {
+                                @Override
+                                public void onFailure(Object data) {
+                                    Log.e(getClass().getName(), "加载Course失败！");
+
+                                }
+                            });
                         } catch (Exception e) {
+//                            Log.e(getClass().getName(), "加载Course失败！");
                             e.printStackTrace();
                         }
 
                         getter = new BYTimeNotificationGetter();
                         try {
-                            getter.loadData();
+                            getter.loadData(new SuccessCallBack() {
+                                @Override
+                                public void onSuccess(Object data) {
+                                    Log.e(getClass().getName(), "加载TimeNotification成功！");
+
+                                }
+                            }, new FailCallBack() {
+                                @Override
+                                public void onFailure(Object data) {
+                                    Log.e(getClass().getName(), "加载TimeNotification失败！");
+
+                                }
+                            });
                         } catch (Exception e) {
+//                            Log.e(getClass().getName(), "加载TimeNotification失败！");
                             e.printStackTrace();
                         }
                     }
@@ -145,21 +217,40 @@ public class NetWorkManager {
     }
 
     public void getGPAThenNotify() {
+        final SuccessCallBack successCallBack = new SuccessCallBack() {
+            @Override
+            public void onSuccess(Object data) {
+                Log.e(getClass().getName(), "加载GPA成功！");
+
+            }
+        };
+
+        final FailCallBack failCallBack = new FailCallBack() {
+            @Override
+            public void onFailure(Object data) {
+                Log.e(getClass().getName(), "加载GPA失败！");
+
+            }
+        };
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 int count = 0;
                 GPAGetter gpaGetter = new GPAGetter();
                 try {
-                    gpaGetter.loadData();
+                    gpaGetter.loadData(successCallBack, failCallBack);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                count++;
                 // 最多自动验证10次
-                while (count < 10 && (null == ResourceManager.getInstance().getGPATable())) {
+                while (count < MAX_RETRY_TIME && (null == ResourceManager.getInstance().getGPATable())) {
                     try {
-                        gpaGetter.loadData();
+                        gpaGetter.loadData(successCallBack, failCallBack);
+                        break;
                     } catch (Exception e) {
+//                        Log.e(getClass().getName(), "加载GPA失败！");
                         e.printStackTrace();
                     }
                     count++;
@@ -168,7 +259,14 @@ public class NetWorkManager {
         }).start();
     }
 
-    public void refreshAllData() {
+    public void refreshAllData(View view) {
+        obtainAllDataThenNotify(view);
+    }
 
+    public Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) ResourceManager.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }

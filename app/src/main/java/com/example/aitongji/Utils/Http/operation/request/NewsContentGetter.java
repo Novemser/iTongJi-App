@@ -1,5 +1,7 @@
 package com.example.aitongji.Utils.Http.operation.request;
 
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 
 import org.jsoup.Connection;
@@ -25,7 +27,7 @@ public class NewsContentGetter implements INetResourceGetter {
     }
 
     @Override
-    public void loadData() {
+    public void loadData(SuccessCallBack successCallBack, FailCallBack failCallBack) {
         Connection.Response response;
         try {
             String INFO_BY_ID = "http://4m3.tongji.edu.cn/eams/noticeDocument!info.action?ifMain=1&notice.id=";
@@ -38,9 +40,10 @@ public class NewsContentGetter implements INetResourceGetter {
 
             response = connect.method(Connection.Method.GET).timeout(10000).execute();
             content = response.parse().body().html().replaceAll("src=\"/eams", "src=\"http://4m3.tongji.edu.cn/eams");
-
+            successCallBack.onSuccess(getContent());
         } catch (IOException e) {
             e.printStackTrace();
+            failCallBack.onFailure(null);
         }
     }
 

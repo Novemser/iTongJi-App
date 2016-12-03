@@ -2,7 +2,9 @@ package com.example.aitongji.Utils.Http.operation.xuanke;
 
 import android.util.Log;
 
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
 import com.example.aitongji.Utils.Http.callback.Operation;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -22,9 +24,13 @@ public class XKOP4 extends Operation {
     private String qxid;
     private String mkid;
 
-    public XKOP4(List<Operation> operations) {
-        super(operations);
+    public XKOP4(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
+        super(operations, successCallBack, failCallBack);
     }
+
+//    public XKOP4(List<Operation> operations) {
+//        super(operations);
+//    }
 
     @Override
     public void perform() {
@@ -72,6 +78,9 @@ public class XKOP4 extends Operation {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                         manager.setGPATable(null);
+                        Log.e(getClass().getName(), "Failed!");
+                        defaultFailCallBack.onFailure(this.getClass());
+
                     }
                 });
     }

@@ -1,16 +1,11 @@
 package com.example.aitongji.Utils.Http.operation.xuanke;
 
-import android.content.Intent;
 import android.util.Log;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.aitongji.Home.MainActivity;
-import com.example.aitongji.Section_Elect.ElectricityQuery;
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
 import com.example.aitongji.Utils.Http.callback.Operation;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
-import com.example.aitongji.Utils.Managers.ResourceManager;
-import com.example.aitongji.WelcomeSceneAty;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.jsoup.Jsoup;
@@ -18,16 +13,18 @@ import org.jsoup.Jsoup;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.util.EncodingUtils;
 
 /**
  * Created by Novemser on 2016/11/19.
  */
 public class XKOP3 extends Operation {
-
-    public XKOP3(List<Operation> operations) {
-        super(operations);
+    public XKOP3(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
+        super(operations, successCallBack, failCallBack);
     }
+
+//    public XKOP3(List<Operation> operations) {
+//        super(operations);
+//    }
 
     @Override
     public void perform() {
@@ -56,6 +53,8 @@ public class XKOP3 extends Operation {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 manager.setGPATable(null);
+                Log.e(getClass().getName(), "Failed!");
+                defaultFailCallBack.onFailure(this.getClass());
             }
         });
     }

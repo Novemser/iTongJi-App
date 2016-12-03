@@ -11,6 +11,8 @@ public abstract class Operation {
     protected ResourceManager manager = ResourceManager.getInstance();
     protected List<Operation> operations;
     protected String nextUrl;
+    protected SuccessCallBack defaultSuccessCallBack;
+    protected FailCallBack defaultFailCallBack;
 
     public String getNextUrl() {
         return nextUrl;
@@ -25,6 +27,11 @@ public abstract class Operation {
             operations.get(0).setUrl(nextUrl);
     }
 
+    public Operation(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
+        this(operations);
+        defaultFailCallBack = failCallBack;
+        defaultSuccessCallBack = successCallBack;
+    }
 
     public Operation(List<Operation> operations) {
         this.operations = operations;

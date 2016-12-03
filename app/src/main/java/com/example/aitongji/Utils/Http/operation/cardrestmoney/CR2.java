@@ -1,10 +1,12 @@
 package com.example.aitongji.Utils.Http.operation.cardrestmoney;
 
+import android.util.Log;
+
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
 import com.example.aitongji.Utils.Http.callback.Operation;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
-import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import java.util.List;
 
@@ -17,9 +19,13 @@ import cz.msebera.android.httpclient.Header;
 public class CR2 extends Operation {
     private static final String CARD_LOGIN_2 = "http://urp.tongji.edu.cn/index.portal";
 
-    public CR2(List<Operation> operations) {
-        super(operations);
+    public CR2(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
+        super(operations, successCallBack, failCallBack);
     }
+
+//    public CR2(List<Operation> operations) {
+//        super(operations);
+//    }
 
     @Override
     public void perform() {
@@ -32,7 +38,8 @@ public class CR2 extends Operation {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                        Log.e(getClass().getName(), "Failed!");
+                        defaultFailCallBack.onFailure(this.getClass());
                     }
                 });
     }

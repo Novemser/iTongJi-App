@@ -1,6 +1,10 @@
 package com.example.aitongji.Utils.Http.operation.cardrestmoney;
 
+import android.util.Log;
+
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
 import com.example.aitongji.Utils.Http.callback.Operation;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -19,9 +23,13 @@ import cz.msebera.android.httpclient.Header;
 public class CR5 extends Operation {
     private static final String CARD_INFO = "http://urp.tongji.edu.cn/index.portal?.pn=p84_p468_p469";
 
-    public CR5(List<Operation> operations) {
-        super(operations);
+    public CR5(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
+        super(operations, successCallBack, failCallBack);
     }
+
+//    public CR5(List<Operation> operations) {
+//        super(operations);
+//    }
 
     @Override
     public void perform() {
@@ -37,6 +45,7 @@ public class CR5 extends Operation {
                         while (matcher.find()) {
                             if (cnt == 12) {
                                 ResourceManager.getInstance().setCardRest(matcher.group(1));
+                                defaultSuccessCallBack.onSuccess(this.getClass());
                             }
                             cnt++;
                         }
@@ -44,7 +53,8 @@ public class CR5 extends Operation {
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                        Log.e(getClass().getName(), "Failed!");
+                        defaultFailCallBack.onFailure(this.getClass());
                     }
                 });
     }

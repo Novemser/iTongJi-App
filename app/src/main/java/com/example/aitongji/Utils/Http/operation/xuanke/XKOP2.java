@@ -1,6 +1,10 @@
 package com.example.aitongji.Utils.Http.operation.xuanke;
 
+import android.util.Log;
+
+import com.example.aitongji.Utils.Http.callback.FailCallBack;
 import com.example.aitongji.Utils.Http.callback.Operation;
+import com.example.aitongji.Utils.Http.callback.SuccessCallBack;
 import com.example.aitongji.Utils.Managers.NetWorkManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -15,9 +19,13 @@ import cz.msebera.android.httpclient.Header;
 public class XKOP2 extends Operation {
     private final static String URL_LOGIN = "http://tjis2.tongji.edu.cn:58080/amserver/UI/Login";
 
-    public XKOP2(List<Operation> operations) {
-        super(operations);
+    public XKOP2(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
+        super(operations, successCallBack, failCallBack);
     }
+
+//    public XKOP2(List<Operation> operations) {
+//        super(operations);
+//    }
 
     @Override
     public void perform() {
@@ -32,12 +40,15 @@ public class XKOP2 extends Operation {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 manager.setGPATable(null);
+                Log.e(getClass().getName(), "Failed!");
+                defaultFailCallBack.onFailure(this.getClass());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 // 302到目标地址验证是否登陆成功
                 stepToNext();
+
             }
         });
     }

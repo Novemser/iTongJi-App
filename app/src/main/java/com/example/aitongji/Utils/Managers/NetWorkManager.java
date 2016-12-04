@@ -16,6 +16,7 @@ import com.example.aitongji.Utils.Http.operation.request.BYTimeNotificationGette
 import com.example.aitongji.Utils.Http.operation.request.CardRestGetter;
 import com.example.aitongji.Utils.Http.operation.request.CookieGetter;
 import com.example.aitongji.Utils.Http.operation.request.GPAGetter;
+import com.example.aitongji.Utils.Http.operation.xuanke.XuankeOperation;
 import com.loopj.android.http.SyncHttpClient;
 
 import java.util.HashMap;
@@ -120,9 +121,6 @@ public class NetWorkManager {
                 new CardRestGetter().loadData(new SuccessCallBack() {
                     @Override
                     public void onSuccess(Object data) {
-                        if (null != view)
-                            Snackbar.make(view, "加载余额成功了！", Snackbar.LENGTH_SHORT).show();
-
                         Log.e(getClass().getName(), "加载余额成功！");
                         cardRestTryCnt = 0;
                     }
@@ -139,13 +137,6 @@ public class NetWorkManager {
                 return null;
             }
         }.execute(view);
-
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }).start();
     }
 
     private int byCookieTryCnt;
@@ -208,46 +199,55 @@ public class NetWorkManager {
         }).start();
     }
 
-    public void getGPAThenNotify(View view) {
+    private int GPATryCount;
+
+    public void getGPAThenNotify(final View view) {
         final SuccessCallBack successCallBack = new SuccessCallBack() {
             @Override
             public void onSuccess(Object data) {
                 Log.e(getClass().getName(), "加载GPA成功！");
-
+                GPATryCount = 0;
             }
         };
 
         final FailCallBack failCallBack = new FailCallBack() {
             @Override
             public void onFailure(Object data) {
+                String msg = data.toString();
                 Log.e(getClass().getName(), "加载GPA失败！");
-
+                Log.e(getClass().getName(), msg);
+                // 用户身份认证失败
+                if (msg.equals(XuankeOperation.MSG_AUTH_INCORRECT)) {
+                    // 停止所有任务
+                    GPATryCount = MAX_RETRY_TIME;
+                    byCookieTryCnt = MAX_RETRY_TIME;
+                    cardRestTryCnt = MAX_RETRY_TIME;
+                    ResourceManager.getInstance().getMainAty().showMsg(XuankeOperation.MSG_AUTH_INCORRECT);
+                    return;
+                }
+                // 验证码识别失败
+                if (GPATryCount < MAX_RETRY_TIME) {
+                    GPATryCount++;
+                    getGPAThenNotify(view);
+                }
             }
         };
 
-        new Thread(new Runnable() {
+
+        new AsyncTask<View, Integer, Void>() {
             @Override
-            public void run() {
-                int count = 0;
+            protected Void doInBackground(View... params) {
                 GPAGetter gpaGetter = new GPAGetter();
-                try {
-                    gpaGetter.loadData(successCallBack, failCallBack);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                count++;
-                // 最多自动验证10次
-                while (count < MAX_RETRY_TIME && (null == ResourceManager.getInstance().getGPATable())) {
-                    try {
-                        gpaGetter.loadData(successCallBack, failCallBack);
-                        break;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    count++;
-                }
+                gpaGetter.loadData(successCallBack, failCallBack);
+                publishProgress(0);
+                return null;
             }
-        }).start();
+
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                super.onProgressUpdate(values);
+            }
+        }.execute(view);
     }
 
     public void refreshAllData(View view) {

@@ -17,7 +17,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Novemser on 2016/11/19.
  */
-public class XKOP3 extends Operation {
+public class XKOP3 extends XuankeOperation {
     public XKOP3(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {
         super(operations, successCallBack, failCallBack);
     }
@@ -37,10 +37,12 @@ public class XKOP3 extends Operation {
                 } else {
                     String sb = new String(responseBody);
                     if (sb.contains("ͳһ�����֤ʧ��,�����µ�¼!")) {
-                        Log.w(getClass().getName(), "密码错误！");
+                        Log.e(getClass().getName(), "密码错误！");
+                        defaultFailCallBack.onFailure(MSG_AUTH_INCORRECT);
                     }
                     else {
-                        Log.w(getClass().getName(), "自动识别验证码错误！");
+                        Log.e(getClass().getName(), "自动识别验证码错误！");
+                        defaultFailCallBack.onFailure(MSG_CAPTCHA_ERROR);
                     }
                     manager.setGPATable(null);
                 }

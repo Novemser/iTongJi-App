@@ -18,7 +18,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Novemser on 2016/11/19.
  */
-public class XKOP4 extends Operation {
+public class XKOP4 extends XuankeOperation {
     private final static String LOGIN_TREE = "http://xuanke.tongji.edu.cn/tj_login/loginTree.jsp";
     private String GPA_QUERY = "http://xuanke.tongji.edu.cn/tj_login/redirect.jsp?link=/tj_xuankexjgl/score/query/student/cjcx.jsp?";
     private String qxid;

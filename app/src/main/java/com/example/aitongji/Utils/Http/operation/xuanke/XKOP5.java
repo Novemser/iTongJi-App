@@ -26,7 +26,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Novemser on 2016/11/19.
  */
-public class XKOP5 extends Operation {
+public class XKOP5 extends XuankeOperation {
 
     private StudentGPASubject gpa_table = manager.getGPATable();
     private Semester semester = manager.getSemester();

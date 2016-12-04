@@ -16,7 +16,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Novemser on 2016/11/19.
  */
-public class XKOP2 extends Operation {
+public class XKOP2 extends XuankeOperation {
     private final static String URL_LOGIN = "http://tjis2.tongji.edu.cn:58080/amserver/UI/Login";
 
     public XKOP2(List<Operation> operations, SuccessCallBack successCallBack, FailCallBack failCallBack) {

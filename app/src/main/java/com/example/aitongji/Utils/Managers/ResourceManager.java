@@ -3,6 +3,7 @@ package com.example.aitongji.Utils.Managers;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.example.aitongji.Home.MainActivity;
 import com.example.aitongji.Model.CourseTableSubject;
 import com.example.aitongji.Model.NewsTitleSubject;
 import com.example.aitongji.Model.RestMoneySubject;
@@ -20,6 +21,15 @@ import java.util.Map;
  * Created by Novemser on 2016/11/14.
  */
 public class ResourceManager {
+    public MainActivity getMainAty() {
+        return mainAty;
+    }
+
+    public void setMainAty(MainActivity mainAty) {
+        this.mainAty = mainAty;
+    }
+
+    private MainActivity mainAty;
     private static ResourceManager manager;
     private UserInfo userInfo;
     private Map<String, String> cookie; // 4m3的Cookie

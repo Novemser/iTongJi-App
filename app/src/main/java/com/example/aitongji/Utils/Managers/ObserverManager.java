@@ -14,6 +14,7 @@ import com.example.aitongji.Utils.observable.Observer;
 public class ObserverManager implements Observer {
     private Handler mHandler;
 
+
     private static ObserverManager manager;
 
     public RecyclerView.Adapter getAdapter() {
@@ -36,6 +37,7 @@ public class ObserverManager implements Observer {
                 }
             }
         };
+
         // 注册Data
         ResourceManager.getInstance().getNewsTitleSubject().registerObserver(this);
         ResourceManager.getInstance().getCourseTableSubject().registerObserver(this);

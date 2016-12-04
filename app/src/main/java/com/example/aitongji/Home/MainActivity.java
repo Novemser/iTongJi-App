@@ -1,5 +1,6 @@
 package com.example.aitongji.Home;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +8,11 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
-import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,6 +33,7 @@ import com.example.aitongji.R;
 import com.example.aitongji.Section_Information.Card_Rest_Notice;
 import com.example.aitongji.Service.CardRestNotice;
 import com.example.aitongji.Utils.AndroidResource;
+import com.example.aitongji.Utils.Managers.ResourceManager;
 import com.example.aitongji.WelcomeSceneAty;
 import com.qihoo.appstore.updatelib.UpdateManager;
 import com.umeng.analytics.MobclickAgent;
@@ -54,6 +57,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String TAG = "MAIN ACTIVITY";
     int drawerState;
     private MenuItem tmpMenuItem;
+
+    private Handler errorInfoHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            Log.d("In main", msg.obj.toString());
+            new MaterialDialog.Builder(ResourceManager.getInstance().getMainAty())
+                    .title("验证错误")
+                    .content(msg.obj.toString())
+                    .positiveText("重试")
+                    .negativeText("取消")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(MaterialDialog dialog, DialogAction which) {
+                            Intent intent = new Intent(ResourceManager.getInstance().getMainAty(), WelcomeSceneAty.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            ResourceManager.getInstance().getMainAty().startActivity(intent);
+                        }
+                    })
+                    .show();
+            super.handleMessage(msg);
+        }
+    };
+
+    public void showMsg(String msg) {
+        Message message = errorInfoHandler.obtainMessage(0, msg);
+        message.sendToTarget();
+    }
+
 
     @Override
     protected void onResume() {
@@ -85,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         sContext = this;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(sContext);
+
+        ResourceManager.getInstance().setMainAty(this);
 
         if (preferences.getBoolean("service_state", false)) {
             String value = preferences.getString("card_rest_value_text", "10000");

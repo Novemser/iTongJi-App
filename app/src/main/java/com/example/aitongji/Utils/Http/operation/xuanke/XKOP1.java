@@ -22,7 +22,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by Novemser on 2016/11/18.
  */
-public class XKOP1 extends Operation {
+public class XKOP1 extends XuankeOperation {
     private final static String CHECK_IMAGE = "http://xuanke.tongji.edu.cn/CheckImage";
 
     private SyncHttpClient syncHttpClient;
